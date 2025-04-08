@@ -15,7 +15,7 @@ docker run --rm -d -p 27017:27017 --name mongo percona/percona-server-mongodb:6.
 Start `IMPORT_ONE_STOP_SHOP_ALL` services as follows:
 
 ```bash
-sm2 --start <IMPORT_ONE_STOP_SHOP_ALL>
+sm2 --start IMPORT_ONE_STOP_SHOP_ALL
 ```
 
 ## Tests
