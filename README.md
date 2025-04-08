@@ -1,8 +1,6 @@
-**This is the template README. Please update this with project specific content.**
-
 # ioss-intermediary-registration-ui-tests
 
-<SERVICE_NAME> UI journey tests.
+IOSS Intermediary Registration UI journey tests.
 
 ## Pre-requisites
 
