@@ -22,9 +22,9 @@ object Registration extends BasePage {
 
   private val registrationUrl: String =
     TestEnvironment.url("ioss-intermediary-registration-frontend")
-  private val journeyUrl: String = "/intermediary-ioss"
+  private val journeyUrl: String      = "/intermediary-ioss"
 
   def goToRegistrationJourney(): Unit =
     get(registrationUrl + journeyUrl)
-  
+
 }

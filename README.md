@@ -12,10 +12,10 @@ Start Mongo Docker container as follows:
 docker run --rm -d -p 27017:27017 --name mongo percona/percona-server-mongodb:6.0
 ```
 
-Start `<SERVICE_MANAGER_PROFILE>` services as follows:
+Start `IMPORT_ONE_STOP_SHOP_ALL` services as follows:
 
 ```bash
-sm2 --start <SERVICE_MANAGER_PROFILE>
+sm2 --start <IMPORT_ONE_STOP_SHOP_ALL>
 ```
 
 ## Tests
@@ -27,6 +27,8 @@ Run tests as follows:
 
 ```bash
 sbt clean -Dbrowser="<browser>" -Denvironment="<environment>" test testReport
+
+or use ./run_tests.sh 
 ```
 
 ## Scalafmt
