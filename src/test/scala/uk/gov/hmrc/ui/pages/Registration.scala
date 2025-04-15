@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.ui.pages
 
+import org.openqa.selenium.By
+import org.scalatest.matchers.should.Matchers.*
 import uk.gov.hmrc.configuration.TestEnvironment
 
 object Registration extends BasePage {
@@ -26,5 +28,21 @@ object Registration extends BasePage {
 
   def goToRegistrationJourney(): Unit =
     get(registrationUrl + journeyUrl)
+
+  def checkJourneyUrl(page: String): Unit =
+    getCurrentUrl should startWith(s"$registrationUrl$journeyUrl/$page")
+
+  def answerRadioButton(answer: String): Unit = {
+
+    answer match {
+      case "yes" => click(By.id("value"))
+      case "no"  => click(By.id("value-no"))
+      case _     => throw new Exception("Option doesn't exist")
+    }
+    click(continueButton)
+  }
+
+  def continue(): Unit =
+    click(continueButton)
 
 }
