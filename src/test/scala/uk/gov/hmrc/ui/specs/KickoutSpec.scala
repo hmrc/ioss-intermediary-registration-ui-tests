@@ -37,24 +37,22 @@ class KickoutSpec extends BaseSpec {
       registration.checkJourneyUrl("cannot-register-already-registered")
     }
 
+    Scenario("Intermediary is not registered for VAT in the UK") {
 
-      Scenario("Intermediary is not registered for VAT in the UK") {
+      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      registration.goToRegistrationJourney()
+      registration.checkJourneyUrl("ioss-intermediary-registered")
 
-        Given("the intermediary accesses the IOSS Intermediary Registration Service")
-        registration.goToRegistrationJourney()
-        registration.checkJourneyUrl("ioss-intermediary-registered")
+      When("the intermediary selects no on the ioss-intermediary-registered page")
+      registration.answerRadioButton("no")
 
-        When("the intermediary selects no on the ioss-intermediary-registered page")
-        registration.answerRadioButton("no")
+      And("the intermediary selects no on the registered-for-vat-in-uk page")
+      registration.checkJourneyUrl("registered-for-vat-in-uk")
+      registration.answerRadioButton("no")
 
-        And("the intermediary selects no on the registered-for-vat-in-uk page")
-        registration.checkJourneyUrl("registered-for-vat-in-uk")
-        registration.answerRadioButton("no")
-
-        Then("the intermediary is on the cannot-register-no-vat-in-uk page")
-        registration.checkJourneyUrl("cannot-register-no-vat-in-uk")
-      }
-
+      Then("the intermediary is on the cannot-register-no-vat-in-uk page")
+      registration.checkJourneyUrl("cannot-register-no-vat-in-uk")
+    }
 
     Scenario("Intermediary is not based in Northern Ireland or the EU") {
 
@@ -77,6 +75,6 @@ class KickoutSpec extends BaseSpec {
       registration.checkJourneyUrl("cannot-register-no-ni-or-eu-business")
     }
 
-    }
+  }
 
 }
