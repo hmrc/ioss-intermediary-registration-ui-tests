@@ -18,14 +18,14 @@ package uk.gov.hmrc.ui.specs
 
 import uk.gov.hmrc.ui.pages.{Auth, Registration}
 
-class RegistrationSpec extends BaseSpec {
+class ChangeAnswersSpec extends BaseSpec {
 
   private val registration = Registration
   private val auth         = Auth
 
   Feature("Registration journeys") {
 
-    Scenario("Intermediary registers using the IOSS Intermediary Registration Service - full answers") {
+    Scenario("Intermediary changes and removes answers whilst using the IOSS Intermediary Registration Service") {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       registration.goToRegistrationJourney()
@@ -63,7 +63,7 @@ class RegistrationSpec extends BaseSpec {
 
       And("the intermediary adds the first trading name")
       registration.checkJourneyUrl("uk-trading-name/1")
-      registration.enterAnswer("first trading name")
+      registration.enterAnswer("1st trading name")
 
       And("the intermediary selects yes on the add-uk-trading-name page")
       registration.checkJourneyUrl("add-uk-trading-name")
@@ -71,7 +71,23 @@ class RegistrationSpec extends BaseSpec {
 
       And("the intermediary adds the second trading name")
       registration.checkJourneyUrl("uk-trading-name/2")
-      registration.enterAnswer("trading 2!")
+      registration.enterAnswer("2nd-trading-name")
+
+      And("the intermediary clicks change on the add-uk-trading-name page for first trading name")
+      registration.checkJourneyUrl("add-uk-trading-name")
+      registration.selectChangeOrRemoveLink("uk-trading-name\\/1\\?waypoints\\=change-add-uk-trading-name")
+
+      And("the intermediary amends the first trading name")
+      registration.checkJourneyUrl("uk-trading-name/1?waypoints=change-add-uk-trading-name")
+      registration.enterAnswer("a different first trading name")
+
+      And("the intermediary clicks remove on the add-uk-trading-name page for second trading name")
+      registration.checkJourneyUrl("add-uk-trading-name")
+      registration.selectChangeOrRemoveLink("remove-uk-trading-name\\/2")
+
+      And("the intermediary selects yes on the remove-uk-trading-name page")
+      registration.checkJourneyUrl("remove-uk-trading-name/2")
+      registration.answerRadioButton("yes")
 
       And("the intermediary selects no on the add-uk-trading-name page")
       registration.checkJourneyUrl("add-uk-trading-name")
