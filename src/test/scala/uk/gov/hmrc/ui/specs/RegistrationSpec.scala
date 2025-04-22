@@ -47,7 +47,9 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("register-to-use-service")
       registration.continue()
 
-      // currently redirects back to start of filter questions - get vat info ticket will direct to auth and continue the journey
+      Then("the intermediary selects yes on the confirm-vat-details page")
+      registration.checkJourneyUrl("confirm-vat-details")
+      registration.answerVatDetailsChoice("Yes")
 
       // manually navigating to trading names section until get vat info section is ready
       // tests will be commented out for now as the frontend requires manual tweaks to access it

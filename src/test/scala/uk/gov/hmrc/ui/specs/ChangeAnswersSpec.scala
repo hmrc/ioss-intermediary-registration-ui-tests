@@ -32,20 +32,8 @@ class ChangeAnswersSpec extends BaseSpec {
       auth.loginUsingAuthorityWizard("100000001")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
-      When("the intermediary selects no on the ioss-intermediary-registered page")
-      registration.answerRadioButton("no")
-
-      And("the intermediary selects yes on the registered-for-vat-in-uk page")
-      registration.checkJourneyUrl("registered-for-vat-in-uk")
-      registration.answerRadioButton("yes")
-
-      And("the intermediary selects yes on the ni-or-eu-based page")
-      registration.checkJourneyUrl("ni-or-eu-based")
-      registration.answerRadioButton("yes")
-
-      Then("the intermediary presses continue on the register-to-use-service page")
-      registration.checkJourneyUrl("register-to-use-service")
-      registration.continue()
+      When("the intermediary answers the initial filter questions")
+      registration.initialSteps()
 
       // currently redirects back to start of filter questions - get vat info ticket will direct to auth and continue the journey
 

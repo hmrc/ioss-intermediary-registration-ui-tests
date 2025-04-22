@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.*
 class GGLoginKickoutSpec extends BaseSpec {
 
   private val registration = Registration
-  private val auth = Auth
+  private val auth         = Auth
 
   Feature("Government Gateway Login Kickout journeys") {
 
@@ -33,16 +33,12 @@ class GGLoginKickoutSpec extends BaseSpec {
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
-      registration.answerRadioButton("no")
-      registration.checkJourneyUrl("registered-for-vat-in-uk")
-      registration.answerRadioButton("yes")
-      registration.checkJourneyUrl("ni-or-eu-based")
-      registration.answerRadioButton("yes")
-      registration.checkJourneyUrl("register-to-use-service")
-      registration.continue()
+      registration.initialSteps()
 
       Then("the intermediary is on the credential-unsupported page")
       registration.checkJourneyUrl("credential-unsupported")
     }
+
+    // Agent scenario?
   }
 }

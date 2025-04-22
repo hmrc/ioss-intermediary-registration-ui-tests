@@ -65,4 +65,13 @@ object Registration extends BasePage {
   def selectChangeOrRemoveLink(link: String): Unit =
     click(By.cssSelector(s"a[href*=$link]"))
 
+  def initialSteps(): Unit = {
+    answerRadioButton("no")
+    checkJourneyUrl("registered-for-vat-in-uk")
+    answerRadioButton("yes")
+    checkJourneyUrl("ni-or-eu-based")
+    answerRadioButton("yes")
+    checkJourneyUrl("register-to-use-service")
+    continue()
+  }
 }

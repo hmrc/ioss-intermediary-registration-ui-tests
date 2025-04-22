@@ -33,15 +33,10 @@ class VatDetailsSpec extends BaseSpec {
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
-      registration.answerRadioButton("no")
-      registration.checkJourneyUrl("registered-for-vat-in-uk")
-      registration.answerRadioButton("yes")
-      registration.checkJourneyUrl("ni-or-eu-based")
-      registration.answerRadioButton("yes")
-      registration.checkJourneyUrl("register-to-use-service")
-      registration.continue()
+      registration.initialSteps()
 
       Then("the intermediary answers that they want to register a different business")
+      registration.checkJourneyUrl("confirm-vat-details")
       registration.answerVatDetailsChoice("No, I want to register a different business")
       registration.checkJourneyUrl("register-different-business")
     }
@@ -54,17 +49,84 @@ class VatDetailsSpec extends BaseSpec {
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
-      registration.answerRadioButton("no")
-      registration.checkJourneyUrl("registered-for-vat-in-uk")
-      registration.answerRadioButton("yes")
-      registration.checkJourneyUrl("ni-or-eu-based")
-      registration.answerRadioButton("yes")
-      registration.checkJourneyUrl("register-to-use-service")
-      registration.continue()
+      registration.initialSteps()
 
       Then("the intermediary answers that some of the VAT details are incorrect")
+      registration.checkJourneyUrl("confirm-vat-details")
       registration.answerVatDetailsChoice("Yes, but some of my VAT details are incorrect")
       registration.checkJourneyUrl("update-vat-details")
+    }
+
+    Scenario("VAT details not found for VRN") {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("900000001")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      When("the intermediary navigates through the filter question pages")
+      registration.initialSteps()
+
+      Then("the intermediary is on the registration-service-error page")
+      registration.checkJourneyUrl("registration-service-error")
+    }
+
+    Scenario("Internal server error when retrieving VAT details") {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("800000001")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      When("the intermediary navigates through the filter question pages")
+      registration.initialSteps()
+
+      Then("the intermediary is on the registration-service-error page")
+      registration.checkJourneyUrl("registration-service-error")
+    }
+
+    Scenario("Missing VAT details - no registration start date") {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000001")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      When("the intermediary navigates through the filter question pages")
+      registration.initialSteps()
+
+      Then("the intermediary is on the registration-service-error page")
+      registration.checkJourneyUrl("registration-service-error")
+    }
+
+    Scenario("Intermediary who is VAT registered as an individual can access the service") {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000002")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      When("the intermediary navigates through the filter question pages")
+      registration.initialSteps()
+
+      Then("the intermediary selects yes on the confirm-vat-details page")
+      registration.checkJourneyUrl("confirm-vat-details")
+      registration.answerVatDetailsChoice("Yes")
+    }
+
+    Scenario("Intermediary who is VAT registered and part of a VAT group can access the service") {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      When("the intermediary navigates through the filter question pages")
+      registration.initialSteps()
+
+      Then("the intermediary selects yes on the confirm-vat-details page")
+      registration.checkJourneyUrl("confirm-vat-details")
+      registration.answerVatDetailsChoice("Yes")
     }
   }
 }

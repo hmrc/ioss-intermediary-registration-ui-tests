@@ -43,8 +43,8 @@ object Auth extends BasePage {
 
     if (vrn != "None") {
       sendKeys(By.id("enrolment[0].name"), "HMRC-MTD-VAT")
-      sendKeys(By.id("input-0-0-name"), vrn)
-      sendKeys(By.id("input-0-0-value"), "100000001")
+      sendKeys(By.id("input-0-0-name"), "VRN")
+      sendKeys(By.id("input-0-0-value"), vrn)
     }
 
     click(By.cssSelector("Input[value='Submit']"))
