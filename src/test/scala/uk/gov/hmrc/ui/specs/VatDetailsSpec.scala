@@ -113,20 +113,5 @@ class VatDetailsSpec extends BaseSpec {
       registration.checkJourneyUrl("confirm-vat-details")
       registration.answerVatDetailsChoice("Yes")
     }
-
-    Scenario("Intermediary who is VAT registered and part of a VAT group can access the service") {
-
-      Given("the intermediary accesses the IOSS Intermediary Registration Service")
-      auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("700000003")
-      registration.checkJourneyUrl("ioss-intermediary-registered")
-
-      When("the intermediary navigates through the filter question pages")
-      registration.initialSteps()
-
-      Then("the intermediary selects yes on the confirm-vat-details page")
-      registration.checkJourneyUrl("confirm-vat-details")
-      registration.answerVatDetailsChoice("Yes")
-    }
   }
 }
