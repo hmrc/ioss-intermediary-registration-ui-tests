@@ -28,7 +28,8 @@ class ChangeAnswersSpec extends BaseSpec {
     Scenario("Intermediary changes and removes answers whilst using the IOSS Intermediary Registration Service") {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
-      registration.goToRegistrationJourney()
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary selects no on the ioss-intermediary-registered page")

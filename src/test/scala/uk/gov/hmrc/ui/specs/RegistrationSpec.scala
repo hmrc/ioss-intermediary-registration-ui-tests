@@ -28,7 +28,8 @@ class RegistrationSpec extends BaseSpec {
     Scenario("Intermediary registers using the IOSS Intermediary Registration Service - full answers") {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
-      registration.goToRegistrationJourney()
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary selects no on the ioss-intermediary-registered page")
@@ -84,7 +85,8 @@ class RegistrationSpec extends BaseSpec {
     Scenario("Intermediary registers using the IOSS Intermediary Registration Service - minimal answers") {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
-      registration.goToRegistrationJourney()
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary selects no on the ioss-intermediary-registered page")
@@ -102,7 +104,11 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("register-to-use-service")
       registration.continue()
 
-      // currently redirects back to start of filter questions - get vat info ticket will direct to auth and continue the journey
+      Then("the intermediary selects yes on the confirm-vat-details page")
+      registration.checkJourneyUrl("confirm-vat-details")
+      registration.answerVatDetailsChoice("Yes")
+
+      // redirects to problem page and needs linking to trading names
 
       // manually navigating to trading names section until get vat info section is ready
       // tests will be commented out for now as the frontend requires manual tweaks to access it

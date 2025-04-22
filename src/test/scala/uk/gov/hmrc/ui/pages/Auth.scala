@@ -22,20 +22,30 @@ import uk.gov.hmrc.configuration.TestEnvironment
 
 object Auth extends BasePage {
 
-  private val authUrl: String = TestEnvironment.url("auth-login-stub") + "/auth-login-stub/gg-sign-in"
+  private val authUrl: String         = TestEnvironment.url("auth-login-stub") + "/auth-login-stub/gg-sign-in"
+  private val registrationUrl: String =
+    TestEnvironment.url("ioss-intermediary-registration-frontend")
+  private val journeyUrl: String      = "/intermediary-ioss"
+
+  def goToAuthorityWizard(): Unit =
+    get(authUrl)
 
   def checkAuthUrl(): Unit =
     getCurrentUrl should startWith(authUrl)
 
-  def loginUsingAuthorityWizard(): Unit = {
+  def loginUsingAuthorityWizard(vrn: String): Unit = {
 
     getCurrentUrl should startWith(authUrl)
 
+    sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl")
+
     selectByValue(By.id("affinityGroupSelect"), "Organisation")
 
-    sendKeys(By.id("enrolment[0].name"), "HMRC-MTD-VAT")
-    sendKeys(By.id("input-0-0-name"), "VRN")
-    sendKeys(By.id("input-0-0-value"), "100000001")
+    if (vrn != "None") {
+      sendKeys(By.id("enrolment[0].name"), "HMRC-MTD-VAT")
+      sendKeys(By.id("input-0-0-name"), vrn)
+      sendKeys(By.id("input-0-0-value"), "100000001")
+    }
 
     click(By.cssSelector("Input[value='Submit']"))
 

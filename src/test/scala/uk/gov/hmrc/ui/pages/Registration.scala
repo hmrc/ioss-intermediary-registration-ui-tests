@@ -42,6 +42,16 @@ object Registration extends BasePage {
     click(continueButton)
   }
 
+  def answerVatDetailsChoice(answer: String): Unit = {
+    answer match {
+      case "Yes"                                           => click(By.id("value_0"))
+      case "Yes, but some of my VAT details are incorrect" => click(By.id("value_1"))
+      case "No, I want to register a different business"   => click(By.id("value_2"))
+      case _                                               => throw new Exception("Option doesn't exist")
+    }
+    click(continueButton)
+  }
+
   def continue(): Unit =
     click(continueButton)
 

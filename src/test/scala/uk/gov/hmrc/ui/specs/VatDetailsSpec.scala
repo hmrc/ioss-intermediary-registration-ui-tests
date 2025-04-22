@@ -1,0 +1,70 @@
+/*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package uk.gov.hmrc.ui.specs
+
+import uk.gov.hmrc.ui.pages._
+
+class VatDetailsSpec extends BaseSpec {
+
+  private val registration = Registration
+  private val auth         = Auth
+
+  Feature("VAT details journeys") {
+
+    Scenario("VAT details showing wrong business") {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      When("the intermediary navigates through the filter question pages")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("registered-for-vat-in-uk")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("ni-or-eu-based")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("register-to-use-service")
+      registration.continue()
+
+      Then("the intermediary answers that they want to register a different business")
+      registration.answerVatDetailsChoice("No, I want to register a different business")
+      registration.checkJourneyUrl("register-different-business")
+    }
+
+    Scenario("VAT details showing incorrect details") {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      When("the intermediary navigates through the filter question pages")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("registered-for-vat-in-uk")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("ni-or-eu-based")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("register-to-use-service")
+      registration.continue()
+
+      Then("the intermediary answers that some of the VAT details are incorrect")
+      registration.answerVatDetailsChoice("Yes, but some of my VAT details are incorrect")
+      registration.checkJourneyUrl("update-vat-details")
+    }
+  }
+}
