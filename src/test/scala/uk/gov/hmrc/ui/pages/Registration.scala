@@ -45,4 +45,14 @@ object Registration extends BasePage {
   def continue(): Unit =
     click(continueButton)
 
+  def goToPage(page: String): Unit =
+    get(s"$registrationUrl$journeyUrl/$page")
+
+  def enterAnswer(answer: String): Unit =
+    sendKeys(By.id("value"), answer)
+    click(continueButton)
+
+  def selectChangeOrRemoveLink(link: String): Unit =
+    click(By.cssSelector(s"a[href*=$link]"))
+
 }
