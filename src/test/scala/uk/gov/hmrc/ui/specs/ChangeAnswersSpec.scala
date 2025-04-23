@@ -35,16 +35,9 @@ class ChangeAnswersSpec extends BaseSpec {
       When("the intermediary answers the initial filter questions")
       registration.initialSteps()
 
-      // currently redirects back to start of filter questions - get vat info ticket will direct to auth and continue the journey
-
-      // manually navigating to trading names section until get vat info section is ready
-      // tests will be commented out for now as the frontend requires manual tweaks to access it
-      /*When("the intermediary manually navigates to the have-uk-trading-name page")
-      registration.goToPage("have-uk-trading-name")
-      auth.checkAuthUrl()
-
-      And("the intermediary logs into the service")
-      auth.loginUsingAuthorityWizard()
+      Then("the intermediary selects yes on the confirm-vat-details page")
+      registration.checkJourneyUrl("confirm-vat-details")
+      registration.answerVatDetailsChoice("Yes")
 
       And("the intermediary selects yes on the have-uk-trading-name page")
       registration.checkJourneyUrl("have-uk-trading-name")
@@ -80,7 +73,7 @@ class ChangeAnswersSpec extends BaseSpec {
 
       And("the intermediary selects no on the add-uk-trading-name page")
       registration.checkJourneyUrl("add-uk-trading-name")
-      registration.answerRadioButton("no")*/
+      registration.answerRadioButton("no")
 
       // currently redirects back to start of filter questions because the next section isn't developed yet
 
