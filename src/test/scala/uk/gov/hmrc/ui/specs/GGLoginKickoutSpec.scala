@@ -38,7 +38,5 @@ class GGLoginKickoutSpec extends BaseSpec {
       Then("the intermediary is on the credential-unsupported page")
       registration.checkJourneyUrl("credential-unsupported")
     }
-
-    // Agent scenario?
   }
 }
