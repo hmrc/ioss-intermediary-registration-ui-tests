@@ -18,11 +18,11 @@ package uk.gov.hmrc.ui.specs
 
 import uk.gov.hmrc.ui.pages.Registration
 
-class KickoutSpec extends BaseSpec {
+class FilterQuestionKickoutSpec extends BaseSpec {
 
   private val registration = Registration
 
-  Feature("Kickout journeys") {
+  Feature("Filter question kickout journeys") {
 
     Scenario("Intermediary is already registered as an IOSS Intermediary") {
 
