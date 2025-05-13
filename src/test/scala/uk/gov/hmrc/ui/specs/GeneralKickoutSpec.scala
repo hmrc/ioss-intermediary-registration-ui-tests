@@ -16,12 +16,12 @@
 
 package uk.gov.hmrc.ui.specs
 
-import uk.gov.hmrc.ui.pages.{Registration, Auth}
+import uk.gov.hmrc.ui.pages.{Auth, Registration}
 
 class GeneralKickoutSpec extends BaseSpec {
 
   private val registration = Registration
-  private val auth = Auth
+  private val auth         = Auth
 
   Feature("General kickout journeys") {
 
