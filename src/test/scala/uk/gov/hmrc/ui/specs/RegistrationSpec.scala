@@ -71,7 +71,79 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("add-uk-trading-name")
       registration.answerRadioButton("no")
 
-      // currently redirects back to start of filter questions because the next section isn't developed yet
+      // currently redirects to Check Your Answers page as full journey isn't developed yet
+
+      // adding manual browsing to EU details section as previous registration section is not developed yet
+      Then("the intermediary selects yes on the tax-in-eu page")
+      registration.goToPage("tax-in-eu")
+      registration.checkJourneyUrl("tax-in-eu")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary selects Denmark on the first eu-tax page")
+      registration.checkJourneyUrl("eu-tax/1")
+      registration.selectCountry("Denmark")
+
+      And("the intermediary selects yes on the first eu-fixed-establishment page")
+      registration.checkJourneyUrl("eu-fixed-establishment/1")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary selects VAT number on the first registration-tax-type page")
+      registration.checkJourneyUrl("registration-tax-type/1")
+      registration.selectRegistrationType("vat number")
+
+      And("the intermediary adds the VAT registration number for Denmark")
+      registration.checkJourneyUrl("eu-vat-number/1")
+      registration.enterAnswer("DK12344321")
+
+      And("the intermediary adds the trading name for Denmark")
+      registration.checkJourneyUrl("eu-trading-name/1")
+      registration.enterAnswer("Danish Company")
+
+      And("the intermediary adds the fixed establishment address for Denmark")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/1")
+      registration.enterFixedEstablishmentAddress("1 Street Name", "", "Copenhagen", "", "DK123456")
+
+      And("the intermediary selects continue on the check-tax-details page")
+      registration.checkJourneyUrl("check-tax-details")
+      registration.continue()
+
+      And("the intermediary selects yes on the add-tax-details page")
+      registration.checkJourneyUrl("add-tax-details")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary selects Slovenia on the second eu-tax page")
+      registration.checkJourneyUrl("eu-tax/2")
+      registration.selectCountry("Slovenia")
+
+      And("the intermediary selects yes on the second eu-fixed-establishment page")
+      registration.checkJourneyUrl("eu-fixed-establishment/2")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary selects tax id number on the second registration-tax-type page")
+      registration.checkJourneyUrl("registration-tax-type/2")
+      registration.selectRegistrationType("tax id number")
+
+      And("the intermediary adds the tax identification number for Slovenia")
+      registration.checkJourneyUrl("eu-tax-identification-number/2")
+      registration.enterAnswer("SLOV 123 456")
+
+      And("the intermediary adds the trading name for Slovenia")
+      registration.checkJourneyUrl("eu-trading-name/2")
+      registration.enterAnswer("Slovenia Goods 55")
+
+      And("the intermediary adds the fixed establishment address for Slovenia")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/2")
+      registration.enterFixedEstablishmentAddress("1 Street Name", "", "Koper", "", "")
+
+      And("the intermediary selects continue on the check-tax-details page")
+      registration.checkJourneyUrl("check-tax-details")
+      registration.continue()
+
+      And("the intermediary selects no on the add-tax-details page")
+      registration.checkJourneyUrl("add-tax-details")
+      registration.answerRadioButton("no")
+
+      // currently redirects to Check Your Answers page as full journey isn't developed yet
 
     }
 
@@ -105,7 +177,15 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("have-uk-trading-name")
       registration.answerRadioButton("no")
 
-      // currently redirects back to start of filter questions because the next section isn't developed yet
+      // currently redirects to Check Your Answers page as full journey isn't developed yet
+
+      // adding manual browsing to EU details section as previous registration section is not developed yet
+      Then("the intermediary selects no on the tax-in-eu page")
+      registration.goToPage("tax-in-eu")
+      registration.checkJourneyUrl("tax-in-eu")
+      registration.answerRadioButton("no")
+
+      // currently redirects to Check Your Answers page as full journey isn't developed yet
 
     }
   }
