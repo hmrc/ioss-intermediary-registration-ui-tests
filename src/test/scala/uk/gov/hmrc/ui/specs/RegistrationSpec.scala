@@ -144,6 +144,14 @@ class RegistrationSpec extends BaseSpec {
       registration.answerRadioButton("no")
 
       // currently redirects to Check Your Answers page as full journey isn't developed yet
+      // currently redirects back to check your answers because the rest of the journey is in development
+      // manually navigating to the contact details untill navigation is developed
+
+      Then("the intermediary enters credentials on Contact-details page")
+      registration.goToPage("contact-details")
+      registration.fillContactDetails("Testname", "12345678", "test@email.com")
+
+
 
     }
 
@@ -176,6 +184,8 @@ class RegistrationSpec extends BaseSpec {
       And("the intermediary selects no on the have-uk-trading-name page")
       registration.checkJourneyUrl("have-uk-trading-name")
       registration.answerRadioButton("no")
+
+
 
       // currently redirects to Check Your Answers page as full journey isn't developed yet
 
