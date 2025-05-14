@@ -19,6 +19,8 @@ package uk.gov.hmrc.ui.pages
 import org.openqa.selenium.By
 import org.scalatest.matchers.should.Matchers.*
 import uk.gov.hmrc.configuration.TestEnvironment
+import uk.gov.hmrc.selenium.webdriver.Driver
+import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait}
 
 object Registration extends BasePage {
 
@@ -74,4 +76,38 @@ object Registration extends BasePage {
     checkJourneyUrl("register-to-use-service")
     continue()
   }
+
+  def waitForElement(by: By): Unit =
+    new FluentWait(Driver.instance).until(ExpectedConditions.presenceOfElementLocated(by))
+
+  def selectCountry(country: String): Unit = {
+    val inputId = "value"
+    sendKeys(By.id(inputId), country)
+    waitForElement(By.id(inputId))
+    click(By.cssSelector("li#value__option--0"))
+    click(continueButton)
+  }
+
+  def selectRegistrationType(data: String): Unit = {
+    data match {
+      case "vat number"    => click(By.id("value_0"))
+      case "tax id number" => click(By.id("value_1"))
+      case _               => throw new Exception("Option doesn't exist")
+    }
+    continue()
+  }
+
+  def enterFixedEstablishmentAddress(
+    line1: String,
+    line2: String,
+    townOrCity: String,
+    stateOrRegion: String,
+    postCode: String
+  ): Unit =
+    sendKeys(By.id("line1"), line1)
+    sendKeys(By.id("line2"), line2)
+    sendKeys(By.id("townOrCity"), townOrCity)
+    sendKeys(By.id("stateOrRegion"), stateOrRegion)
+    sendKeys(By.id("postCode"), postCode)
+    click(continueButton)
 }
