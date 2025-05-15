@@ -110,4 +110,12 @@ object Registration extends BasePage {
     sendKeys(By.id("stateOrRegion"), stateOrRegion)
     sendKeys(By.id("postCode"), postCode)
     click(continueButton)
+
+  def fillContactDetails(name: String, phone: String, email: String): Unit = {
+    sendKeys(By.id("fullName"), name)
+    sendKeys(By.id("telephoneNumber"), phone)
+    sendKeys(By.id("emailAddress"), email)
+    click(continueButton)
+
+  }
 }

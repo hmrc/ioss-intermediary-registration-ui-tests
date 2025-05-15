@@ -143,7 +143,9 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("add-tax-details")
       registration.answerRadioButton("no")
 
-      // currently redirects to Check Your Answers page as full journey isn't developed yet
+      Then("the intermediary enters credentials on Contact-details page")
+      registration.checkJourneyUrl("contact-details")
+      registration.fillContactDetails("Testname", "12345678", "test@email.com")
 
     }
 
@@ -185,7 +187,9 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("tax-in-eu")
       registration.answerRadioButton("no")
 
-      // currently redirects to Check Your Answers page as full journey isn't developed yet
+      Then("the intermediary enters credentials on Contact-details page")
+      registration.checkJourneyUrl("contact-details")
+      registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
 
     }
   }
