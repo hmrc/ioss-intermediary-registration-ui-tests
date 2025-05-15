@@ -25,10 +25,9 @@ class AdditionalRegistrationSpec extends BaseSpec {
 
   Feature("Additional registration journeys") {
 
-//    This scenario requires changes to agent as currently hitting uplift
-    Scenario("Intermediary Agent can access the IOSS Intermediary Registration Service") {
+    Scenario("Agent can access the IOSS Intermediary Registration Service") {
 
-      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      Given("the intermediary accesses the IOSS Intermediary Registration Service as an Agent")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Agent")
       registration.checkJourneyUrl("ioss-intermediary-registered")
@@ -38,6 +37,8 @@ class AdditionalRegistrationSpec extends BaseSpec {
 
       Then("the intermediary has access to the confirm-vat-details page")
       registration.checkJourneyUrl("confirm-vat-details")
+      registration.checkVatDetailsPage()
+
     }
   }
 }
