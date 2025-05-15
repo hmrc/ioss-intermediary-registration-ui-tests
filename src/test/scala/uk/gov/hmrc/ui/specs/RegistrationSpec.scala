@@ -143,15 +143,9 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("add-tax-details")
       registration.answerRadioButton("no")
 
-      // currently redirects to Check Your Answers page as full journey isn't developed yet
-      // currently redirects back to check your answers because the rest of the journey is in development
-      // manually navigating to the contact details untill navigation is developed
-
       Then("the intermediary enters credentials on Contact-details page")
-      registration.goToPage("contact-details")
+      registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Testname", "12345678", "test@email.com")
-
-
 
     }
 
@@ -185,8 +179,6 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("have-uk-trading-name")
       registration.answerRadioButton("no")
 
-
-
       // currently redirects to Check Your Answers page as full journey isn't developed yet
 
       // adding manual browsing to EU details section as previous registration section is not developed yet
@@ -195,7 +187,9 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("tax-in-eu")
       registration.answerRadioButton("no")
 
-      // currently redirects to Check Your Answers page as full journey isn't developed yet
+      Then("the intermediary enters credentials on Contact-details page")
+      registration.checkJourneyUrl("contact-details")
+      registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
 
     }
   }
