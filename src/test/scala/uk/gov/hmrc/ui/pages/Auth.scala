@@ -33,13 +33,17 @@ object Auth extends BasePage {
   def checkAuthUrl(): Unit =
     getCurrentUrl should startWith(authUrl)
 
-  def loginUsingAuthorityWizard(vrn: String): Unit = {
+  def loginUsingAuthorityWizard(vrn: String, affinityGroup: String): Unit = {
 
     getCurrentUrl should startWith(authUrl)
 
     sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl")
 
-    selectByValue(By.id("affinityGroupSelect"), "Organisation")
+    if (affinityGroup == "Agent") {
+      selectByValue(By.id("affinityGroupSelect"), "Agent")
+    } else {
+      selectByValue(By.id("affinityGroupSelect"), "Organisation")
+    }
 
     if (vrn != "None") {
       sendKeys(By.id("enrolment[0].name"), "HMRC-MTD-VAT")
