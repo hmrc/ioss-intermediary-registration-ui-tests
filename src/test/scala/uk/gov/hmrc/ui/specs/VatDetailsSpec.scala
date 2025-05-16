@@ -99,19 +99,21 @@ class VatDetailsSpec extends BaseSpec {
       registration.checkJourneyUrl("registration-service-error")
     }
 
-    Scenario("Intermediary who is VAT registered as an individual can access the service") {
+    Scenario(
+      "Individual user can access the IOSS Intermediary Registration Service and their Individual Name is displayed instead of an Organisation Name"
+    ) {
 
-      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      Given("the intermediary accesses the IOSS Intermediary Registration Service as an Individual")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("700000002", "Organisation")
+      auth.loginUsingAuthorityWizard("700000002", "Individual")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
       registration.initialSteps()
 
-      Then("the intermediary selects yes on the confirm-vat-details page")
+      Then("the intermediary has access to the confirm-vat-details page and the individual name is displayed")
       registration.checkJourneyUrl("confirm-vat-details")
-      registration.answerVatDetailsChoice("Yes")
+      registration.checkIndividualName()
     }
   }
 }
