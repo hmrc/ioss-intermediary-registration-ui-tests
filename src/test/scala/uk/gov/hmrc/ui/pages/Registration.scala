@@ -119,12 +119,13 @@ object Registration extends BasePage {
     click(continueButton)
   }
 
-
   def fillBankAccountDetails(accountName: String, bicNumber: String, ibanNumber: String): Unit = {
     sendKeys(By.id("accountName"), accountName)
     sendKeys(By.id("bic"), bicNumber)
     sendKeys(By.id("iban"), ibanNumber)
     click(continueButton)
+  }
+
   def checkVatDetailsPage(): Unit = {
     val h1 = Driver.instance.findElement(By.tagName("h1")).getText
     Assert.assertTrue(h1.equals("Confirm VAT details for your business"))
