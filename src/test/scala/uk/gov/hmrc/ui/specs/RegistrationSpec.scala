@@ -147,6 +147,10 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Testname", "12345678", "test@email.com")
 
+      Then("the intermediary enters bank or building society account details on bank-account-details page")
+      registration.goToPage("bank-account-details")
+      registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
+
     }
 
     Scenario("Intermediary registers using the IOSS Intermediary Registration Service - minimal answers") {
@@ -190,6 +194,10 @@ class RegistrationSpec extends BaseSpec {
       Then("the intermediary enters credentials on Contact-details page")
       registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
+
+      Then("the intermediary enters bank or building society account details on bank-account-details page")
+      registration.goToPage("bank-account-details")
+      registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
     }
   }
