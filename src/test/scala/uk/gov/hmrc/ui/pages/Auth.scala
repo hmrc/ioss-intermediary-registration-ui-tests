@@ -41,6 +41,10 @@ object Auth extends BasePage {
 
     if (affinityGroup == "Agent") {
       selectByValue(By.id("affinityGroupSelect"), "Agent")
+    } else if (affinityGroup == "Individual") {
+      selectByValue(By.id("affinityGroupSelect"), "Individual")
+      selectByValue(By.id("confidenceLevel"), "250")
+      sendKeys(By.id("nino"), "AA123456D")
     } else {
       selectByValue(By.id("affinityGroupSelect"), "Organisation")
     }

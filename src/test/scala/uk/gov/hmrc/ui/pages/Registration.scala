@@ -123,4 +123,10 @@ object Registration extends BasePage {
     val h1 = Driver.instance.findElement(By.tagName("h1")).getText
     Assert.assertTrue(h1.equals("Confirm VAT details for your business"))
   }
+
+  def checkIndividualName(): Unit = {
+    val body = Driver.instance.findElement(By.tagName("body")).getText
+    Assert.assertFalse(body.contains("Business name"))
+    Assert.assertTrue(body.contains("Name first middle last"))
+  }
 }
