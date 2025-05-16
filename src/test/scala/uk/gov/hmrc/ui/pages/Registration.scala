@@ -137,4 +137,3 @@ object Registration extends BasePage {
     Assert.assertTrue(body.contains("Name first middle last"))
   }
 }
-
