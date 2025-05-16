@@ -149,7 +149,7 @@ class RegistrationSpec extends BaseSpec {
 
       Then("the intermediary enters bank or building society account details on bank-account-details page")
       registration.goToPage("bank-account-details")
-      registration.fillBankAccountDetails("Accountname", "12345678", "11223344556677")
+      registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
     }
 
