@@ -21,6 +21,7 @@ import org.scalatest.matchers.should.Matchers.*
 import uk.gov.hmrc.configuration.TestEnvironment
 import uk.gov.hmrc.selenium.webdriver.Driver
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait}
+import org.junit.Assert
 
 object Registration extends BasePage {
 
@@ -116,6 +117,10 @@ object Registration extends BasePage {
     sendKeys(By.id("telephoneNumber"), phone)
     sendKeys(By.id("emailAddress"), email)
     click(continueButton)
+  }
 
+  def checkVatDetailsPage(): Unit = {
+    val h1 = Driver.instance.findElement(By.tagName("h1")).getText
+    Assert.assertTrue(h1.equals("Confirm VAT details for your business"))
   }
 }

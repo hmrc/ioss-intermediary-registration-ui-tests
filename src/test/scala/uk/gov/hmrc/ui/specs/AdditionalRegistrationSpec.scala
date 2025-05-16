@@ -16,27 +16,29 @@
 
 package uk.gov.hmrc.ui.specs
 
-import uk.gov.hmrc.ui.pages.*
+import uk.gov.hmrc.ui.pages.{Auth, Registration}
 
-class GGLoginKickoutSpec extends BaseSpec {
+class AdditionalRegistrationSpec extends BaseSpec {
 
   private val registration = Registration
   private val auth         = Auth
 
-  Feature("Government Gateway Login Kickout journeys") {
+  Feature("Additional registration journeys") {
 
-    Scenario("An intermediary with no VAT enrolment cannot access the service") {
+    Scenario("Agent can access the IOSS Intermediary Registration Service") {
 
-      Given("the intermediary accesses the IOSS Intermediary Registration Service with no VAT enrolment")
+      Given("the intermediary accesses the IOSS Intermediary Registration Service as an Agent")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("None", "Organisation")
+      auth.loginUsingAuthorityWizard("100000001", "Agent")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
       registration.initialSteps()
 
-      Then("the intermediary is on the credential-unsupported page")
-      registration.checkJourneyUrl("credential-unsupported")
+      Then("the intermediary has access to the confirm-vat-details page")
+      registration.checkJourneyUrl("confirm-vat-details")
+      registration.checkVatDetailsPage()
+
     }
   }
 }
