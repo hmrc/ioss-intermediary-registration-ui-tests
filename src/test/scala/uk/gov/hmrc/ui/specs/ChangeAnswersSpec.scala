@@ -171,7 +171,14 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.checkJourneyUrl("add-tax-details")
       registration.answerRadioButton("no")
 
-      // currently redirects to Check Your Answers page as full journey isn't developed yet
+      // missing steps in journey to be completed later
+      // adding manual browsing to check-your-answers-page
+      When("the intermediary submits the registration on the check-your-answers page")
+      registration.goToPage("check-your-answers")
+      registration.submit()
+
+      Then("the intermediary is on the successful submission page")
+      registration.goToPage("successful")
 
     }
   }
