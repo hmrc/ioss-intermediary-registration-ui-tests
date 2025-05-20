@@ -151,6 +151,16 @@ class RegistrationSpec extends BaseSpec {
       registration.goToPage("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
+      // currently redirects to error page as full journey isn't developed yet
+      // adding manual browsing to check-your-answers-page
+      When("the intermediary submits the registration on the check-your-answers page")
+      registration.goToPage("check-your-answers")
+      registration.submit()
+
+      Then("the intermediary is on the successful submission page")
+      registration.goToPage("successful")
+//      IOSS number is currently hardcoded - may want to do further checks once API is developed
+
     }
 
     Scenario("Intermediary registers using the IOSS Intermediary Registration Service - minimal answers") {
@@ -198,6 +208,16 @@ class RegistrationSpec extends BaseSpec {
       Then("the intermediary enters bank or building society account details on bank-account-details page")
       registration.goToPage("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
+
+      // currently redirects to error page as full journey isn't developed yet
+      // adding manual browsing to check-your-answers-page
+      When("the intermediary submits the registration on the check-your-answers page")
+      registration.goToPage("check-your-answers")
+      registration.submit()
+
+      Then("the intermediary is on the successful submission page")
+      registration.goToPage("successful")
+      //      IOSS number is currently hardcoded - may want to do further checks once API is developed
 
     }
   }

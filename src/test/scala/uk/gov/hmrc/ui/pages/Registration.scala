@@ -58,6 +58,9 @@ object Registration extends BasePage {
   def continue(): Unit =
     click(continueButton)
 
+  def submit(): Unit =
+    click(submitButton)
+
   def goToPage(page: String): Unit =
     get(s"$registrationUrl$journeyUrl/$page")
 
