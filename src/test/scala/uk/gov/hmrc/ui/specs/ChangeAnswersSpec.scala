@@ -75,11 +75,45 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.checkJourneyUrl("add-uk-trading-name")
       registration.answerRadioButton("no")
 
-      // currently redirects to Check Your Answers page as full journey isn't developed yet
+      Then("the intermediary business answers yes on if ever registered as an IOSS scheme in an Eu country")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary")
+      registration.answerRadioButton("yes")
 
-      // adding manual browsing to EU details section as previous registration section is not developed yet
+      And("the intermediary selects on which country was it registered on previous-eu-country page")
+      registration.checkJourneyUrl("previous-eu-country/1")
+      registration.selectCountry("Austria")
+
+      And("the  intermediary enters the reg number for Austria")
+      registration.checkJourneyUrl("previous-intermediary-registration-number/1")
+      registration.enterAnswer("IN0401234567")
+
+      And("the intermediary selects yes on adds another registration")
+      registration.checkJourneyUrl("add-previous-intermediary-registration")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary selects on which country was it registered on previous-eu-country page")
+      registration.checkJourneyUrl("previous-eu-country/2")
+      registration.selectCountry("Belgium")
+
+      Then("the  intermediary enters the reg number for Belgium")
+      registration.checkJourneyUrl("previous-intermediary-registration-number/2")
+      registration.enterAnswer("IN0561234567")
+
+      And(
+        "the intermediary clicks remove link for Belgium as previous country on add-previous-intermediary-registration page"
+      )
+      registration.checkJourneyUrl("add-previous-intermediary-registration")
+      registration.selectChangeOrRemoveLink("remove-previous-intermediary-registration\\/2")
+
+      Then("the intermediary confirms to remove previous intermediary registration for Belgium")
+      registration.checkJourneyUrl("remove-previous-intermediary-registration/2")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary selects no on adds another registration")
+      registration.checkJourneyUrl("add-previous-intermediary-registration")
+      registration.answerRadioButton("no")
+
       Then("the intermediary selects yes on the tax-in-eu page")
-      registration.goToPage("tax-in-eu")
       registration.checkJourneyUrl("tax-in-eu")
       registration.answerRadioButton("yes")
 

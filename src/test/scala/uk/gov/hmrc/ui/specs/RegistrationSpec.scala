@@ -71,11 +71,54 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("add-uk-trading-name")
       registration.answerRadioButton("no")
 
-      // currently redirects to Check Your Answers page as full journey isn't developed yet
+      Then("the intermediary selects on yes if ever registered as an IOSS scheme in an Eu country")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary")
+      registration.answerRadioButton("yes")
 
-      // adding manual browsing to EU details section as previous registration section is not developed yet
+      Then("the intermediary selects which country was it registered in on previous eu country page")
+      registration.checkJourneyUrl("previous-eu-country/1")
+      registration.selectCountry("Austria")
+      registration.continue()
+
+      Then(
+        "the intermediary clicks and enters registration number for Austria on previous-intermediary-registration-number page"
+      )
+      registration.checkJourneyUrl("previous-intermediary-registration-number/1")
+      registration.enterAnswer("IN0401234567")
+      registration.continue()
+
+      Then("the intermediary checks you added details for one country on add-previous-intermediary-registration page")
+      registration.checkJourneyUrl("add-previous-intermediary-registration")
+      //      add country details
+
+      And("the intermediary selects yes to add another registration on add-previous-intermediary-registration page")
+      registration.checkJourneyUrl("add-previous-intermediary-registration")
+      registration.answerRadioButton("yes")
+      registration.continue()
+
+      Then("the intermediary selects which country was it registered in on previous eu country page")
+      registration.checkJourneyUrl("previous-eu-country/2")
+      registration.selectCountry("Belgium")
+      registration.continue()
+
+      Then(
+        "the intermediary clicks and enters registration number for Austria on previous-intermediary-registration-number/2 page"
+      )
+      registration.checkJourneyUrl("previous-intermediary-registration-number/2")
+      registration.enterAnswer("IN0561234567")
+      registration.continue()
+
+      And(
+        "the intermediary checks added registration details for 2 countries on add-previous-intermediary-registration page"
+      )
+      registration.checkJourneyUrl("add-previous-intermediary-registration")
+
+      And("the intermediary selects no to add another registration on add-previous-intermediary-registration page")
+      registration.checkJourneyUrl("add-previous-intermediary-registration")
+      registration.answerRadioButton("no")
+      registration.continue()
+
       Then("the intermediary selects yes on the tax-in-eu page")
-      registration.goToPage("tax-in-eu")
       registration.checkJourneyUrl("tax-in-eu")
       registration.answerRadioButton("yes")
 
@@ -148,7 +191,7 @@ class RegistrationSpec extends BaseSpec {
       registration.fillContactDetails("Testname", "12345678", "test@email.com")
 
       Then("the intermediary enters bank or building society account details on bank-account-details page")
-      registration.goToPage("bank-account-details")
+      registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
       // currently redirects to error page as full journey isn't developed yet
@@ -196,17 +239,21 @@ class RegistrationSpec extends BaseSpec {
       // currently redirects to Check Your Answers page as full journey isn't developed yet
 
       // adding manual browsing to EU details section as previous registration section is not developed yet
-      Then("the intermediary selects no on the tax-in-eu page")
-      registration.goToPage("tax-in-eu")
-      registration.checkJourneyUrl("tax-in-eu")
+      Then("the intermediary selects on yes if ever registered as an IOSS scheme in an Eu country")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary")
       registration.answerRadioButton("no")
 
-      Then("the intermediary enters credentials on Contact-details page")
+      And("the intermediary selects no on the tax-in-eu page")
+      registration.checkJourneyUrl("tax-in-eu")
+      registration.answerRadioButton("no")
+      registration.continue()
+
+      Then("the intermediary enters on Contact-details page")
       registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
 
       Then("the intermediary enters bank or building society account details on bank-account-details page")
-      registration.goToPage("bank-account-details")
+      registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
       // currently redirects to error page as full journey isn't developed yet

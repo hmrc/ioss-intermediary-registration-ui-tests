@@ -138,5 +138,12 @@ object Registration extends BasePage {
     val body = Driver.instance.findElement(By.tagName("body")).getText
     Assert.assertFalse(body.contains("Business name"))
     Assert.assertTrue(body.contains("Name first middle last"))
+
+  }
+
+  def checkCountryName(): Unit = {
+    val h1 = Driver.instance.findElement(By.cssSelector(".govuk-summary-list__key")).getText
+    Assert.assertTrue(h1.equals("Austria"))
+
   }
 }
