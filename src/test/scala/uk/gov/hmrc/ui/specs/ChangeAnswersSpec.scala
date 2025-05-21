@@ -99,8 +99,20 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.checkJourneyUrl("previous-intermediary-registration-number/2")
       registration.enterAnswer("IN0561234567")
 
+      And("the intermediary selects yes on adds another registration")
+      registration.checkJourneyUrl("add-previous-intermediary-registration")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary selects on which country was it registered on previous-eu-country page")
+      registration.checkJourneyUrl("previous-eu-country/3")
+      registration.selectCountry("Cyprus")
+
+      Then("the  intermediary enters the reg number for Cyprus")
+      registration.checkJourneyUrl("previous-intermediary-registration-number/3")
+      registration.enterAnswer("IN1961234567")
+
       And(
-        "the intermediary clicks remove link for Belgium as previous country on add-previous-intermediary-registration page"
+        "the intermediary clicks remove link for Belgium on add-previous-intermediary-registration page"
       )
       registration.checkJourneyUrl("add-previous-intermediary-registration")
       registration.selectChangeOrRemoveLink("remove-previous-intermediary-registration\\/2")
@@ -108,6 +120,18 @@ class ChangeAnswersSpec extends BaseSpec {
       Then("the intermediary confirms to remove previous intermediary registration for Belgium")
       registration.checkJourneyUrl("remove-previous-intermediary-registration/2")
       registration.answerRadioButton("yes")
+
+      And("the intermediary clicks change link for Cyprus on add-previous-intermediary-registration page")
+      registration.checkJourneyUrl("add-previous-intermediary-registration")
+      registration.selectChangeOrRemoveLink(
+        "previous-intermediary-registration-number\\/2\\?waypoints\\=change-add-previous-intermediary-registration"
+      )
+
+      Then("the intermediary amends the registration number for Cyprus")
+      registration.checkJourneyUrl(
+        "previous-intermediary-registration-number/2?waypoints=change-add-previous-intermediary-registration"
+      )
+      registration.enterAnswer("IN1961231237")
 
       And("the intermediary selects no on adds another registration")
       registration.checkJourneyUrl("add-previous-intermediary-registration")

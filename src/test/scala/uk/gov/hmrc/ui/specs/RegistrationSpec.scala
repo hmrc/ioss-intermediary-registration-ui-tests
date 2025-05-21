@@ -89,7 +89,6 @@ class RegistrationSpec extends BaseSpec {
 
       Then("the intermediary checks you added details for one country on add-previous-intermediary-registration page")
       registration.checkJourneyUrl("add-previous-intermediary-registration")
-      //      add country details
 
       And("the intermediary selects yes to add another registration on add-previous-intermediary-registration page")
       registration.checkJourneyUrl("add-previous-intermediary-registration")
