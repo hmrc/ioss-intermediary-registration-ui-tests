@@ -29,7 +29,7 @@ class GGLoginKickoutSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service with no VAT enrolment")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("None", "Organisation")
+      auth.loginUsingAuthorityWizard("None", "Organisation", "noVat")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
@@ -38,5 +38,52 @@ class GGLoginKickoutSpec extends BaseSpec {
       Then("the intermediary is on the credential-unsupported page")
       registration.checkJourneyUrl("credential-unsupported")
     }
+
+    Scenario(
+      "An intermediary who is already registered for this service cannot access the registration journey again"
+    ) {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service with an IOSS intermediary enrolment")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("None", "Organisation", "vatAndIossInt")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      When("the intermediary navigates through the filter question pages")
+      registration.initialSteps()
+
+      Then("the intermediary is on the url-here page")
+      // add url
+      registration.checkJourneyUrl("")
+    }
+
+    Scenario("An intermediary registered outside of NI cannot access the service") {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      When("the intermediary navigates through the filter question pages")
+      registration.initialSteps()
+
+      Then("the intermediary is on the cannot-register-not-ni-based-business page")
+      registration.checkJourneyUrl("cannot-register-not-ni-based-business")
+    }
+
+    Scenario("An intermediary with an expired VAT registration cannot access the service") {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service with an expired VRN")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000004", "Organisation", "vatOnly")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      When("the intermediary navigates through the filter question pages")
+      registration.initialSteps()
+
+      Then("the intermediary is on the url-here page")
+      // add kickout url
+      registration.checkJourneyUrl("")
+    }
+
   }
 }
