@@ -45,15 +45,14 @@ class GGLoginKickoutSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service with an IOSS intermediary enrolment")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("None", "Organisation", "vatAndIossInt")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossInt")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
       registration.initialSteps()
 
-      Then("the intermediary is on the url-here page")
-      // add url
-      registration.checkJourneyUrl("")
+      Then("the intermediary is on the already-registered page")
+      registration.checkJourneyUrl("already-registered")
     }
 
     Scenario("An intermediary registered outside of NI cannot access the service") {
@@ -80,9 +79,8 @@ class GGLoginKickoutSpec extends BaseSpec {
       When("the intermediary navigates through the filter question pages")
       registration.initialSteps()
 
-      Then("the intermediary is on the url-here page")
-      // add kickout url
-      registration.checkJourneyUrl("")
+      Then("the intermediary is on the expired-vrn-date page")
+      registration.checkJourneyUrl("expired-vrn-date")
     }
 
   }
