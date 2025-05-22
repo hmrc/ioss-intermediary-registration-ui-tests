@@ -29,7 +29,7 @@ class AdditionalRegistrationSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service as an Agent")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Agent")
+      auth.loginUsingAuthorityWizard("100000001", "Agent", "vatOnly")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")

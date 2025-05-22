@@ -29,7 +29,7 @@ class RegistrationSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary selects no on the ioss-intermediary-registered page")
@@ -209,7 +209,7 @@ class RegistrationSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary selects no on the ioss-intermediary-registered page")
