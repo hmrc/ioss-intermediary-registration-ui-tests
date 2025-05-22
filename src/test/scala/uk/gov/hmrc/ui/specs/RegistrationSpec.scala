@@ -235,9 +235,6 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("have-uk-trading-name")
       registration.answerRadioButton("no")
 
-      // currently redirects to Check Your Answers page as full journey isn't developed yet
-
-      // adding manual browsing to EU details section as previous registration section is not developed yet
       Then("the intermediary selects on yes if ever registered as an IOSS scheme in an Eu country")
       registration.checkJourneyUrl("has-previously-registered-as-intermediary")
       registration.answerRadioButton("no")
@@ -245,7 +242,6 @@ class RegistrationSpec extends BaseSpec {
       And("the intermediary selects no on the tax-in-eu page")
       registration.checkJourneyUrl("tax-in-eu")
       registration.answerRadioButton("no")
-      registration.continue()
 
       Then("the intermediary enters on Contact-details page")
       registration.checkJourneyUrl("contact-details")
