@@ -43,11 +43,11 @@ class GeneralKickoutSpec extends BaseSpec {
       registration.checkJourneyUrl("have-uk-trading-name")
       registration.answerRadioButton("no")
 
-      // currently redirects to Check Your Answers page as full journey isn't developed yet
+      Then("the intermediary selects on yes if ever registered as an IOSS scheme in an Eu country")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary")
+      registration.answerRadioButton("no")
 
-      // adding manual browsing to EU details section as previous registration section is not developed yet
       Then("the intermediary selects yes on the tax-in-eu page")
-      registration.goToPage("tax-in-eu")
       registration.checkJourneyUrl("tax-in-eu")
       registration.answerRadioButton("yes")
 
