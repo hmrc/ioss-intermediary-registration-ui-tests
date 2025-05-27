@@ -16,12 +16,13 @@
 
 package uk.gov.hmrc.ui.specs
 
-import uk.gov.hmrc.ui.pages.{Auth, Registration}
+import uk.gov.hmrc.ui.pages.{Auth, EmailVerification, Registration}
 
 class ChangeAnswersSpec extends BaseSpec {
 
   private val registration = Registration
   private val auth         = Auth
+  private val email        = EmailVerification
 
   Feature("Registration journeys") {
 
@@ -229,14 +230,23 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.checkJourneyUrl("add-tax-details")
       registration.answerRadioButton("no")
 
-      // missing steps in journey to be completed later
-      // adding manual browsing to check-your-answers-page
+      Then("the intermediary enters on Contact-details page")
+      registration.checkJourneyUrl("contact-details")
+      registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
+
+      Then("the intermediary completes the email verification process")
+      email.completeEmailVerification()
+
+      Then("the intermediary enters bank or building society account details on bank-account-details page")
+      registration.checkJourneyUrl("bank-account-details")
+      registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
+
       When("the intermediary submits the registration on the check-your-answers page")
-      registration.goToPage("check-your-answers")
+      registration.checkJourneyUrl("check-your-answers")
       registration.submit()
 
       Then("the intermediary is on the successful submission page")
-      registration.goToPage("successful")
+      registration.checkJourneyUrl("successful")
 
     }
   }

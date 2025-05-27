@@ -197,14 +197,12 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
-      // currently redirects to error page as full journey isn't developed yet
-      // adding manual browsing to check-your-answers-page
       When("the intermediary submits the registration on the check-your-answers page")
-      registration.goToPage("check-your-answers")
+      registration.checkJourneyUrl("check-your-answers")
       registration.submit()
 
       Then("the intermediary is on the successful submission page")
-      registration.goToPage("successful")
+      registration.checkJourneyUrl("successful")
 //      IOSS number is currently hardcoded - may want to do further checks once API is developed
 
     }
@@ -258,14 +256,12 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
-      // currently redirects to error page as full journey isn't developed yet
-      // adding manual browsing to check-your-answers-page
       When("the intermediary submits the registration on the check-your-answers page")
-      registration.goToPage("check-your-answers")
+      registration.checkJourneyUrl("check-your-answers")
       registration.submit()
 
       Then("the intermediary is on the successful submission page")
-      registration.goToPage("successful")
+      registration.checkJourneyUrl("successful")
       //      IOSS number is currently hardcoded - may want to do further checks once API is developed
 
     }
