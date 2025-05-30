@@ -49,7 +49,9 @@ class CoreValidationSpec extends BaseSpec {
       registration.checkJourneyUrl("other-country-excluded-and-quarantined?countryCode=EE&exclusionDate=")
     }
 
-    Scenario("Intermediary with existing EU intermediary registration linked to EU Intermediary Number is not able to register - previous registrations") {
+    Scenario(
+      "Intermediary with existing EU intermediary registration linked to EU Intermediary Number is not able to register - previous registrations"
+    ) {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -73,7 +75,9 @@ class CoreValidationSpec extends BaseSpec {
       registration.checkJourneyUrl("scheme-still-active?countryCode=EE")
     }
 
-    Scenario("Intermediary with quarantined EU intermediary registration linked to EU Intermediary Number is not able to register - previous registrations") {
+    Scenario(
+      "Intermediary with quarantined EU intermediary registration linked to EU Intermediary Number is not able to register - previous registrations"
+    ) {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -97,7 +101,9 @@ class CoreValidationSpec extends BaseSpec {
       registration.checkJourneyUrl("other-country-excluded-and-quarantined?countryCode=EE&exclusionDate=")
     }
 
-    Scenario("Intermediary with existing EU intermediary registration linked to EU Vat Number is not able to register - EU Vat Details") {
+    Scenario(
+      "Intermediary with existing EU intermediary registration linked to EU Vat Number is not able to register - EU Vat Details"
+    ) {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -111,7 +117,9 @@ class CoreValidationSpec extends BaseSpec {
       registration.checkJourneyUrl("has-previously-registered-as-intermediary")
       registration.answerRadioButton("no")
 
-      Then("the intermediary enters an EU registration linked to an Intermediary Number still active in another member state")
+      Then(
+        "the intermediary enters an EU registration linked to an Intermediary Number still active in another member state"
+      )
       registration.checkJourneyUrl("tax-in-eu")
       registration.answerRadioButton("yes")
       registration.checkJourneyUrl("eu-tax/1")
@@ -127,7 +135,9 @@ class CoreValidationSpec extends BaseSpec {
       registration.checkJourneyUrl("scheme-still-active?countryCode=EE")
     }
 
-    Scenario("Intermediary with existing EU intermediary quarantine linked to EU Vat Number is not able to register - EU Vat Details") {
+    Scenario(
+      "Intermediary with existing EU intermediary quarantine linked to EU Vat Number is not able to register - EU Vat Details"
+    ) {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -141,7 +151,9 @@ class CoreValidationSpec extends BaseSpec {
       registration.checkJourneyUrl("has-previously-registered-as-intermediary")
       registration.answerRadioButton("no")
 
-      Then("the intermediary enters an EU registration linked to an Intermediary Number quarantined in another member state")
+      Then(
+        "the intermediary enters an EU registration linked to an Intermediary Number quarantined in another member state"
+      )
       registration.checkJourneyUrl("tax-in-eu")
       registration.answerRadioButton("yes")
       registration.checkJourneyUrl("eu-tax/1")
@@ -157,7 +169,9 @@ class CoreValidationSpec extends BaseSpec {
       registration.checkJourneyUrl("other-country-excluded-and-quarantined?countryCode=EE&exclusionDate=")
     }
 
-    Scenario("Intermediary with existing EU intermediary registration linked to EU Tax ID is not able to register - EU Vat Details") {
+    Scenario(
+      "Intermediary with existing EU intermediary registration linked to EU Tax ID is not able to register - EU Vat Details"
+    ) {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -171,7 +185,9 @@ class CoreValidationSpec extends BaseSpec {
       registration.checkJourneyUrl("has-previously-registered-as-intermediary")
       registration.answerRadioButton("no")
 
-      Then("the intermediary enters an EU registration linked to an Intermediary Number still active in another member state")
+      Then(
+        "the intermediary enters an EU registration linked to an Intermediary Number still active in another member state"
+      )
       registration.checkJourneyUrl("tax-in-eu")
       registration.answerRadioButton("yes")
       registration.checkJourneyUrl("eu-tax/1")
@@ -187,7 +203,9 @@ class CoreValidationSpec extends BaseSpec {
       registration.checkJourneyUrl("scheme-still-active?countryCode=EE")
     }
 
-    Scenario("Intermediary with existing EU intermediary quarantine linked to EU Tax ID is not able to register - EU Vat Details") {
+    Scenario(
+      "Intermediary with existing EU intermediary quarantine linked to EU Tax ID is not able to register - EU Vat Details"
+    ) {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -201,7 +219,9 @@ class CoreValidationSpec extends BaseSpec {
       registration.checkJourneyUrl("has-previously-registered-as-intermediary")
       registration.answerRadioButton("no")
 
-      Then("the intermediary enters an EU registration linked to an Intermediary Number quarantined in another member state")
+      Then(
+        "the intermediary enters an EU registration linked to an Intermediary Number quarantined in another member state"
+      )
       registration.checkJourneyUrl("tax-in-eu")
       registration.answerRadioButton("yes")
       registration.checkJourneyUrl("eu-tax/1")
