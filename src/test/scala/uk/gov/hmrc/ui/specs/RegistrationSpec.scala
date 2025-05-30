@@ -79,14 +79,12 @@ class RegistrationSpec extends BaseSpec {
       Then("the intermediary selects which country was it registered in on previous eu country page")
       registration.checkJourneyUrl("previous-eu-country/1")
       registration.selectCountry("Austria")
-      registration.continue()
 
       Then(
         "the intermediary clicks and enters registration number for Austria on previous-intermediary-registration-number page"
       )
       registration.checkJourneyUrl("previous-intermediary-registration-number/1")
       registration.enterAnswer("IN0401234567")
-      registration.continue()
 
       Then("the intermediary checks you added details for one country on add-previous-intermediary-registration page")
       registration.checkJourneyUrl("add-previous-intermediary-registration")
@@ -94,19 +92,16 @@ class RegistrationSpec extends BaseSpec {
       And("the intermediary selects yes to add another registration on add-previous-intermediary-registration page")
       registration.checkJourneyUrl("add-previous-intermediary-registration")
       registration.answerRadioButton("yes")
-      registration.continue()
 
       Then("the intermediary selects which country was it registered in on previous eu country page")
       registration.checkJourneyUrl("previous-eu-country/2")
       registration.selectCountry("Belgium")
-      registration.continue()
 
       Then(
         "the intermediary clicks and enters registration number for Austria on previous-intermediary-registration-number/2 page"
       )
       registration.checkJourneyUrl("previous-intermediary-registration-number/2")
       registration.enterAnswer("IN0561234567")
-      registration.continue()
 
       And(
         "the intermediary checks added registration details for 2 countries on add-previous-intermediary-registration page"
@@ -116,7 +111,6 @@ class RegistrationSpec extends BaseSpec {
       And("the intermediary selects no to add another registration on add-previous-intermediary-registration page")
       registration.checkJourneyUrl("add-previous-intermediary-registration")
       registration.answerRadioButton("no")
-      registration.continue()
 
       Then("the intermediary selects yes on the tax-in-eu page")
       registration.checkJourneyUrl("tax-in-eu")
@@ -237,7 +231,7 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("have-uk-trading-name")
       registration.answerRadioButton("no")
 
-      Then("the intermediary selects on yes if ever registered as an IOSS scheme in an Eu country")
+      Then("the intermediary selects on no if ever registered as an IOSS scheme in an Eu country")
       registration.checkJourneyUrl("has-previously-registered-as-intermediary")
       registration.answerRadioButton("no")
 

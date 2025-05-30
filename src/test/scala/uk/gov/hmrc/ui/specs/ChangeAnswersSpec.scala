@@ -24,7 +24,7 @@ class ChangeAnswersSpec extends BaseSpec {
   private val auth         = Auth
   private val email        = EmailVerification
 
-  Feature("Registration journeys") {
+  Feature("Changing and removing answers journeys") {
 
     Scenario("Intermediary changes and removes answers whilst using the IOSS Intermediary Registration Service") {
 
