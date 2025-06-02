@@ -249,5 +249,406 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.checkJourneyUrl("successful")
 
     }
+
+    Scenario("Using change links on check-your-answers page to change answers in a registration") {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      And("the intermediary adds all of the initial registration answers")
+      registration.initialSteps()
+      registration.checkJourneyUrl("confirm-vat-details")
+      registration.answerVatDetailsChoice("Yes")
+      registration.checkJourneyUrl("have-uk-trading-name")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("tax-in-eu")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("contact-details")
+      registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
+      email.completeEmailVerification()
+      registration.checkJourneyUrl("bank-account-details")
+      registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
+
+      Then("the intermediary adds a trading name")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.selectChangeOrRemoveLink("have-uk-trading-name\\?waypoints\\=check-your-answers")
+      registration.checkJourneyUrl("have-uk-trading-name?waypoints=check-your-answers")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("uk-trading-name/1")
+      registration.enterAnswer("new trading-name")
+      registration.checkJourneyUrl("add-uk-trading-name?waypoints=check-your-answers")
+      registration.answerRadioButton("no")
+
+      Then("the intermediary adds a previous registration")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.selectChangeOrRemoveLink(
+        "has-previously-registered-as-intermediary\\?waypoints\\=check-your-answers"
+      )
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary?waypoints=check-your-answers")
+      registration.answerRadioButton("yes")
+      Then("the intermediary selects which country was it registered in on previous eu country page")
+      registration.checkJourneyUrl("previous-eu-country/1")
+      registration.selectCountry("Czech Republic")
+      registration.checkJourneyUrl("previous-intermediary-registration-number/1")
+      registration.enterAnswer("IN2031452368")
+      registration.checkJourneyUrl("add-previous-intermediary-registration?waypoints=check-your-answers")
+      registration.answerRadioButton("no")
+
+      Then("the intermediary adds some tax details")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.selectChangeOrRemoveLink(
+        "tax-in-eu\\?waypoints\\=check-your-answers"
+      )
+      registration.checkJourneyUrl("tax-in-eu?waypoints=check-your-answers")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("eu-tax/1")
+      registration.selectCountry("Spain")
+      registration.checkJourneyUrl("eu-fixed-establishment/1")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("registration-tax-type/1")
+      registration.selectRegistrationType("vat number")
+      registration.checkJourneyUrl("eu-vat-number/1")
+      registration.enterAnswer("ESX1234567X")
+      registration.checkJourneyUrl("eu-trading-name/1")
+      registration.enterAnswer("Barcelona Trading")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/1")
+      registration.enterFixedEstablishmentAddress("500 La Rambla", "", "Barcelona", "", "08002")
+      registration.checkJourneyUrl("check-tax-details")
+      registration.continue()
+      registration.checkJourneyUrl("add-tax-details")
+      registration.answerRadioButton("no")
+
+      Then("the intermediary changes some of their contact details")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.selectChangeOrRemoveLink(
+        "contact-details\\?waypoints\\=check-your-answers"
+      )
+      registration.checkJourneyUrl("contact-details?waypoints=check-your-answers")
+      registration.updateField("fullName", "New Test Name")
+
+      Then("the intermediary changes some of their bank details")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.selectChangeOrRemoveLink(
+        "bank-account-details\\?waypoints\\=check-your-answers"
+      )
+      registration.checkJourneyUrl("bank-account-details?waypoints=check-your-answers")
+      registration.updateField("iban", "GB91BKEN10000041610008")
+
+      Then("the intermediary successfully submits their registration")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.submit()
+      registration.checkJourneyUrl("successful")
+    }
+
+    Scenario("Add extra answers to registration via the check-your-answers page") {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      And("the intermediary adds all of the initial registration answers")
+      registration.initialSteps()
+      registration.checkJourneyUrl("confirm-vat-details")
+      registration.answerVatDetailsChoice("Yes")
+      registration.checkJourneyUrl("have-uk-trading-name")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("uk-trading-name/1")
+      registration.enterAnswer("first trading name")
+      registration.checkJourneyUrl("add-uk-trading-name")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("previous-eu-country/1")
+      registration.selectCountry("Austria")
+      registration.checkJourneyUrl("previous-intermediary-registration-number/1")
+      registration.enterAnswer("IN0401234567")
+      registration.checkJourneyUrl("add-previous-intermediary-registration")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("tax-in-eu")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("eu-tax/1")
+      registration.selectCountry("Denmark")
+      registration.checkJourneyUrl("eu-fixed-establishment/1")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("registration-tax-type/1")
+      registration.selectRegistrationType("vat number")
+      registration.checkJourneyUrl("eu-vat-number/1")
+      registration.enterAnswer("DK12344321")
+      registration.checkJourneyUrl("eu-trading-name/1")
+      registration.enterAnswer("Danish Company")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/1")
+      registration.enterFixedEstablishmentAddress("1 Street Name", "", "Copenhagen", "", "DK123456")
+      registration.checkJourneyUrl("check-tax-details")
+      registration.continue()
+      registration.checkJourneyUrl("add-tax-details")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("contact-details")
+      registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
+      email.completeEmailVerification()
+      registration.checkJourneyUrl("bank-account-details")
+      registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
+
+      Then("the intermediary adds another trading name")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.selectChangeOrRemoveLink("add-uk-trading-name\\?waypoints\\=check-your-answers")
+      registration.checkJourneyUrl("add-uk-trading-name?waypoints=check-your-answers")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("uk-trading-name/2")
+      registration.enterAnswer("another trading-name")
+      registration.checkJourneyUrl("add-uk-trading-name?waypoints=check-your-answers")
+      registration.answerRadioButton("no")
+
+      Then("the intermediary adds another previous registration")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.selectChangeOrRemoveLink(
+        "add-previous-intermediary-registration\\?waypoints\\=check-your-answers"
+      )
+      registration.checkJourneyUrl("add-previous-intermediary-registration?waypoints=check-your-answers")
+      registration.answerRadioButton("yes")
+      Then("the intermediary selects which country was it registered in on previous eu country page")
+      registration.checkJourneyUrl("previous-eu-country/2")
+      registration.selectCountry("France")
+      registration.checkJourneyUrl("previous-intermediary-registration-number/2")
+      registration.enterAnswer("IN2508747856")
+      registration.checkJourneyUrl("add-previous-intermediary-registration?waypoints=check-your-answers")
+      registration.answerRadioButton("no")
+
+      Then("the intermediary adds more tax details")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.selectChangeOrRemoveLink(
+        "add-tax-details\\?waypoints\\=check-your-answers"
+      )
+      registration.checkJourneyUrl("add-tax-details?waypoints=check-your-answers")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("eu-tax/2")
+      registration.selectCountry("Italy")
+      registration.checkJourneyUrl("eu-fixed-establishment/2")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("registration-tax-type/2")
+      registration.selectRegistrationType("tax id number")
+      registration.checkJourneyUrl("eu-tax-identification-number/2")
+      registration.enterAnswer("ITA8888")
+      registration.checkJourneyUrl("eu-trading-name/2")
+      registration.enterAnswer("Roma Trading")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/2")
+      registration.enterFixedEstablishmentAddress("12 Piazza del Popolo", "", "Rome", "", "00187")
+      registration.checkJourneyUrl("check-tax-details")
+      registration.continue()
+      registration.checkJourneyUrl("add-tax-details")
+      registration.answerRadioButton("no")
+
+      Then("the intermediary changes some of their contact details")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.selectChangeOrRemoveLink(
+        "contact-details\\?waypoints\\=check-your-answers"
+      )
+      registration.checkJourneyUrl("contact-details?waypoints=check-your-answers")
+      registration.updateField("telephoneNumber", "+447778889991")
+
+      Then("the intermediary changes some of their bank details")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.selectChangeOrRemoveLink(
+        "bank-account-details\\?waypoints\\=check-your-answers"
+      )
+      registration.checkJourneyUrl("bank-account-details?waypoints=check-your-answers")
+      registration.updateField("accountName", "New Bank-Account Name")
+
+      Then("the intermediary successfully submits their registration")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.submit()
+      registration.checkJourneyUrl("successful")
+    }
+
+    Scenario("Intermediary removes all trading names via remove-all-trading-names page") {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      And("the intermediary adds answers all the way through to the check-your-answers page")
+      registration.initialSteps()
+      registration.checkJourneyUrl("confirm-vat-details")
+      registration.answerVatDetailsChoice("Yes")
+      registration.checkJourneyUrl("have-uk-trading-name")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("uk-trading-name/1")
+      registration.enterAnswer("first trading name")
+      registration.checkJourneyUrl("add-uk-trading-name")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("uk-trading-name/2")
+      registration.enterAnswer("trading 2!")
+      registration.checkJourneyUrl("add-uk-trading-name")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("tax-in-eu")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("contact-details")
+      registration.fillContactDetails("Testname", "12345678", "test@email.com")
+      email.completeEmailVerification()
+      registration.checkJourneyUrl("bank-account-details")
+      registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
+
+      When("the intermediary selects change for Have a different UK trading name on the check-your-answers page")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.selectChangeOrRemoveLink("have-uk-trading-name\\?waypoints\\=check-your-answers")
+
+      And("the intermediary changes the answer to no on the have-uk-trading-name page")
+      registration.checkJourneyUrl("have-uk-trading-name?waypoints=check-your-answers")
+      registration.answerRadioButton("no")
+
+      Then("the intermediary selects yes on the remove-all-trading-names page")
+      registration.checkJourneyUrl("remove-all-trading-names?waypoints=check-your-answers")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary submits their registration successfully")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.submit()
+      registration.checkJourneyUrl("successful")
+    }
+
+    Scenario(
+      "Intermediary removes all previous registrations via remove-all-previous-intermediary-registrations page"
+    ) {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      And("the intermediary adds answers all the way through to the check-your-answers page")
+      registration.initialSteps()
+      registration.checkJourneyUrl("confirm-vat-details")
+      registration.answerVatDetailsChoice("Yes")
+      registration.checkJourneyUrl("have-uk-trading-name")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("previous-eu-country/1")
+      registration.selectCountry("Austria")
+      registration.checkJourneyUrl("previous-intermediary-registration-number/1")
+      registration.enterAnswer("IN0401234567")
+      registration.checkJourneyUrl("add-previous-intermediary-registration")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("previous-eu-country/2")
+      registration.selectCountry("Belgium")
+      registration.checkJourneyUrl("previous-intermediary-registration-number/2")
+      registration.enterAnswer("IN0561234567")
+      registration.checkJourneyUrl("add-previous-intermediary-registration")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("tax-in-eu")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("contact-details")
+      registration.fillContactDetails("Testname", "12345678", "test@email.com")
+      email.completeEmailVerification()
+      registration.checkJourneyUrl("bank-account-details")
+      registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
+
+      When(
+        "the intermediary selects change for Other IOSS intermediary registrations on the check-your-answers page"
+      )
+      registration.checkJourneyUrl("check-your-answers")
+      registration.selectChangeOrRemoveLink(
+        "has-previously-registered-as-intermediary\\?waypoints\\=check-your-answers"
+      )
+
+      And("the intermediary changes the answer to no on the has-previously-registered-as-intermediary page")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary?waypoints=check-your-answers")
+      registration.answerRadioButton("no")
+
+      Then("the intermediary selects yes on the remove-all-trading-names page")
+      registration.checkJourneyUrl("remove-all-previous-intermediary-registrations?waypoints=check-your-answers")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary submits their registration successfully")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.submit()
+      registration.checkJourneyUrl("successful")
+    }
+
+    Scenario(
+      "Intermediary removes all tax details via remove-all-tax-details page"
+    ) {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      And("the intermediary adds answers all the way through to the check-your-answers page")
+      registration.initialSteps()
+      registration.checkJourneyUrl("confirm-vat-details")
+      registration.answerVatDetailsChoice("Yes")
+      registration.checkJourneyUrl("have-uk-trading-name")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("tax-in-eu")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("eu-tax/1")
+      registration.selectCountry("Denmark")
+      registration.checkJourneyUrl("eu-fixed-establishment/1")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("registration-tax-type/1")
+      registration.selectRegistrationType("vat number")
+      registration.checkJourneyUrl("eu-vat-number/1")
+      registration.enterAnswer("DK12344321")
+      registration.checkJourneyUrl("eu-trading-name/1")
+      registration.enterAnswer("Danish Company")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/1")
+      registration.enterFixedEstablishmentAddress("1 Street Name", "", "Copenhagen", "", "DK123456")
+      registration.checkJourneyUrl("check-tax-details")
+      registration.continue()
+      registration.checkJourneyUrl("add-tax-details")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("eu-tax/2")
+      registration.selectCountry("Slovenia")
+      registration.checkJourneyUrl("eu-fixed-establishment/2")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("registration-tax-type/2")
+      registration.selectRegistrationType("tax id number")
+      registration.checkJourneyUrl("eu-tax-identification-number/2")
+      registration.enterAnswer("SLOV 123 456")
+      registration.checkJourneyUrl("eu-trading-name/2")
+      registration.enterAnswer("Slovenia Goods 55")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/2")
+      registration.enterFixedEstablishmentAddress("1 Street Name", "", "Koper", "", "")
+      registration.checkJourneyUrl("check-tax-details")
+      registration.continue()
+      registration.checkJourneyUrl("add-tax-details")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("contact-details")
+      registration.fillContactDetails("Testname", "12345678", "test@email.com")
+      email.completeEmailVerification()
+      registration.checkJourneyUrl("bank-account-details")
+      registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
+
+      When(
+        "the intermediary selects change for Registered for tax in EU countries on the check-your-answers page"
+      )
+      registration.checkJourneyUrl("check-your-answers")
+      registration.selectChangeOrRemoveLink(
+        "tax-in-eu\\?waypoints\\=check-your-answers"
+      )
+
+      And("the intermediary changes the answer to no on the tax-in-eu page")
+      registration.checkJourneyUrl("tax-in-eu?waypoints=check-your-answers")
+      registration.answerRadioButton("no")
+
+      Then("the intermediary selects yes on the remove-all-tax-details page")
+      registration.checkJourneyUrl("remove-all-tax-details?waypoints=check-your-answers")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary submits their registration successfully")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.submit()
+      registration.checkJourneyUrl("successful")
+    }
   }
 }
