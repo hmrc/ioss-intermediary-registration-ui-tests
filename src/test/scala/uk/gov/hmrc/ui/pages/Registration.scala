@@ -139,4 +139,9 @@ object Registration extends BasePage {
     Assert.assertFalse(body.contains("Business name"))
     Assert.assertTrue(body.contains("Name first middle last"))
   }
+
+  def updateField(id: String, text: String): Unit = {
+    sendKeys(By.id(id), text)
+    click(continueButton)
+  }
 }
