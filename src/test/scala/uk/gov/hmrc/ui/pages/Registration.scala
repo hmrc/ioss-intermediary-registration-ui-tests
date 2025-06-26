@@ -144,4 +144,38 @@ object Registration extends BasePage {
     sendKeys(By.id(id), text)
     click(continueButton)
   }
+
+  def checkPrincipalPlaceOfBusiness(shouldBeDisplayed: Boolean): Unit = {
+    val body        = Driver.instance.findElement(By.tagName("body")).getText
+    val textToCheck = "Principal place of business address"
+    if (shouldBeDisplayed) {
+      Assert.assertTrue(body.contains(textToCheck))
+    } else {
+      Assert.assertFalse(body.contains(textToCheck))
+    }
+  }
+
+  def checkNiAddressOnCya(shouldBeDisplayed: Boolean): Unit = {
+    val body        = Driver.instance.findElement(By.tagName("body")).getText
+    val textToCheck = "Business address in Northern Ireland"
+    if (shouldBeDisplayed) {
+      Assert.assertTrue(body.contains(textToCheck))
+    } else {
+      Assert.assertFalse(body.contains(textToCheck))
+    }
+  }
+
+  def enterNiAddress(
+    line1: String,
+    line2: String,
+    townOrCity: String,
+    county: String,
+    postCode: String
+  ): Unit =
+    sendKeys(By.id("line1"), line1)
+    sendKeys(By.id("line2"), line2)
+    sendKeys(By.id("townOrCity"), townOrCity)
+    sendKeys(By.id("county"), county)
+    sendKeys(By.id("postCode"), postCode)
+    click(continueButton)
 }

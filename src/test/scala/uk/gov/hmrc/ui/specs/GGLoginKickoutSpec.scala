@@ -55,20 +55,6 @@ class GGLoginKickoutSpec extends BaseSpec {
       registration.checkJourneyUrl("already-registered")
     }
 
-    Scenario("An intermediary registered outside of NI cannot access the service") {
-
-      Given("the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode")
-      auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly")
-      registration.checkJourneyUrl("ioss-intermediary-registered")
-
-      When("the intermediary navigates through the filter question pages")
-      registration.initialSteps()
-
-      Then("the intermediary is on the cannot-register-not-ni-based-business page")
-      registration.checkJourneyUrl("cannot-register-not-ni-based-business")
-    }
-
     Scenario("An intermediary with an expired VAT registration cannot access the service") {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service with an expired VRN")
