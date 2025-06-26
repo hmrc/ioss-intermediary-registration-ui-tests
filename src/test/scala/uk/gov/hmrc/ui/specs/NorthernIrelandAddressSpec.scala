@@ -22,13 +22,15 @@ class NorthernIrelandAddressSpec extends BaseSpec {
 
   private val registration = Registration
   private val auth         = Auth
-  private val email = EmailVerification
+  private val email        = EmailVerification
 
   Feature("Northern Ireland Address journeys") {
 
     Scenario("An intermediary registered outside of NI cannot access the service") {
 
-      Given("the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details")
+      Given(
+        "the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details"
+      )
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly")
       registration.checkJourneyUrl("ioss-intermediary-registered")
@@ -51,9 +53,13 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.checkJourneyUrl("cannot-register-not-ni-based-business")
     }
 
-    Scenario("An intermediary with a non-NI postcode in VAT details can enter an NI postcode after confirm-vat-details page") {
+    Scenario(
+      "An intermediary with a non-NI postcode in VAT details can enter an NI postcode after confirm-vat-details page"
+    ) {
 
-      Given("the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details")
+      Given(
+        "the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details"
+      )
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly")
       registration.checkJourneyUrl("ioss-intermediary-registered")
@@ -97,9 +103,13 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.checkJourneyUrl("successful")
     }
 
-    Scenario("An intermediary with an NI postcode entered via ni-address changes to non-NI postcode via check-your-answers") {
+    Scenario(
+      "An intermediary with an NI postcode entered via ni-address changes to non-NI postcode via check-your-answers"
+    ) {
 
-      Given("the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details")
+      Given(
+        "the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details"
+      )
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly")
       registration.checkJourneyUrl("ioss-intermediary-registered")
@@ -141,9 +151,13 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.checkJourneyUrl("cannot-register-not-ni-based-business")
     }
 
-    Scenario("An intermediary VAT registered within Northern Ireland has the correct address labels in their registration") {
+    Scenario(
+      "An intermediary VAT registered within Northern Ireland has the correct address labels in their registration"
+    ) {
 
-      Given("the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details")
+      Given(
+        "the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details"
+      )
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
       registration.checkJourneyUrl("ioss-intermediary-registered")
@@ -171,7 +185,9 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
-      And("the Principal Place of Business is displayed on the check-your-answers page and no separate Northern Ireland address")
+      And(
+        "the Principal Place of Business is displayed on the check-your-answers page and no separate Northern Ireland address"
+      )
       registration.checkJourneyUrl("check-your-answers")
       registration.checkPrincipalPlaceOfBusiness(true)
       registration.checkNiAddressOnCya(false)
@@ -182,4 +198,3 @@ class NorthernIrelandAddressSpec extends BaseSpec {
     }
   }
 }
-
