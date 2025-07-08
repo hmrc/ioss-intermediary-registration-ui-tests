@@ -178,4 +178,7 @@ object Registration extends BasePage {
     sendKeys(By.id("county"), county)
     sendKeys(By.id("postCode"), postCode)
     click(continueButton)
+
+  def enterFETradingName(tradingName: String): Unit =
+    sendKeys(By.id("tradingName"), tradingName)
 }

@@ -112,71 +112,63 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("add-previous-intermediary-registration")
       registration.answerRadioButton("no")
 
-      Then("the intermediary selects yes on the tax-in-eu page")
-      registration.checkJourneyUrl("tax-in-eu")
+      Then("the intermediary selects yes on the eu-fixed-establishment page")
+//      currently going to old tax-in-eu page so added manual nav for now
+      registration.goToPage("eu-fixed-establishment")
+      registration.checkJourneyUrl("eu-fixed-establishment")
       registration.answerRadioButton("yes")
 
-      And("the intermediary selects Denmark on the first eu-tax page")
+      And(
+        "the intermediary selects which country their fixed establishment is in on the eu-tax page"
+      )
       registration.checkJourneyUrl("eu-tax/1")
       registration.selectCountry("Denmark")
 
-      And("the intermediary selects yes on the first eu-fixed-establishment page")
-      registration.checkJourneyUrl("eu-fixed-establishment/1")
-      registration.answerRadioButton("yes")
+      And("the intermediary enters the fixed establishment details on the eu-fixed-establishment-address page")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/1")
+      registration.enterFETradingName("Danish Company")
+      registration.enterFixedEstablishmentAddress("1 Street Name", "", "Copenhagen", "", "DK123456")
 
-      And("the intermediary selects VAT number on the first registration-tax-type page")
+      And("the intermediary selects the VAT Number registration type on the registration-tax-type page")
       registration.checkJourneyUrl("registration-tax-type/1")
       registration.selectRegistrationType("vat number")
 
-      And("the intermediary adds the VAT registration number for Denmark")
+      And("the intermediary enters the VAT number on the eu-vat-number page")
       registration.checkJourneyUrl("eu-vat-number/1")
       registration.enterAnswer("DK12344321")
 
-      And("the intermediary adds the trading name for Denmark")
-      registration.checkJourneyUrl("eu-trading-name/1")
-      registration.enterAnswer("Danish Company")
-
-      And("the intermediary adds the fixed establishment address for Denmark")
-      registration.checkJourneyUrl("eu-fixed-establishment-address/1")
-      registration.enterFixedEstablishmentAddress("1 Street Name", "", "Copenhagen", "", "DK123456")
-
-      And("the intermediary selects continue on the check-tax-details page")
-      registration.checkJourneyUrl("check-tax-details")
+      And("the intermediary continues through the check-tax-details page")
+      registration.checkJourneyUrl("check-tax-details/1")
       registration.continue()
 
-      And("the intermediary selects yes on the add-tax-details page")
+      Then("the intermediary selects yes on the add-tax-details page")
       registration.checkJourneyUrl("add-tax-details")
       registration.answerRadioButton("yes")
 
-      And("the intermediary selects Slovenia on the second eu-tax page")
+      And(
+        "the intermediary selects which country their fixed establishment is in on the eu-tax page"
+      )
       registration.checkJourneyUrl("eu-tax/2")
       registration.selectCountry("Slovenia")
 
-      And("the intermediary selects yes on the second eu-fixed-establishment page")
-      registration.checkJourneyUrl("eu-fixed-establishment/2")
-      registration.answerRadioButton("yes")
+      And("the intermediary enters the fixed establishment details on the eu-fixed-establishment-address page")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/2")
+      registration.enterFETradingName("Slovenia Goods 55")
+      registration.enterFixedEstablishmentAddress("1 Street Name", "", "Koper", "", "")
 
-      And("the intermediary selects tax id number on the second registration-tax-type page")
+      And("the intermediary selects the Tax ID number registration type on the registration-tax-type page")
       registration.checkJourneyUrl("registration-tax-type/2")
       registration.selectRegistrationType("tax id number")
 
-      And("the intermediary adds the tax identification number for Slovenia")
+      And("the intermediary enters the Tax ID number on the eu-tax-identification-number page")
       registration.checkJourneyUrl("eu-tax-identification-number/2")
       registration.enterAnswer("SLOV 123 456")
 
-      And("the intermediary adds the trading name for Slovenia")
-      registration.checkJourneyUrl("eu-trading-name/2")
-      registration.enterAnswer("Slovenia Goods 55")
-
-      And("the intermediary adds the fixed establishment address for Slovenia")
-      registration.checkJourneyUrl("eu-fixed-establishment-address/2")
-      registration.enterFixedEstablishmentAddress("1 Street Name", "", "Koper", "", "")
-
-      And("the intermediary selects continue on the check-tax-details page")
-      registration.checkJourneyUrl("check-tax-details")
+      And("the intermediary continues through the check-tax-details page")
+      registration.checkJourneyUrl("check-tax-details/2")
       registration.continue()
 
-      And("the intermediary selects no on the add-tax-details page")
+      Then("the intermediary selects no on the add-tax-details page")
       registration.checkJourneyUrl("add-tax-details")
       registration.answerRadioButton("no")
 
@@ -235,8 +227,8 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("has-previously-registered-as-intermediary")
       registration.answerRadioButton("no")
 
-      And("the intermediary selects no on the tax-in-eu page")
-      registration.checkJourneyUrl("tax-in-eu")
+      Then("the intermediary selects no on the eu-fixed-establishment page")
+      registration.checkJourneyUrl("eu-fixed-establishment")
       registration.answerRadioButton("no")
 
       Then("the intermediary enters on Contact-details page")
