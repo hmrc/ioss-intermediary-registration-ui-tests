@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.By
+import org.openqa.selenium.{By, Keys}
 import org.scalatest.matchers.should.Matchers.*
 import uk.gov.hmrc.configuration.TestEnvironment
 import uk.gov.hmrc.selenium.webdriver.Driver
@@ -181,4 +181,12 @@ object Registration extends BasePage {
 
   def enterFETradingName(tradingName: String): Unit =
     sendKeys(By.id("tradingName"), tradingName)
+
+  def clearCountry(): Unit = {
+    val input = Driver.instance.findElement(By.id("value")).getAttribute("value")
+    if (input != null) {
+      for (n <- input)
+        Driver.instance.findElement(By.id("value")).sendKeys(Keys.BACK_SPACE)
+    }
+  }
 }

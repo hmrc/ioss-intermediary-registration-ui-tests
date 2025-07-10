@@ -113,8 +113,6 @@ class RegistrationSpec extends BaseSpec {
       registration.answerRadioButton("no")
 
       Then("the intermediary selects yes on the eu-fixed-establishment page")
-//      currently going to old tax-in-eu page so added manual nav for now
-      registration.goToPage("eu-fixed-establishment")
       registration.checkJourneyUrl("eu-fixed-establishment")
       registration.answerRadioButton("yes")
 
