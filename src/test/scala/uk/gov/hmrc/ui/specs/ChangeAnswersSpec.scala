@@ -189,7 +189,7 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.selectCountry("Slovenia")
 
       And("the intermediary enters the fixed establishment details on the eu-fixed-establishment-address page")
-      registration.checkJourneyUrl("eu-fixed-establishment-address/1")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/2")
       registration.enterFETradingName("Slovenia Goods 55")
       registration.enterFixedEstablishmentAddress("1 Street Name", "", "Koper", "", "")
 
@@ -213,81 +213,80 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.checkJourneyUrl("remove-tax-details/2")
       registration.answerRadioButton("yes")
 
-//      Awaiting further dev
-//      Then("the intermediary selects yes on the add-tax-details page")
-//      registration.checkJourneyUrl("add-tax-details")
-//      registration.answerRadioButton("yes")
-//
-//      And(
-//        "the intermediary selects which country their fixed establishment is in on the vat-registered-eu-country page"
-//      )
-//      registration.checkJourneyUrl("vat-registered-eu-country/2")
-//      registration.selectCountry("Estonia")
-//
-//      And("the intermediary enters the fixed establishment details on the trading-name-business-address page")
-//      registration.checkJourneyUrl("trading-name-business-address/2")
-//      registration.enterFETradingName("Estonian Trading Name")
-//      registration.enterFixedEstablishmentAddress("55 Test Avenue", "", "City", "", "E12541")
-//
-//      And("the intermediary selects the Tax ID number registration type on the registration-tax-type page")
-//      registration.checkJourneyUrl("registration-tax-type/2")
-//      registration.selectRegistrationType("tax id number")
-//
-//      And("the intermediary enters the Tax ID number on the eu-tax-identification-number page")
-//      registration.checkJourneyUrl("eu-tax-identification-number/2")
-//      registration.enterAnswer("E123S123B")
-//
-//      And("the intermediary continues through the check-tax-details page")
-//      registration.checkJourneyUrl("check-tax-details/2")
-//      registration.continue()
-//
-//      When(
-//        "the intermediary selects change for Greece on the add-tax-details page"
-//      )
-//      registration.checkJourneyUrl("add-tax-details")
-//      registration.selectChangeOrRemoveLink("check-tax-details\\/1\\?waypoints\\=change-add-tax-details")
-//
-//      And(
-//        "the intermediary selects change for Country on the check-tax-details page"
-//      )
-//      registration.checkJourneyUrl("check-tax-details/1?waypoints=change-add-tax-details")
-//      registration.selectChangeOrRemoveLink(
-//        "eu-tax\\/1\\?waypoints\\=check-tax-details-1\\%2Cchange-add-tax-details"
-//      )
-//
-//      And(
-//        "the intermediary selects a different country on the vat-registered-eu-country page"
-//      )
-//      registration.checkJourneyUrl("eu-tax/1")
-//      registration.clearCountry()
-//      registration.selectCountry("France")
-//
-//      And("the intermediary enters the fixed establishment details on the trading-name-business-address page")
-//      registration.checkJourneyUrl("trading-name-business-address/1")
-//      registration.enterFETradingName("French Trading Name")
-//      registration.enterFixedEstablishmentAddress("123 Street Name", "", "Town", "", "FR12345")
-//
-//      And("the intermediary selects the Tax ID number registration type on the registration-tax-type page")
-//      registration.checkJourneyUrl("registration-tax-type/1")
-//      registration.selectRegistrationType("tax id number")
-//
-//      And("the intermediary enters the Tax ID number on the eu-tax-identification-number page")
-//      registration.checkJourneyUrl("eu-tax-identification-number/1")
-//      registration.enterAnswer("F121212FR")
-//
-//      And("the intermediary changes the Tax registration type from VAT number to Tax identification number")
-//      registration.checkJourneyUrl("check-tax-details")
-//      registration.selectChangeOrRemoveLink("registration-tax-type\\/1\\?waypoints\\=check-tax-details-1")
-//      registration.checkJourneyUrl("registration-tax-type/1")
-//      registration.selectRegistrationType("vat number")
-//
-//      And("the intermediary adds the VAT registration number for Croatia")
-//      registration.checkJourneyUrl("eu-vat-number/1")
-//      registration.enterAnswer("FRBB999888777")
-//
-//      And("the intermediary continues through the check-tax-details page")
-//      registration.checkJourneyUrl("check-tax-details/1")
-//      registration.continue()
+      Then("the intermediary selects yes on the add-tax-details page")
+      registration.checkJourneyUrl("add-tax-details")
+      registration.answerRadioButton("yes")
+
+      And(
+        "the intermediary selects which country their fixed establishment is in on the eu-tax page"
+      )
+      registration.checkJourneyUrl("eu-tax/2")
+      registration.selectCountry("Estonia")
+
+      And("the intermediary enters the fixed establishment details on the eu-fixed-establishment-address page")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/2")
+      registration.enterFETradingName("Estonian Trading Name")
+      registration.enterFixedEstablishmentAddress("55 Test Avenue", "", "City", "", "E12541")
+
+      And("the intermediary selects the Tax ID number registration type on the registration-tax-type page")
+      registration.checkJourneyUrl("registration-tax-type/2")
+      registration.selectRegistrationType("tax id number")
+
+      And("the intermediary enters the Tax ID number on the eu-tax-identification-number page")
+      registration.checkJourneyUrl("eu-tax-identification-number/2")
+      registration.enterAnswer("E123S123B")
+
+      And("the intermediary continues through the check-tax-details page")
+      registration.checkJourneyUrl("check-tax-details/2")
+      registration.continue()
+
+      When(
+        "the intermediary selects change for Greece on the add-tax-details page"
+      )
+      registration.checkJourneyUrl("add-tax-details")
+      registration.selectChangeOrRemoveLink("check-tax-details\\/1\\?waypoints\\=change-add-tax-details")
+
+      And(
+        "the intermediary selects change for Country on the check-tax-details page"
+      )
+      registration.checkJourneyUrl("check-tax-details/1?waypoints=change-add-tax-details")
+      registration.selectChangeOrRemoveLink(
+        "eu-tax\\/1\\?waypoints\\=check-tax-details-1\\%2Cchange-add-tax-details"
+      )
+
+      And(
+        "the intermediary selects a different country on the vat-registered-eu-country page"
+      )
+      registration.checkJourneyUrl("eu-tax/1")
+      registration.clearCountry()
+      registration.selectCountry("France")
+
+      And("the intermediary enters the fixed establishment details on the eu-fixed-establishment-address page")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/1")
+      registration.enterFETradingName("French Trading Name")
+      registration.enterFixedEstablishmentAddress("123 Street Name", "", "Town", "", "FR12345")
+
+      And("the intermediary selects the Tax ID number registration type on the registration-tax-type page")
+      registration.checkJourneyUrl("registration-tax-type/1")
+      registration.selectRegistrationType("tax id number")
+
+      And("the intermediary enters the Tax ID number on the eu-tax-identification-number page")
+      registration.checkJourneyUrl("eu-tax-identification-number/1")
+      registration.enterAnswer("F121212FR")
+
+      And("the intermediary changes the Tax registration type from VAT number to Tax identification number")
+      registration.checkJourneyUrl("check-tax-details")
+      registration.selectChangeOrRemoveLink("registration-tax-type\\/1\\?waypoints\\=check-tax-details-1")
+      registration.checkJourneyUrl("registration-tax-type/1")
+      registration.selectRegistrationType("vat number")
+
+      And("the intermediary adds the VAT registration number for Croatia")
+      registration.checkJourneyUrl("eu-vat-number/1")
+      registration.enterAnswer("FRBB999888777")
+
+      And("the intermediary continues through the check-tax-details page")
+      registration.checkJourneyUrl("check-tax-details/1")
+      registration.continue()
 
       And("the intermediary selects no on the add-tax-details page")
       registration.checkJourneyUrl("add-tax-details")
@@ -484,14 +483,14 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.answerRadioButton("yes")
       registration.checkJourneyUrl("eu-tax/2")
       registration.selectCountry("Italy")
-      registration.checkJourneyUrl("eu-fixed-establishment-address/1")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/2")
       registration.enterFETradingName("Roma Trading")
       registration.enterFixedEstablishmentAddress("12 Piazza del Popolo", "", "Rome", "", "00187")
       registration.checkJourneyUrl("registration-tax-type/2")
       registration.selectRegistrationType("tax id number")
       registration.checkJourneyUrl("eu-tax-identification-number/2")
       registration.enterAnswer("ITA8888")
-      registration.checkJourneyUrl("check-tax-details")
+      registration.checkJourneyUrl("check-tax-details/2")
       registration.continue()
       registration.checkJourneyUrl("add-tax-details")
       registration.answerRadioButton("no")
@@ -682,7 +681,7 @@ class ChangeAnswersSpec extends BaseSpec {
       )
       registration.checkJourneyUrl("check-your-answers")
       registration.selectChangeOrRemoveLink(
-        "\\?waypoints\\=check-your-answers"
+        "eu-fixed-establishment\\?waypoints\\=check-your-answers"
       )
 
       And("the intermediary changes the answer to no on the eu-fixed-establishment page")
