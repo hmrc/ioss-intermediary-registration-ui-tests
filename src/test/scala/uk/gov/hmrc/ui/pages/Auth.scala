@@ -25,7 +25,7 @@ object Auth extends BasePage {
   private val authUrl: String         = TestEnvironment.url("auth-login-stub") + "/auth-login-stub/gg-sign-in"
   private val registrationUrl: String =
     TestEnvironment.url("ioss-intermediary-registration-frontend")
-  private val journeyUrl: String      = "/intermediary-ioss"
+  private val journeyUrl: String      = "/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary"
 
   def goToAuthorityWizard(): Unit =
     get(authUrl)
