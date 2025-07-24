@@ -24,13 +24,13 @@ object EmailVerification extends BasePage {
   def completeEmailVerification(): Unit = {
     val journeyId = getCurrentUrl.split("/")(5)
     get(
-      "http://localhost:10184/intermediary-ioss/test-only/get-passcodes"
+      "http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/test-only/get-passcodes"
     )
 
     val passcode = Driver.instance.findElement(By.tagName("body")).getText.split(">")(3).dropRight(3)
 
     get(
-      s"http://localhost:9890/email-verification/journey/$journeyId/passcode?continueUrl=http://localhost:10184/intermediary-ioss/bank-account-details&origin=IOSS-Intermediary"
+      s"http://localhost:9890/email-verification/journey/$journeyId/passcode?continueUrl=http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/bank-account-details&origin=IOSS-Intermediary"
     )
     Driver.instance.findElement(By.id("passcode")).sendKeys(passcode)
     Driver.instance.findElement(By.className("govuk-button")).click()
