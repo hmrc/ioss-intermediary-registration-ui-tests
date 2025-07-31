@@ -18,26 +18,19 @@ package uk.gov.hmrc.ui.specs
 
 import uk.gov.hmrc.ui.pages.{Auth, Registration}
 
-class AdditionalRegistrationSpec extends BaseSpec {
+class AmendRegistrationSpec extends BaseSpec {
 
   private val registration = Registration
   private val auth         = Auth
 
-  Feature("Additional registration journeys") {
+  Feature("Amend registration journeys") {
 
-    Scenario("Agent can access the IOSS Intermediary Registration Service") {
+    Scenario("Intermediary can access the amend registration journey") {
 
-      Given("the intermediary accesses the IOSS Intermediary Registration Service as an Agent")
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Agent", "vatOnly", "registration")
-      registration.checkJourneyUrl("ioss-intermediary-registered")
-
-      When("the intermediary navigates through the filter question pages")
-      registration.initialSteps()
-
-      Then("the intermediary has access to the confirm-vat-details page")
-      registration.checkJourneyUrl("confirm-vat-details")
-      registration.checkVatDetailsPage()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "amend")
+      registration.checkJourneyUrl("change-your-registration")
 
     }
   }

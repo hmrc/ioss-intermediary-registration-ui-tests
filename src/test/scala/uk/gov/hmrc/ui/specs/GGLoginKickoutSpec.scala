@@ -29,7 +29,7 @@ class GGLoginKickoutSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service with no VAT enrolment")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("None", "Organisation", "noVat")
+      auth.loginUsingAuthorityWizard("None", "Organisation", "noVat", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
@@ -45,7 +45,7 @@ class GGLoginKickoutSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service with an IOSS intermediary enrolment")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossInt")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossInt", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
@@ -59,7 +59,7 @@ class GGLoginKickoutSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service with an expired VRN")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("700000004", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("700000004", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
