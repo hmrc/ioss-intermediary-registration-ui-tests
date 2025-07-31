@@ -29,6 +29,8 @@ object Registration extends BasePage {
     TestEnvironment.url("ioss-intermediary-registration-frontend")
   private val journeyUrl: String      = "/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary"
 
+  private val email = EmailVerification
+
   def goToRegistrationJourney(): Unit =
     get(registrationUrl + journeyUrl)
 
@@ -188,5 +190,30 @@ object Registration extends BasePage {
       for (n <- input)
         Driver.instance.findElement(By.id("value")).sendKeys(Keys.BACK_SPACE)
     }
+  }
+
+  def submitMinimalRegistration(): Unit = {
+    answerRadioButton("no")
+    checkJourneyUrl("registered-for-vat-in-uk")
+    answerRadioButton("yes")
+    checkJourneyUrl("ni-or-eu-based")
+    answerRadioButton("yes")
+    checkJourneyUrl("register-to-use-service")
+    continue()
+    checkJourneyUrl("confirm-vat-details")
+    answerVatDetailsChoice("Yes")
+    checkJourneyUrl("have-uk-trading-name")
+    answerRadioButton("no")
+    checkJourneyUrl("has-previously-registered-as-intermediary")
+    answerRadioButton("no")
+    checkJourneyUrl("eu-fixed-establishment")
+    answerRadioButton("no")
+    checkJourneyUrl("contact-details")
+    fillContactDetails("Example Name", "24242424234", "test-name@email.co.uk")
+    email.completeEmailVerification()
+    checkJourneyUrl("bank-account-details")
+    fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
+    checkJourneyUrl("check-your-answers")
+    submit()
   }
 }
