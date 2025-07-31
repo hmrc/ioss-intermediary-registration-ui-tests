@@ -29,6 +29,10 @@ object Registration extends BasePage {
     TestEnvironment.url("ioss-intermediary-registration-frontend")
   private val journeyUrl: String      = "/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary"
 
+  private val dashboardUrl: String        =
+    TestEnvironment.url("ioss-intermediary-dashboard-frontend")
+  private val dashboardJourneyUrl: String = "/pay-clients-vat-on-eu-sales/manage-ioss-returns-payments-clients"
+
   private val email = EmailVerification
 
   def goToRegistrationJourney(): Unit =
@@ -36,6 +40,9 @@ object Registration extends BasePage {
 
   def checkJourneyUrl(page: String): Unit =
     getCurrentUrl should startWith(s"$registrationUrl$journeyUrl/$page")
+
+  def checkDashboardJourneyUrl(page: String): Unit =
+    getCurrentUrl should startWith(s"$dashboardUrl$dashboardJourneyUrl/$page")
 
   def answerRadioButton(answer: String): Unit = {
 
@@ -216,4 +223,7 @@ object Registration extends BasePage {
     checkJourneyUrl("check-your-answers")
     submit()
   }
+
+  def clickLink(link: String): Unit =
+    click(By.id(link))
 }

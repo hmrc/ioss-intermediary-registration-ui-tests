@@ -29,7 +29,7 @@ class CoreValidationSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("333333333", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("333333333", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
       registration.initialSteps()
 
@@ -41,7 +41,7 @@ class CoreValidationSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("333333334", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("333333334", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
       registration.initialSteps()
 
@@ -55,7 +55,7 @@ class CoreValidationSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
       registration.initialSteps()
       registration.checkJourneyUrl("confirm-vat-details")
@@ -81,7 +81,7 @@ class CoreValidationSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
       registration.initialSteps()
       registration.checkJourneyUrl("confirm-vat-details")
@@ -107,7 +107,7 @@ class CoreValidationSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
       registration.initialSteps()
       registration.checkJourneyUrl("confirm-vat-details")
@@ -142,7 +142,7 @@ class CoreValidationSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
       registration.initialSteps()
       registration.checkJourneyUrl("confirm-vat-details")
@@ -177,7 +177,7 @@ class CoreValidationSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
       registration.initialSteps()
       registration.checkJourneyUrl("confirm-vat-details")
@@ -212,7 +212,7 @@ class CoreValidationSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
       registration.initialSteps()
       registration.checkJourneyUrl("confirm-vat-details")

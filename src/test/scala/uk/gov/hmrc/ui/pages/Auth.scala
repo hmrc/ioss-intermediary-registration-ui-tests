@@ -33,11 +33,15 @@ object Auth extends BasePage {
   def checkAuthUrl(): Unit =
     getCurrentUrl should startWith(authUrl)
 
-  def loginUsingAuthorityWizard(vrn: String, affinityGroup: String, enrolmentType: String): Unit = {
+  def loginUsingAuthorityWizard(vrn: String, affinityGroup: String, enrolmentType: String, journey: String): Unit = {
 
     getCurrentUrl should startWith(authUrl)
 
-    sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl")
+    if (journey == "amend") {
+      sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl/start-amend-journey")
+    } else {
+      sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl")
+    }
 
     if (affinityGroup == "Agent") {
       selectByValue(By.id("affinityGroupSelect"), "Agent")
@@ -57,8 +61,8 @@ object Auth extends BasePage {
 
     if (enrolmentType == "vatAndIossInt") {
       sendKeys(By.id("enrolment[1].name"), "HMRC-IOSS-INT")
-      sendKeys(By.id("input-1-0-name"), "IOSSNumber")
-      sendKeys(By.id("input-1-0-value"), "IM9001234567")
+      sendKeys(By.id("input-1-0-name"), "IntNumber")
+      sendKeys(By.id("input-1-0-value"), "IN9001234567")
     }
 
     click(By.cssSelector("Input[value='Submit']"))

@@ -29,7 +29,7 @@ class VatDetailsSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
@@ -45,7 +45,7 @@ class VatDetailsSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
@@ -61,7 +61,7 @@ class VatDetailsSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("900000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("900000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
@@ -75,7 +75,7 @@ class VatDetailsSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("800000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("800000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
@@ -89,7 +89,7 @@ class VatDetailsSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("700000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("700000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
@@ -105,7 +105,7 @@ class VatDetailsSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service as an Individual")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("700000002", "Individual", "vatOnly")
+      auth.loginUsingAuthorityWizard("700000002", "Individual", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")

@@ -30,7 +30,7 @@ class ChangeAnswersSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary answers the initial filter questions")
@@ -316,7 +316,7 @@ class ChangeAnswersSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       And("the intermediary adds all of the initial registration answers")
@@ -407,7 +407,7 @@ class ChangeAnswersSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       And("the intermediary adds all of the initial registration answers")
@@ -521,7 +521,7 @@ class ChangeAnswersSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       And("the intermediary adds answers all the way through to the check-your-answers page")
@@ -572,7 +572,7 @@ class ChangeAnswersSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       And("the intermediary adds answers all the way through to the check-your-answers page")
@@ -631,7 +631,7 @@ class ChangeAnswersSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       And("the intermediary adds answers all the way through to the check-your-answers page")
