@@ -32,7 +32,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
         "the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details"
       )
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
@@ -61,7 +61,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
         "the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details"
       )
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
@@ -111,7 +111,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
         "the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details"
       )
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
@@ -159,7 +159,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
         "the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details"
       )
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
