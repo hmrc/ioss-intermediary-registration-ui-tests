@@ -149,10 +149,8 @@ object Registration extends BasePage {
     Assert.assertTrue(body.contains("Name first middle last"))
   }
 
-  def updateField(id: String, text: String): Unit = {
+  def updateField(id: String, text: String): Unit =
     sendKeys(By.id(id), text)
-    click(continueButton)
-  }
 
   def checkPrincipalPlaceOfBusiness(shouldBeDisplayed: Boolean): Unit = {
     val body        = Driver.instance.findElement(By.tagName("body")).getText

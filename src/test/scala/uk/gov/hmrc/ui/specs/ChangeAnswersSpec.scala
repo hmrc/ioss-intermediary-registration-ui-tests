@@ -388,6 +388,7 @@ class ChangeAnswersSpec extends BaseSpec {
       )
       registration.checkJourneyUrl("contact-details?waypoints=check-your-answers")
       registration.updateField("fullName", "New Test Name")
+      registration.continue()
 
       Then("the intermediary changes some of their bank details")
       registration.checkJourneyUrl("check-your-answers")
@@ -396,6 +397,7 @@ class ChangeAnswersSpec extends BaseSpec {
       )
       registration.checkJourneyUrl("bank-account-details?waypoints=check-your-answers")
       registration.updateField("iban", "GB91BKEN10000041610008")
+      registration.continue()
 
       Then("the intermediary successfully submits their registration")
       registration.checkJourneyUrl("check-your-answers")
@@ -502,6 +504,7 @@ class ChangeAnswersSpec extends BaseSpec {
       )
       registration.checkJourneyUrl("contact-details?waypoints=check-your-answers")
       registration.updateField("telephoneNumber", "+447778889991")
+      registration.continue()
 
       Then("the intermediary changes some of their bank details")
       registration.checkJourneyUrl("check-your-answers")
@@ -510,6 +513,7 @@ class ChangeAnswersSpec extends BaseSpec {
       )
       registration.checkJourneyUrl("bank-account-details?waypoints=check-your-answers")
       registration.updateField("accountName", "New Bank-Account Name")
+      registration.continue()
 
       Then("the intermediary successfully submits their registration")
       registration.checkJourneyUrl("check-your-answers")
