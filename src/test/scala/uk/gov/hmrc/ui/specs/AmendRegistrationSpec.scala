@@ -16,12 +16,13 @@
 
 package uk.gov.hmrc.ui.specs
 
-import uk.gov.hmrc.ui.pages.{Auth, Registration}
+import uk.gov.hmrc.ui.pages.{Auth, EmailVerification, Registration}
 
 class AmendRegistrationSpec extends BaseSpec {
 
   private val registration = Registration
   private val auth         = Auth
+  private val email        = EmailVerification
 
   Feature("Amend registration journeys") {
 
@@ -95,6 +96,44 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("change-your-registration")
       registration.submit()
       registration.checkJourneyUrl("successful-amend")
+    }
+
+    Scenario("Intermediary can amend their bank and contact details") {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossInt", "amend")
+      registration.checkJourneyUrl("change-your-registration")
+
+      When("the intermediary clicks change for contact details")
+      registration.selectChangeOrRemoveLink(
+        "contact-details\\?waypoints\\=change-your-registration"
+      )
+
+      Then("the intermediary can update their name and email address")
+      registration.checkJourneyUrl("contact-details")
+      registration.updateField("fullName", "Amended Test Name")
+      registration.updateField("emailAddress", "amend-test@email.com")
+      registration.continue()
+      email.completeEmailVerification()
+      registration.checkJourneyUrl("change-your-registration")
+
+      When("the intermediary clicks change for bank details")
+      registration.selectChangeOrRemoveLink(
+        "bank-account-details\\?waypoints\\=change-your-registration"
+      )
+
+      Then("the intermediary can update their IBAN and remove their BIC code")
+      registration.checkJourneyUrl("bank-account-details")
+      registration.updateField("bic", "")
+      registration.updateField("iban", "GB91BKEN10000041610008")
+      registration.continue()
+
+      Then("the intermediary can submit their amended registration")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
     }
 
 //    Extra scenarios to add when view registration API is implemented
