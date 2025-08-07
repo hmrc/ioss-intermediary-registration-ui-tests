@@ -32,6 +32,26 @@ class AmendRegistrationSpec extends BaseSpec {
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossInt", "amend")
       registration.checkJourneyUrl("change-your-registration")
 
+      When("the intermediary clicks change for Have a different UK trading name")
+      registration.selectChangeOrRemoveLink(
+        "have-uk-trading-name\\?waypoints\\=change-your-registration"
+      )
+
+      And("the intermediary selects yes on the have-uk-trading-name page")
+      registration.checkJourneyUrl("have-uk-trading-name?waypoints=change-your-registration")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary adds two trading names")
+      registration.checkJourneyUrl("uk-trading-name/1?waypoints=add-uk-trading-name%2Cchange-your-registration")
+      registration.enterAnswer("first amend trading name")
+      registration.checkJourneyUrl("add-uk-trading-name?waypoints=change-your-registration")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("uk-trading-name/2?waypoints=add-uk-trading-name%2Cchange-your-registration")
+      registration.enterAnswer("amend trading 2!")
+      registration.checkJourneyUrl("add-uk-trading-name?waypoints=change-your-registration")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("change-your-registration")
+
       When("the intermediary clicks change for Fixed establishments in other countries")
       registration.selectChangeOrRemoveLink(
         "eu-fixed-establishment\\?waypoints\\=change-your-registration"
@@ -79,9 +99,9 @@ class AmendRegistrationSpec extends BaseSpec {
 
 //    Extra scenarios to add when view registration API is implemented
     // Scenario("Intermediary removes all answers for a section when amending their registration - changing answers from yes to no")
-//        - add for EU tax details
+//        - add for EU tax details, trading names
     // Scenario("Intermediary can amend and remove individual details from their existing registration answers")
-//          - add for EU tax details
+//          - add for EU tax details, trading names
 
     Scenario("Intermediary can cancel their amended registration") {
 
