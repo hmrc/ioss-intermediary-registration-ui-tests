@@ -89,7 +89,8 @@ class SaveForLaterSpec extends BaseSpec {
       When("the intermediary selects the continue to complete your registration link")
       registration.clickLink("continueToYourRegistration")
 
-      Then("the intermediary is back to the registration journey and  enters registration number for Austria on previous-intermediary-registration-number/2 page"
+      Then(
+        "the intermediary is back to the registration journey and  enters registration number for Austria on previous-intermediary-registration-number/2 page"
       )
       registration.checkJourneyUrl("previous-intermediary-registration-number/2")
       registration.enterAnswer("IN0561234567")
@@ -220,7 +221,6 @@ class SaveForLaterSpec extends BaseSpec {
       registration.checkJourneyUrl("successful")
     }
 
-
     Scenario("Intermediary can access their saved registration via their government gateway login and complete it") {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
@@ -328,7 +328,9 @@ class SaveForLaterSpec extends BaseSpec {
       registration.checkJourneyUrl("successful")
     }
 
-    Scenario("Intermediary can access their saved registration via their government gateway login, delete it and start again") {
+    Scenario(
+      "Intermediary can access their saved registration via their government gateway login, delete it and start again"
+    ) {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -422,10 +424,5 @@ class SaveForLaterSpec extends BaseSpec {
       Then("the intermediary is on the no-registration-in-progress page")
       registration.checkJourneyUrl("no-registration-in-progress")
     }
-
-
-
-    //NI vat details scenario
-    //Submission failure save
   }
 }

@@ -39,7 +39,7 @@ class RegistrationFailureSpec extends BaseSpec {
       registration.checkJourneyUrl("error-submitting-registration")
     }
 
-    Scenario("Enrolment failure on submission of registration") {
+    Scenario("Enrolment failure on submission of registration and returning to saved registration") {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -50,6 +50,20 @@ class RegistrationFailureSpec extends BaseSpec {
       registration.submitMinimalRegistration()
 
       Then("the intermediary is on the error-submitting-registration page")
+      registration.checkJourneyUrl("error-submitting-registration")
+
+      Given("the intermediary logs into IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("666000003", "Organisation", "vatOnly", "savedRegistration")
+
+      Then("the intermediary is on the continue-registration page")
+      registration.checkJourneyUrl("continue-registration")
+
+      And("the intermediary selects yes to continue with their saved registration")
+      registration.clickLink("continueProgress")
+      registration.continue()
+      registration.checkJourneyUrl("check-your-answers")
+      registration.submit()
       registration.checkJourneyUrl("error-submitting-registration")
     }
   }

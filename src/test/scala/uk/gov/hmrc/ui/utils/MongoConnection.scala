@@ -36,7 +36,7 @@ object MongoConnection {
 
   def insert(source: List[String], database: String, collection: String): Unit =
     try {
-      val db = mongoClient.getDatabase(database)
+      val db  = mongoClient.getDatabase(database)
       val col = db.getCollection(collection)
       source.map { e =>
         val doc = Document(e)
@@ -50,14 +50,15 @@ object MongoConnection {
     }
 
   def dropRecord(db: String, collection: String, vrn: String): Unit =
-    try Await.result(
-      mongoClient
-        .getDatabase(db)
-        .getCollection(collection)
-        .deleteMany(filter = Filters.equal("vrn", vrn))
-        .head(),
-      timeout
-    )
+    try
+      Await.result(
+        mongoClient
+          .getDatabase(db)
+          .getCollection(collection)
+          .deleteMany(filter = Filters.equal("vrn", vrn))
+          .head(),
+        timeout
+      )
     catch {
       case e: Exception => println("Error: " + e)
     }
