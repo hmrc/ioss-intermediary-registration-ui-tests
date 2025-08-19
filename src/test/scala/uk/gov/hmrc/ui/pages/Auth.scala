@@ -19,6 +19,7 @@ package uk.gov.hmrc.ui.pages
 import org.openqa.selenium.By
 import org.scalatest.matchers.should.Matchers.*
 import uk.gov.hmrc.configuration.TestEnvironment
+import scala.util.Random
 
 object Auth extends BasePage {
 
@@ -26,6 +27,8 @@ object Auth extends BasePage {
   private val registrationUrl: String =
     TestEnvironment.url("ioss-intermediary-registration-frontend")
   private val journeyUrl: String      = "/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary"
+
+  var credId: String = "1234123412341234"
 
   def goToAuthorityWizard(): Unit =
     get(authUrl)
@@ -39,8 +42,17 @@ object Auth extends BasePage {
 
     if (journey == "amend") {
       sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl/start-amend-journey")
+    } else if (journey == "savedRegistration" || journey == "registrationFailureSave") {
+      sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl/continue-on-sign-in")
     } else {
       sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl")
+    }
+
+    if (journey == "registrationFailure") {
+      generateCredId()
+      sendKeys(By.name("authorityId"), retrieveCredId())
+    } else if (journey == "registrationFailureSave") {
+      sendKeys(By.name("authorityId"), retrieveCredId())
     }
 
     if (affinityGroup == "Agent") {
@@ -68,5 +80,11 @@ object Auth extends BasePage {
     click(By.cssSelector("Input[value='Submit']"))
 
   }
+
+  def retrieveCredId(): String =
+    credId
+
+  def generateCredId(): Unit =
+    credId = Random.between(1000000000000000L, 9000000000000000L).toString
 
 }

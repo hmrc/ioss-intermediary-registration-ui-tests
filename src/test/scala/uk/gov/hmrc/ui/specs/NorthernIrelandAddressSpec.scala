@@ -32,7 +32,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
         "the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details"
       )
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly", "registration")
+      auth.loginUsingAuthorityWizard("700000005", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
@@ -61,7 +61,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
         "the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details"
       )
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly", "registration")
+      auth.loginUsingAuthorityWizard("700000005", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
@@ -72,7 +72,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.checkJourneyUrl("confirm-vat-details")
       registration.answerVatDetailsChoice("Yes")
 
-      When("the intermediary enters a non-NI poscode on the ni-address page")
+      When("the intermediary enters an NI postcode on the ni-address page")
       registration.checkJourneyUrl("ni-address")
       registration.enterNiAddress("123 Street Name", "", "Belfast", "", "BT1 1AB")
 
@@ -111,7 +111,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
         "the intermediary accesses the IOSS Intermediary Registration Service with a non-NI postcode in VAT details"
       )
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly", "registration")
+      auth.loginUsingAuthorityWizard("700000005", "Organisation", "vatOnly", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")
@@ -121,7 +121,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.checkJourneyUrl("confirm-vat-details")
       registration.answerVatDetailsChoice("Yes")
 
-      When("the intermediary enters a non-NI poscode on the ni-address page")
+      When("the intermediary enters an NI postcode on the ni-address page")
       registration.checkJourneyUrl("ni-address")
       registration.enterNiAddress("123 Street Name", "", "Belfast", "", "BT1 1AB")
 
@@ -195,6 +195,86 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       Then("the intermediary successfully submits their registration")
       registration.submit()
       registration.checkJourneyUrl("successful")
+    }
+
+    Scenario(
+      "Intermediary with NI address saves registration and returns later with a non-NI postcode in their VAT details"
+    ) {
+
+      Given("the intermediary logs into the service with a previously saved registration")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly", "savedRegistration")
+
+      Then("the intermediary is on the continue-registration page")
+      registration.checkJourneyUrl("continue-registration")
+
+      And("the intermediary selects yes to continue with their saved registration")
+      registration.clickLink("continueProgress")
+      registration.continue()
+
+      When("the intermediary completes the rest of the registration")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("eu-fixed-establishment")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("contact-details")
+      registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
+      email.completeEmailVerification()
+      registration.checkJourneyUrl("bank-account-details")
+      registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
+
+      Then("the intermediary will be required to provide a new address via the check-your-answers page")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.submit()
+
+      And("the intermediary enters an NI postcode on the ni-address page")
+      registration.checkJourneyUrl("ni-address")
+      registration.enterNiAddress("123 Street Name", "", "Belfast", "", "BT1 1AB")
+
+      When("the intermediary submits the registration on the check-your-answers page")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.submit()
+
+      Then("the intermediary is on the successful submission page")
+      registration.checkJourneyUrl("successful")
+    }
+
+    Scenario(
+      "Intermediary with NI address saves registration and returns later with a non-NI postcode in their VAT details and cannot progress without an NI address"
+    ) {
+
+      Given("the intermediary logs into the service with a previously saved registration")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "vatOnly", "savedRegistration")
+
+      Then("the intermediary is on the continue-registration page")
+      registration.checkJourneyUrl("continue-registration")
+
+      And("the intermediary selects yes to continue with their saved registration")
+      registration.clickLink("continueProgress")
+      registration.continue()
+
+      When("the intermediary completes the rest of the registration")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("eu-fixed-establishment")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("contact-details")
+      registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
+      email.completeEmailVerification()
+      registration.checkJourneyUrl("bank-account-details")
+      registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
+
+      Then("the intermediary will be required to provide a new address via the check-your-answers page")
+      registration.checkJourneyUrl("check-your-answers")
+      registration.submit()
+
+      And("the intermediary enters a non-NI postcode on the ni-address page")
+      registration.checkJourneyUrl("ni-address")
+      registration.enterNiAddress("123 Street Name", "", "Town", "", "AA1 1AA")
+
+      Then("the intermediary is on the cannot-register-not-ni-based-business page")
+      registration.checkJourneyUrl("cannot-register-not-ni-based-business")
     }
   }
 }
