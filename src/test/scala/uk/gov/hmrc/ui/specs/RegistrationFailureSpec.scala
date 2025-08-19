@@ -43,7 +43,7 @@ class RegistrationFailureSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("666000003", "Organisation", "vatOnly", "registration")
+      auth.loginUsingAuthorityWizard("666000003", "Organisation", "vatOnly", "registrationFailure")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary completes the all of the registration answers and submits")
@@ -54,7 +54,7 @@ class RegistrationFailureSpec extends BaseSpec {
 
       Given("the intermediary logs into IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("666000003", "Organisation", "vatOnly", "savedRegistration")
+      auth.loginUsingAuthorityWizard("666000003", "Organisation", "vatOnly", "registrationFailureSave")
 
       Then("the intermediary is on the continue-registration page")
       registration.checkJourneyUrl("continue-registration")

@@ -65,8 +65,15 @@ object MongoConnection {
 
   def dropSavedAnswers(): Unit = {
     dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "100000001")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "900000001")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "800000001")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "700000001")
     dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "666000001")
     dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "666000003")
     dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "700000003")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "700000004")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "700000005")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "333333333")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "333333334")
   }
 }

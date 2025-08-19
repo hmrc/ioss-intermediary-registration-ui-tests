@@ -42,12 +42,17 @@ object Auth extends BasePage {
 
     if (journey == "amend") {
       sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl/start-amend-journey")
-    } else if (journey == "savedRegistration") {
-      sendKeys(By.id("authorityId"), credId)
+    } else if (journey == "savedRegistration" || journey == "registrationFailureSave") {
       sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl/continue-on-sign-in")
     } else {
-      sendKeys(By.id("authorityId"), retrieveCredId())
       sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl")
+    }
+
+    if (journey == "registrationFailure") {
+      generateCredId()
+      sendKeys(By.name("authorityId"), retrieveCredId())
+    } else if (journey == "registrationFailureSave") {
+      sendKeys(By.name("authorityId"), retrieveCredId())
     }
 
     if (affinityGroup == "Agent") {
