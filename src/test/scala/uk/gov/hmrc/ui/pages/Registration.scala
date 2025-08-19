@@ -224,4 +224,7 @@ object Registration extends BasePage {
 
   def clickLink(link: String): Unit =
     click(By.id(link))
+
+  def saveAndComeBackLater(): Unit =
+    click(By.id("saveProgress"))
 }

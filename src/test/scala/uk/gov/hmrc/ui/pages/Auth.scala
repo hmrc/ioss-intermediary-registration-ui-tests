@@ -39,6 +39,8 @@ object Auth extends BasePage {
 
     if (journey == "amend") {
       sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl/start-amend-journey")
+    } else if (journey == "savedRegistration") {
+      sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl/continue-on-sign-in")
     } else {
       sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl")
     }
