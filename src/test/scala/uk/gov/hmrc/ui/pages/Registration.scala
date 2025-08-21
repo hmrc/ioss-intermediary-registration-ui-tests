@@ -17,7 +17,6 @@
 package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.{By, Keys}
-import org.scalatest.matchers.should.Matchers.*
 import uk.gov.hmrc.configuration.TestEnvironment
 import uk.gov.hmrc.selenium.webdriver.Driver
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait}
@@ -39,10 +38,10 @@ object Registration extends BasePage {
     get(registrationUrl + journeyUrl)
 
   def checkJourneyUrl(page: String): Unit =
-    getCurrentUrl should startWith(s"$registrationUrl$journeyUrl/$page")
+    fluentWait.until(_.getCurrentUrl.startsWith(s"$registrationUrl$journeyUrl/$page"))
 
   def checkDashboardJourneyUrl(page: String): Unit =
-    getCurrentUrl should startWith(s"$dashboardUrl$dashboardJourneyUrl/$page")
+    fluentWait.until(_.getCurrentUrl.startsWith(s"$dashboardUrl$dashboardJourneyUrl/$page"))
 
   def answerRadioButton(answer: String): Unit = {
 

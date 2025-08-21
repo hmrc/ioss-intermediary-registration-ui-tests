@@ -153,6 +153,7 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.clickLink("cancel")
 
       And("the intermediary selects yes on the cancel-amend-registration page")
+      registration.checkJourneyUrl("cancel-amend-registration")
       registration.answerRadioButton("yes")
 
       Then("the intermediary is redirected to the Intermediary dashboard service")
