@@ -53,6 +53,7 @@ class SaveForLaterSpec extends BaseSpec {
       registration.answerRadioButton("yes")
       registration.checkJourneyUrl("uk-trading-name/2")
       registration.enterAnswer("second saved trading name")
+      registration.checkJourneyUrl("add-uk-trading-name")
 
       When("the intermediary selects the save and come back later button")
       registration.saveAndComeBackLater()
@@ -79,6 +80,7 @@ class SaveForLaterSpec extends BaseSpec {
       registration.answerRadioButton("yes")
       registration.checkJourneyUrl("previous-eu-country/2")
       registration.selectCountry("Belgium")
+      registration.checkJourneyUrl("previous-intermediary-registration-number/2")
 
       When("the intermediary selects the save and come back later button")
       registration.saveAndComeBackLater()
@@ -95,8 +97,8 @@ class SaveForLaterSpec extends BaseSpec {
       registration.checkJourneyUrl("previous-intermediary-registration-number/2")
       registration.enterAnswer("IN0561234567")
       registration.checkJourneyUrl("add-previous-intermediary-registration")
-      registration.checkJourneyUrl("add-previous-intermediary-registration")
       registration.answerRadioButton("no")
+      registration.checkJourneyUrl("eu-fixed-establishment")
 
       When("the intermediary selects the save and come back later button")
       registration.saveAndComeBackLater()
@@ -118,6 +120,7 @@ class SaveForLaterSpec extends BaseSpec {
       registration.selectCountry("Denmark")
       registration.checkJourneyUrl("eu-fixed-establishment-address/1")
       registration.enterFETradingName("Danish Company")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/1")
 
       When("the intermediary selects the save and come back later button")
       registration.saveAndComeBackLater()
@@ -129,10 +132,12 @@ class SaveForLaterSpec extends BaseSpec {
       registration.clickLink("continueToYourRegistration")
 
       Then("the intermediary continues to add fixed establishment data")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/1")
       registration.enterFETradingName("Danish Company")
       registration.enterFixedEstablishmentAddress("1 Street Name", "", "Copenhagen", "", "DK123456")
       registration.checkJourneyUrl("registration-tax-type/1")
       registration.selectRegistrationType("vat number")
+      registration.checkJourneyUrl("eu-vat-number/1")
 
       When("the intermediary selects the save and come back later button")
       registration.saveAndComeBackLater()
@@ -157,6 +162,7 @@ class SaveForLaterSpec extends BaseSpec {
       registration.enterFixedEstablishmentAddress("1 Street Name", "", "Koper", "", "")
       registration.checkJourneyUrl("registration-tax-type/2")
       registration.selectRegistrationType("tax id number")
+      registration.checkJourneyUrl("eu-tax-identification-number/2")
 
       When("the intermediary selects the save and come back later button")
       registration.saveAndComeBackLater()
@@ -174,6 +180,7 @@ class SaveForLaterSpec extends BaseSpec {
       registration.continue()
       registration.checkJourneyUrl("add-tax-details")
       registration.answerRadioButton("no")
+      registration.checkJourneyUrl("contact-details")
 
       When("the intermediary selects the save and come back later button")
       registration.saveAndComeBackLater()
@@ -190,6 +197,7 @@ class SaveForLaterSpec extends BaseSpec {
 
       Then("the intermediary completes the email verification process")
       email.completeEmailVerification()
+      registration.checkJourneyUrl("bank-account-details")
 
       When("the intermediary selects the save and come back later button")
       registration.saveAndComeBackLater()
@@ -203,6 +211,7 @@ class SaveForLaterSpec extends BaseSpec {
       Then("the intermediary enters bank or building society account details on bank-account-details page")
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
+      registration.checkJourneyUrl("check-your-answers")
 
       When("the intermediary selects the save and come back later button")
       registration.saveAndComeBackLater()
@@ -273,6 +282,7 @@ class SaveForLaterSpec extends BaseSpec {
       registration.enterFixedEstablishmentAddress("1 Street Name", "", "Copenhagen", "", "DK123456")
       registration.checkJourneyUrl("registration-tax-type/1")
       registration.selectRegistrationType("vat number")
+      registration.checkJourneyUrl("eu-vat-number/1")
 
       When("the intermediary selects the save and come back later button")
       registration.saveAndComeBackLater()
@@ -390,6 +400,7 @@ class SaveForLaterSpec extends BaseSpec {
       registration.answerRadioButton("yes")
       registration.checkJourneyUrl("eu-tax/2")
       registration.selectCountry("Slovenia")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/2")
 
       When("the intermediary selects the save and come back later button")
       registration.saveAndComeBackLater()
@@ -412,6 +423,7 @@ class SaveForLaterSpec extends BaseSpec {
       registration.continue()
 
       And("the intermediary can start their registration from scratch and submit it successfully")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
       registration.submitMinimalRegistration()
     }
 

@@ -68,8 +68,8 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.initialSteps()
 
       Then("the intermediary selects yes on the confirm-vat-details page")
-      registration.checkPrincipalPlaceOfBusiness(false)
       registration.checkJourneyUrl("confirm-vat-details")
+      registration.checkPrincipalPlaceOfBusiness(false)
       registration.answerVatDetailsChoice("Yes")
 
       When("the intermediary enters an NI postcode on the ni-address page")
