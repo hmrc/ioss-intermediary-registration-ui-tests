@@ -16,20 +16,12 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.support.ui.{FluentWait, Wait}
-import org.openqa.selenium.{By, WebDriver}
+import org.openqa.selenium.By
 import uk.gov.hmrc.selenium.component.PageObject
-import uk.gov.hmrc.selenium.webdriver.Driver
-
-import java.time.Duration
 
 trait BasePage extends PageObject {
 
   protected val continueButton: By = By.id("continue")
   protected val submitButton: By   = By.id("submit")
-
-  def fluentWait: Wait[WebDriver] = new FluentWait[WebDriver](Driver.instance)
-    .withTimeout(Duration.ofSeconds(3))
-    .pollingEvery(Duration.ofSeconds(1))
 
 }

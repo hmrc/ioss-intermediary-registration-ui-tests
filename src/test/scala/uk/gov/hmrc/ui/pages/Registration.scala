@@ -38,10 +38,10 @@ object Registration extends BasePage {
     get(registrationUrl + journeyUrl)
 
   def checkJourneyUrl(page: String): Unit =
-    fluentWait.until(_.getCurrentUrl.startsWith(s"$registrationUrl$journeyUrl/$page"))
+    getCurrentUrl.startsWith(s"$registrationUrl$journeyUrl/$page")
 
   def checkDashboardJourneyUrl(page: String): Unit =
-    fluentWait.until(_.getCurrentUrl.startsWith(s"$dashboardUrl$dashboardJourneyUrl/$page"))
+    getCurrentUrl.startsWith(s"$dashboardUrl$dashboardJourneyUrl/$page")
 
   def answerRadioButton(answer: String): Unit = {
 

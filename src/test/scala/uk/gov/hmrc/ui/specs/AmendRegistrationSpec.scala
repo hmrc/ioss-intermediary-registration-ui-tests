@@ -160,5 +160,17 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.checkDashboardJourneyUrl("your-account")
 
     }
+
+    Scenario("Cannot access amend journey without being registered for Intermediary Registration service") {
+
+      Given(
+        "the user accesses the amend journey within IOSS Intermediary Registration Service without an Intermediary enrolment"
+      )
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "amend")
+
+      Then("the user is on the cannot-use-not-registered page")
+      registration.checkJourneyUrl("cannot-use-not-registered")
+    }
   }
 }

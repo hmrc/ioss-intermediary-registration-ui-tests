@@ -17,26 +17,22 @@
 package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.By
-import org.openqa.selenium.support.ui.ExpectedConditions
 import uk.gov.hmrc.selenium.webdriver.Driver
 
 object EmailVerification extends BasePage {
 
   def completeEmailVerification(): Unit = {
-    fluentWait.until(ExpectedConditions.urlContains("email-verification"))
 
     val journeyId   = getCurrentUrl.split("/")(5)
     val testOnlyUrl =
       "http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/test-only/get-passcodes"
     get(testOnlyUrl)
-    fluentWait.until(ExpectedConditions.urlContains(testOnlyUrl))
 
     val passcode = Driver.instance.findElement(By.tagName("body")).getText.split(">")(3).dropRight(3)
 
     val emailVerificationUrl =
       s"http://localhost:9890/email-verification/journey/$journeyId/passcode?continueUrl=http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/bank-account-details&origin=IOSS-Intermediary"
     get(emailVerificationUrl)
-    fluentWait.until(ExpectedConditions.urlContains(emailVerificationUrl))
 
     Driver.instance.findElement(By.id("passcode")).sendKeys(passcode)
     Driver.instance.findElement(By.className("govuk-button")).click()
