@@ -226,4 +226,5 @@ object Registration extends BasePage {
 
   def saveAndComeBackLater(): Unit =
     click(By.id("saveProgress"))
+
 }
