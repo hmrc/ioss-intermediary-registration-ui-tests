@@ -53,6 +53,8 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("change-your-registration")
 
+      // add in previous registrations when implemented in VEI-164
+
       When("the intermediary clicks change for Fixed establishments in other countries")
       registration.selectChangeOrRemoveLink(
         "eu-fixed-establishment\\?waypoints\\=change-your-registration"
@@ -136,11 +138,152 @@ class AmendRegistrationSpec extends BaseSpec {
 
     }
 
-//    Extra scenarios to add when view registration API is implemented
-    // Scenario("Intermediary removes all answers for a section when amending their registration - changing answers from yes to no")
-//        - add for EU tax details, trading names
-    // Scenario("Intermediary can amend and remove individual details from their existing registration answers")
-//          - add for EU tax details, trading names
+    Scenario(
+      "Intermediary can remove all trading names and fixed establishments from their registration - changing answers from yes to no"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossIntAmendAnswers", "amend")
+      registration.checkJourneyUrl("change-your-registration")
+
+      When("the intermediary clicks change for Have a different UK trading name")
+      registration.selectChangeOrRemoveLink(
+        "have-uk-trading-name\\?waypoints\\=change-your-registration"
+      )
+
+      And("the intermediary selects no on the have-uk-trading-name page")
+      registration.checkJourneyUrl("have-uk-trading-name?waypoints=change-your-registration")
+      registration.answerRadioButton("no")
+
+      Then("the intermediary selects yes on the remove-all-trading-names page")
+      registration.checkJourneyUrl("remove-all-trading-names?waypoints=change-your-registration")
+      registration.answerRadioButton("yes")
+
+      When("the intermediary clicks change for Fixed establishments in other countries")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.selectChangeOrRemoveLink(
+        "eu-fixed-establishment\\?waypoints\\=change-your-registration"
+      )
+
+      And("the intermediary selects no on the eu-fixed-establishment page")
+      registration.checkJourneyUrl("eu-fixed-establishment?waypoints=change-your-registration")
+      registration.answerRadioButton("no")
+
+      Then("the intermediary selects yes on the remove-all-tax-details page")
+      registration.checkJourneyUrl("remove-all-tax-details?waypoints=change-your-registration")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary can submit their amended registration")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+    }
+
+    Scenario("Intermediary can amend and remove trading names and fixed establishments in their registration") {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossIntAmendAnswers", "amend")
+      registration.checkJourneyUrl("change-your-registration")
+
+      When("the intermediary clicks change for add-uk-trading-name")
+      registration.selectChangeOrRemoveLink(
+        "add-uk-trading-name\\?waypoints\\=change-your-registration"
+      )
+
+      And("the intermediary clicks remove for the first trading name")
+      registration.checkJourneyUrl("add-uk-trading-name?waypoints=change-your-registration")
+      registration.selectChangeOrRemoveLink(
+        "remove-uk-trading-name\\/1\\?waypoints\\=change-your-registration"
+      )
+
+      Then("the intermediary selects yes on the remove-uk-trading-name page")
+      registration.checkJourneyUrl("remove-uk-trading-name/1?waypoints=change-your-registration")
+      registration.answerRadioButton("yes")
+
+      When("the intermediary clicks change for the first trading name")
+      registration.selectChangeOrRemoveLink(
+        "uk-trading-name\\/1\\?waypoints\\=change-add-uk-trading-name\\%2Cchange-your-registration"
+      )
+
+      And("the intermediary amends the first trading name")
+      registration.checkJourneyUrl("uk-trading-name/1?waypoints=change-add-uk-trading-name%2Cchange-your-registration")
+      registration.enterAnswer("an amended trading name")
+
+      And("the intermediary selects no on the add-uk-trading-name page")
+      registration.checkJourneyUrl("add-uk-trading-name?waypoints=change-your-registration")
+      registration.answerRadioButton("no")
+
+      When("the intermediary clicks change for add-tax-details")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.selectChangeOrRemoveLink(
+        "add-tax-details\\?waypoints\\=change-your-registration"
+      )
+
+      And("the intermediary clicks remove for the second country")
+      registration.selectChangeOrRemoveLink(
+        "remove-tax-details\\/2\\?waypoints\\=change-your-registration"
+      )
+
+      Then("the intermediary selects yes on the remove-tax-details page")
+      registration.checkJourneyUrl("remove-tax-details/2?waypoints=change-your-registration")
+      registration.answerRadioButton("yes")
+
+      When("the intermediary clicks change for the first country")
+      registration.selectChangeOrRemoveLink(
+        "check-tax-details\\/1\\?waypoints\\=change-add-tax-details\\%2Cchange-your-registration"
+      )
+
+      Then("the intermediary clicks change for the first country")
+      registration.checkJourneyUrl("check-tax-details/1?waypoints=change-add-tax-details%2Cchange-your-registration")
+      registration.selectChangeOrRemoveLink(
+        "eu-tax\\/1\\?waypoints\\=check-tax-details-1\\%2Cchange-add-tax-details\\%2Cchange-your-registration"
+      )
+
+      And("the intermediary changes the country to Malta")
+      registration.checkJourneyUrl(
+        "eu-tax/1?waypoints=check-tax-details-1%2Cchange-add-tax-details%2Cchange-your-registration"
+      )
+      registration.clearCountry()
+      registration.selectCountry("Malta")
+
+      And("the intermediary enters the fixed establishment details on the eu-fixed-establishment-address page")
+      registration.checkJourneyUrl(
+        "eu-fixed-establishment-address/1?waypoints=check-tax-details-1%2Cchange-add-tax-details%2Cchange-your-registration"
+      )
+      registration.enterFETradingName("Malta Business")
+      registration.enterFixedEstablishmentAddress("1 Street Name", "", "Valletta", "", "")
+
+      And("the intermediary selects tax id number on the registration-tax-type page")
+      registration.checkJourneyUrl(
+        "registration-tax-type/1?waypoints=check-tax-details-1%2Cchange-add-tax-details%2Cchange-your-registration"
+      )
+      registration.selectRegistrationType("tax id number")
+
+      And("the intermediary adds the tax identification number for Slovenia")
+      registration.checkJourneyUrl(
+        "eu-tax-identification-number/1?waypoints=check-tax-details-1%2Cchange-add-tax-details%2Cchange-your-registration"
+      )
+      registration.enterAnswer("123 MT 123")
+
+      And("the intermediary selects continue on the check-tax-details page")
+      registration.checkJourneyUrl("check-tax-details")
+      registration.continue()
+
+      Then("the intermediary selects no on the add-tax-details page")
+      registration.checkJourneyUrl("add-tax-details?waypoints=change-your-registration")
+      registration.answerRadioButton("no")
+
+      And("the intermediary can submit their amended registration")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+    }
+
+//    Extra scenarios to add when functionality is implemented
+//    NI scenario
+//    Need to check you can't remove previous schemes from etmp and only newly added schemes
 
     Scenario("Intermediary can cancel their amended registration") {
 
