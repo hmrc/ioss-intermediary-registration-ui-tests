@@ -298,12 +298,12 @@ class AmendRegistrationSpec extends BaseSpec {
       Then("the intermediary can update their address")
       registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
       registration.enterNiAddress("1A Different Road", "Suburb", "Belfast", "", "BT1 1DD")
-    }
 
-    And("the intermediary can submit their amended registration")
-    registration.checkJourneyUrl("change-your-registration")
-    registration.submit()
-    registration.checkJourneyUrl("successful-amend")
+      And("the intermediary can submit their amended registration")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+    }
 
 //    Extra scenarios to add when functionality is implemented
 //    Need to check you can't remove previous schemes from etmp and only newly added schemes
