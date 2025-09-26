@@ -281,8 +281,31 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("successful-amend")
     }
 
+    Scenario(
+      "Intermediary can amend manually entered NI address from original registration"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "amendNIManual", "amend")
+      registration.checkJourneyUrl("change-your-registration")
+
+      When("the intermediary clicks change for the manually entered Northern Ireland address")
+      registration.selectChangeOrRemoveLink(
+        "ni-address\\?waypoints\\=change-your-registration"
+      )
+
+      Then("the intermediary can update their address")
+      registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
+      registration.enterNiAddress("1A Different Road", "Suburb", "Belfast", "", "BT1 1DD")
+    }
+
+    And("the intermediary can submit their amended registration")
+    registration.checkJourneyUrl("change-your-registration")
+    registration.submit()
+    registration.checkJourneyUrl("successful-amend")
+
 //    Extra scenarios to add when functionality is implemented
-//    NI scenario
 //    Need to check you can't remove previous schemes from etmp and only newly added schemes
 
     Scenario("Intermediary can cancel their amended registration") {

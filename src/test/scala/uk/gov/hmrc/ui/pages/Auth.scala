@@ -79,6 +79,10 @@ object Auth extends BasePage {
       sendKeys(By.id("enrolment[1].name"), "HMRC-IOSS-INT")
       sendKeys(By.id("input-1-0-name"), "IntNumber")
       sendKeys(By.id("input-1-0-value"), "IN9001234568")
+    } else if (enrolmentType == "amendNIManual") {
+      sendKeys(By.id("enrolment[1].name"), "HMRC-IOSS-INT")
+      sendKeys(By.id("input-1-0-name"), "IntNumber")
+      sendKeys(By.id("input-1-0-value"), "IN9001234444")
     }
 
     click(By.cssSelector("Input[value='Submit']"))

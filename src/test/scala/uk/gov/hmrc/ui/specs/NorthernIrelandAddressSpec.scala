@@ -276,5 +276,37 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       Then("the intermediary is on the cannot-register-not-ni-based-business page")
       registration.checkJourneyUrl("cannot-register-not-ni-based-business")
     }
+
+    Scenario(
+      "Intermediary with manually entered NI address has the correct sections in the change-your-registration page for amend registration"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "amendNIManual", "amend")
+      registration.checkJourneyUrl("change-your-registration")
+
+      Then("the intermediary's Principal place of business address is displayed within the VAT details section")
+      registration.checkPrincipalPlaceOfBusiness(false)
+
+      And("the manually entered NI address field is not displayed")
+      registration.checkNiAddressOnCya(true)
+    }
+
+    Scenario(
+      "Intermediary with NI address retrieved in VAT info has the correct sections in the change-your-registration page for amend registration"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossInt", "amend")
+      registration.checkJourneyUrl("change-your-registration")
+
+      Then("the intermediary's Principal place of business address is displayed within the VAT details section")
+      registration.checkPrincipalPlaceOfBusiness(true)
+
+      And("the manually entered NI address field is not displayed")
+      registration.checkNiAddressOnCya(false)
+    }
   }
 }
