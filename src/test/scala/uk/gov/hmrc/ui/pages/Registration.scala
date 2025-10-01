@@ -227,4 +227,15 @@ object Registration extends BasePage {
   def saveAndComeBackLater(): Unit =
     click(By.id("saveProgress"))
 
+  def checkProblemPage(): Unit = {
+    val h1 = Driver.instance.findElement(By.tagName("h1")).getText
+    Assert.assertTrue(h1.equals("Sorry, there is a problem with the service"))
+  }
+
+  def checkChangeRemoveLinks(): Unit = {
+    val body = Driver.instance.findElement(By.tagName("body")).getText
+    Assert.assertFalse(body.contains("Change"))
+    Assert.assertFalse(body.contains("Remove"))
+  }
+
 }
