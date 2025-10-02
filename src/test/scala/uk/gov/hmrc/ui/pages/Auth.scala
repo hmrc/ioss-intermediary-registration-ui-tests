@@ -17,8 +17,10 @@
 package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.By
+import org.openqa.selenium.support.ui.ExpectedConditions
 import org.scalatest.matchers.should.Matchers.*
 import uk.gov.hmrc.configuration.TestEnvironment
+
 import scala.util.Random
 
 object Auth extends BasePage {
@@ -32,6 +34,7 @@ object Auth extends BasePage {
 
   def goToAuthorityWizard(): Unit =
     get(authUrl)
+    fluentWait.until(ExpectedConditions.urlContains(authUrl))
 
   def checkAuthUrl(): Unit =
     getCurrentUrl should startWith(authUrl)
