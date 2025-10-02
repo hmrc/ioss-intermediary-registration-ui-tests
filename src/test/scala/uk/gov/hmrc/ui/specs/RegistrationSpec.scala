@@ -175,7 +175,7 @@ class RegistrationSpec extends BaseSpec {
       registration.fillContactDetails("Testname", "12345678", "test@email.com")
 
       Then("the intermediary completes the email verification process")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
 
       Then("the intermediary enters bank or building society account details on bank-account-details page")
       registration.checkJourneyUrl("bank-account-details")
@@ -234,7 +234,7 @@ class RegistrationSpec extends BaseSpec {
       registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
 
       Then("the intermediary completes the email verification process")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
 
       Then("the intermediary enters bank or building society account details on bank-account-details page")
       registration.checkJourneyUrl("bank-account-details")

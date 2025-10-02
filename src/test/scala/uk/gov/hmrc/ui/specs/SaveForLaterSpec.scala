@@ -196,7 +196,7 @@ class SaveForLaterSpec extends BaseSpec {
       registration.fillContactDetails("Testname", "12345678", "test@email.com")
 
       Then("the intermediary completes the email verification process")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
       registration.checkJourneyUrl("bank-account-details")
 
       When("the intermediary selects the save and come back later button")
@@ -326,7 +326,7 @@ class SaveForLaterSpec extends BaseSpec {
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Testname", "12345678", "test@email.com")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 

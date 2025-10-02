@@ -216,7 +216,7 @@ object Registration extends BasePage {
     answerRadioButton("no")
     checkJourneyUrl("contact-details")
     fillContactDetails("Example Name", "24242424234", "test-name@email.co.uk")
-    email.completeEmailVerification()
+    email.completeEmailVerification("registration")
     checkJourneyUrl("bank-account-details")
     fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
     checkJourneyUrl("check-your-answers")

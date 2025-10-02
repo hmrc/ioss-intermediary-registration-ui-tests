@@ -89,7 +89,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
@@ -134,7 +134,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
@@ -181,7 +181,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
@@ -219,7 +219,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
@@ -261,7 +261,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
