@@ -297,7 +297,7 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
 
       Then("the intermediary completes the email verification process")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
 
       Then("the intermediary enters bank or building society account details on bank-account-details page")
       registration.checkJourneyUrl("bank-account-details")
@@ -331,7 +331,7 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
@@ -447,7 +447,7 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Example", "24242424234", "test-name@email.co.uk")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
@@ -548,7 +548,7 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Testname", "12345678", "test@email.com")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
@@ -603,7 +603,7 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Testname", "12345678", "test@email.com")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
@@ -676,7 +676,7 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("contact-details")
       registration.fillContactDetails("Testname", "12345678", "test@email.com")
-      email.completeEmailVerification()
+      email.completeEmailVerification("registration")
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 

@@ -21,7 +21,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions
 
 object EmailVerification extends BasePage {
 
-  def completeEmailVerification(): Unit = {
+  def completeEmailVerification(journey: String): Unit = {
 
     fluentWait.until(ExpectedConditions.urlContains("http://localhost:9890/email-verification/journey"))
 
@@ -41,11 +41,19 @@ object EmailVerification extends BasePage {
     sendKeys(By.id("passcode"), passcode)
     click(By.className("govuk-button"))
 
-    fluentWait.until(
-      ExpectedConditions.urlToBe(
-        "http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/bank-account-details"
+    if (journey == "amend") {
+      fluentWait.until(
+        ExpectedConditions.urlToBe(
+          "http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/change-your-registration"
+        )
       )
-    )
+    } else {
+      fluentWait.until(
+        ExpectedConditions.urlToBe(
+          "http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/bank-account-details"
+        )
+      )
+    }
   }
 
 }

@@ -139,7 +139,7 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.updateField("fullName", "Amended Test Name")
       registration.updateField("emailAddress", "amend-test@email.com")
       registration.continue()
-      email.completeEmailVerification()
+      email.completeEmailVerification("amend")
       registration.checkJourneyUrl("change-your-registration")
 
       When("the intermediary clicks change for bank details")
