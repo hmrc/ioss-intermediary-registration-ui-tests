@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.ui.specs
 
+import uk.gov.hmrc.selenium.webdriver.Driver
 import uk.gov.hmrc.ui.pages.{Auth, EmailVerification, Registration}
 
 class SaveForLaterSpec extends BaseSpec {
@@ -294,6 +295,7 @@ class SaveForLaterSpec extends BaseSpec {
       registration.clickLink("signOut")
 
       Given("the intermediary logs into IOSS Intermediary Registration Service")
+      Driver.instance.manage().deleteAllCookies()
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "retrievedWithCredId")
 
