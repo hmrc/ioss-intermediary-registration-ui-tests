@@ -241,6 +241,7 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.answerRadioButton("yes")
 
       When("the intermediary clicks change for the first trading name")
+      registration.checkJourneyUrl("add-uk-trading-name?waypoints=change-your-registration")
       registration.selectChangeOrRemoveLink(
         "uk-trading-name\\/1\\?waypoints\\=change-add-uk-trading-name\\%2Cchange-your-registration"
       )
@@ -260,6 +261,7 @@ class AmendRegistrationSpec extends BaseSpec {
       )
 
       And("the intermediary clicks remove for the second country")
+      registration.checkJourneyUrl("add-tax-details?waypoints=change-your-registration")
       registration.selectChangeOrRemoveLink(
         "remove-tax-details\\/2\\?waypoints\\=change-your-registration"
       )
@@ -269,6 +271,7 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.answerRadioButton("yes")
 
       When("the intermediary clicks change for the first country")
+      registration.checkJourneyUrl("add-tax-details?waypoints=change-your-registration")
       registration.selectChangeOrRemoveLink(
         "check-tax-details\\/1\\?waypoints\\=change-add-tax-details\\%2Cchange-your-registration"
       )
@@ -375,6 +378,7 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.answerRadioButton("yes")
 
       When("the intermediary clicks change for the last previous registration")
+      registration.checkJourneyUrl("add-previous-intermediary-registration?waypoints=change-your-registration")
       registration.selectChangeOrRemoveLink(
         "previous-intermediary-registration-number\\/2\\?waypoints\\=change-add-previous-intermediary-registration\\%2Cchange-your-registration"
       )

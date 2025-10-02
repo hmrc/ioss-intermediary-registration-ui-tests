@@ -38,7 +38,9 @@ object Registration extends BasePage {
     get(registrationUrl + journeyUrl)
 
   def checkJourneyUrl(page: String): Unit =
-    getCurrentUrl.startsWith(s"$registrationUrl$journeyUrl/$page")
+    val url = s"$registrationUrl$journeyUrl/$page"
+    fluentWait.until(ExpectedConditions.urlContains(url))
+    getCurrentUrl.startsWith(url)
 
   def checkDashboardJourneyUrl(page: String): Unit =
     getCurrentUrl.startsWith(s"$dashboardUrl$dashboardJourneyUrl/$page")
