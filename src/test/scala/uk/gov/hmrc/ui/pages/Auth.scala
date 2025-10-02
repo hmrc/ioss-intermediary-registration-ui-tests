@@ -45,16 +45,18 @@ object Auth extends BasePage {
 
     if (journey == "amend") {
       sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl/start-amend-journey")
-    } else if (journey == "savedRegistration" || journey == "registrationFailureSave") {
+    } else if (
+      journey == "savedRegistration" || journey == "registrationFailureSave" || journey == "retrievedWithCredId"
+    ) {
       sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl/continue-on-sign-in")
     } else {
       sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl")
     }
 
-    if (journey == "registrationFailure") {
+    if (journey == "registrationFailure" || journey == "savedWithCredId") {
       generateCredId()
       sendKeys(By.name("authorityId"), retrieveCredId())
-    } else if (journey == "registrationFailureSave") {
+    } else if (journey == "registrationFailureSave" || journey == "retrievedWithCredId") {
       sendKeys(By.name("authorityId"), retrieveCredId())
     }
 
