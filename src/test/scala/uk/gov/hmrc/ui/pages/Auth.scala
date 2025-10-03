@@ -92,6 +92,14 @@ object Auth extends BasePage {
 
     click(By.cssSelector("Input[value='Submit']"))
 
+    if (journey == "retrievedWithCredId") {
+      fluentWait.until(
+        ExpectedConditions.urlToBe(
+          "http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/continue-registration"
+        )
+      )
+    }
+
   }
 
   def retrieveCredId(): String =
