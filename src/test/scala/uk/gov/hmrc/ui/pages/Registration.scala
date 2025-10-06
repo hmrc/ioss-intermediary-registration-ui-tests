@@ -208,7 +208,7 @@ object Registration extends BasePage {
     continue()
     checkJourneyUrl("confirm-vat-details")
     answerVatDetailsChoice("Yes")
-    checkJourneyUrl("have-uk-trading-name")
+    checkJourneyUrl("have-other-trading-name")
     answerRadioButton("no")
     checkJourneyUrl("has-previously-registered-as-intermediary")
     answerRadioButton("no")

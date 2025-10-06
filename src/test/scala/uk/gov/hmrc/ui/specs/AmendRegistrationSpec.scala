@@ -35,21 +35,21 @@ class AmendRegistrationSpec extends BaseSpec {
 
       When("the intermediary clicks change for Have a different UK trading name")
       registration.selectChangeOrRemoveLink(
-        "have-uk-trading-name\\?waypoints\\=change-your-registration"
+        "have-other-trading-name\\?waypoints\\=change-your-registration"
       )
 
-      And("the intermediary selects yes on the have-uk-trading-name page")
-      registration.checkJourneyUrl("have-uk-trading-name?waypoints=change-your-registration")
+      And("the intermediary selects yes on the have-other-trading-name page")
+      registration.checkJourneyUrl("have-other-trading-name?waypoints=change-your-registration")
       registration.answerRadioButton("yes")
 
       And("the intermediary adds two trading names")
-      registration.checkJourneyUrl("uk-trading-name/1?waypoints=add-uk-trading-name%2Cchange-your-registration")
+      registration.checkJourneyUrl("other-trading-name/1?waypoints=add-other-trading-name%2Cchange-your-registration")
       registration.enterAnswer("first amend trading name")
-      registration.checkJourneyUrl("add-uk-trading-name?waypoints=change-your-registration")
+      registration.checkJourneyUrl("add-other-trading-name?waypoints=change-your-registration")
       registration.answerRadioButton("yes")
-      registration.checkJourneyUrl("uk-trading-name/2?waypoints=add-uk-trading-name%2Cchange-your-registration")
+      registration.checkJourneyUrl("other-trading-name/2?waypoints=add-other-trading-name%2Cchange-your-registration")
       registration.enterAnswer("amend trading 2!")
-      registration.checkJourneyUrl("add-uk-trading-name?waypoints=change-your-registration")
+      registration.checkJourneyUrl("add-other-trading-name?waypoints=change-your-registration")
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("change-your-registration")
 
@@ -87,7 +87,7 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.answerRadioButton("yes")
 
       Then("the intermediary can add tax details for one EU country")
-      registration.checkJourneyUrl("eu-tax/1?waypoints=change-your-registration")
+      registration.checkJourneyUrl("eu-fixed-establishment-country/1?waypoints=change-your-registration")
       registration.selectCountry("Denmark")
       registration.checkJourneyUrl("eu-fixed-establishment-address/1?waypoints=change-your-registration")
       registration.enterFETradingName("Company Name")
@@ -102,7 +102,7 @@ class AmendRegistrationSpec extends BaseSpec {
 
       And("the intermediary can add tax details for another EU country")
       registration.answerRadioButton("yes")
-      registration.checkJourneyUrl("eu-tax/2?waypoints=change-your-registration")
+      registration.checkJourneyUrl("eu-fixed-establishment-country/2?waypoints=change-your-registration")
       registration.selectCountry("Slovakia")
       registration.checkJourneyUrl("eu-fixed-establishment-address/2?waypoints=change-your-registration")
       registration.enterFETradingName("Company Name")
@@ -171,11 +171,11 @@ class AmendRegistrationSpec extends BaseSpec {
 
       When("the intermediary clicks change for Have a different UK trading name")
       registration.selectChangeOrRemoveLink(
-        "have-uk-trading-name\\?waypoints\\=change-your-registration"
+        "have-other-trading-name\\?waypoints\\=change-your-registration"
       )
 
-      And("the intermediary selects no on the have-uk-trading-name page")
-      registration.checkJourneyUrl("have-uk-trading-name?waypoints=change-your-registration")
+      And("the intermediary selects no on the have-other-trading-name page")
+      registration.checkJourneyUrl("have-other-trading-name?waypoints=change-your-registration")
       registration.answerRadioButton("no")
 
       Then("the intermediary selects yes on the remove-all-trading-names page")
@@ -225,33 +225,35 @@ class AmendRegistrationSpec extends BaseSpec {
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossIntAmendAnswers", "amend")
       registration.checkJourneyUrl("change-your-registration")
 
-      When("the intermediary clicks change for add-uk-trading-name")
+      When("the intermediary clicks change for add-other-trading-name")
       registration.selectChangeOrRemoveLink(
-        "add-uk-trading-name\\?waypoints\\=change-your-registration"
+        "add-other-trading-name\\?waypoints\\=change-your-registration"
       )
 
       And("the intermediary clicks remove for the first trading name")
-      registration.checkJourneyUrl("add-uk-trading-name?waypoints=change-your-registration")
+      registration.checkJourneyUrl("add-other-trading-name?waypoints=change-your-registration")
       registration.selectChangeOrRemoveLink(
-        "remove-uk-trading-name\\/1\\?waypoints\\=change-your-registration"
+        "remove-other-trading-name\\/1\\?waypoints\\=change-your-registration"
       )
 
-      Then("the intermediary selects yes on the remove-uk-trading-name page")
-      registration.checkJourneyUrl("remove-uk-trading-name/1?waypoints=change-your-registration")
+      Then("the intermediary selects yes on the remove-other-trading-name page")
+      registration.checkJourneyUrl("remove-other-trading-name/1?waypoints=change-your-registration")
       registration.answerRadioButton("yes")
 
       When("the intermediary clicks change for the first trading name")
-      registration.checkJourneyUrl("add-uk-trading-name?waypoints=change-your-registration")
+      registration.checkJourneyUrl("add-other-trading-name?waypoints=change-your-registration")
       registration.selectChangeOrRemoveLink(
-        "uk-trading-name\\/1\\?waypoints\\=change-add-uk-trading-name\\%2Cchange-your-registration"
+        "other-trading-name\\/1\\?waypoints\\=change-add-other-trading-name\\%2Cchange-your-registration"
       )
 
       And("the intermediary amends the first trading name")
-      registration.checkJourneyUrl("uk-trading-name/1?waypoints=change-add-uk-trading-name%2Cchange-your-registration")
+      registration.checkJourneyUrl(
+        "other-trading-name/1?waypoints=change-add-other-trading-name%2Cchange-your-registration"
+      )
       registration.enterAnswer("an amended trading name")
 
-      And("the intermediary selects no on the add-uk-trading-name page")
-      registration.checkJourneyUrl("add-uk-trading-name?waypoints=change-your-registration")
+      And("the intermediary selects no on the add-other-trading-name page")
+      registration.checkJourneyUrl("add-other-trading-name?waypoints=change-your-registration")
       registration.answerRadioButton("no")
 
       When("the intermediary clicks change for add-tax-details")
@@ -279,12 +281,12 @@ class AmendRegistrationSpec extends BaseSpec {
       Then("the intermediary clicks change for the first country")
       registration.checkJourneyUrl("check-tax-details/1?waypoints=change-add-tax-details%2Cchange-your-registration")
       registration.selectChangeOrRemoveLink(
-        "eu-tax\\/1\\?waypoints\\=check-tax-details-1\\%2Cchange-add-tax-details\\%2Cchange-your-registration"
+        "eu-fixed-establishment-country\\/1\\?waypoints\\=check-tax-details-1\\%2Cchange-add-tax-details\\%2Cchange-your-registration"
       )
 
       And("the intermediary changes the country to Malta")
       registration.checkJourneyUrl(
-        "eu-tax/1?waypoints=check-tax-details-1%2Cchange-add-tax-details%2Cchange-your-registration"
+        "eu-fixed-establishment-country/1?waypoints=check-tax-details-1%2Cchange-add-tax-details%2Cchange-your-registration"
       )
       registration.clearCountry()
       registration.selectCountry("Malta")
