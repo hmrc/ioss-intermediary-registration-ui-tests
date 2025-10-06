@@ -76,8 +76,8 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.checkJourneyUrl("ni-address")
       registration.enterNiAddress("123 Street Name", "", "Belfast", "", "BT1 1AB")
 
-      And("the intermediary selects no on the have-uk-trading-name page")
-      registration.checkJourneyUrl("have-uk-trading-name")
+      And("the intermediary selects no on the have-other-trading-name page")
+      registration.checkJourneyUrl("have-other-trading-name")
       registration.answerRadioButton("no")
 
       Then("the intermediary selects on no if ever registered as an IOSS scheme in an Eu country")
@@ -126,7 +126,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.enterNiAddress("123 Street Name", "", "Belfast", "", "BT1 1AB")
 
       And("the intermediary continues through the registration journey")
-      registration.checkJourneyUrl("have-uk-trading-name")
+      registration.checkJourneyUrl("have-other-trading-name")
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("has-previously-registered-as-intermediary")
       registration.answerRadioButton("no")
@@ -173,7 +173,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.answerVatDetailsChoice("Yes")
 
       And("the intermediary continues through the registration journey")
-      registration.checkJourneyUrl("have-uk-trading-name")
+      registration.checkJourneyUrl("have-other-trading-name")
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("has-previously-registered-as-intermediary")
       registration.answerRadioButton("no")

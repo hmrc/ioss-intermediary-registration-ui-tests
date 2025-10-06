@@ -52,24 +52,24 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("confirm-vat-details")
       registration.answerVatDetailsChoice("Yes")
 
-      And("the intermediary selects yes on the have-uk-trading-name page")
-      registration.checkJourneyUrl("have-uk-trading-name")
+      And("the intermediary selects yes on the have-other-trading-name page")
+      registration.checkJourneyUrl("have-other-trading-name")
       registration.answerRadioButton("yes")
 
       And("the intermediary adds the first trading name")
-      registration.checkJourneyUrl("uk-trading-name/1")
+      registration.checkJourneyUrl("other-trading-name/1")
       registration.enterAnswer("first trading name")
 
-      And("the intermediary selects yes on the add-uk-trading-name page")
-      registration.checkJourneyUrl("add-uk-trading-name")
+      And("the intermediary selects yes on the add-other-trading-name page")
+      registration.checkJourneyUrl("add-other-trading-name")
       registration.answerRadioButton("yes")
 
       And("the intermediary adds the second trading name")
-      registration.checkJourneyUrl("uk-trading-name/2")
+      registration.checkJourneyUrl("other-trading-name/2")
       registration.enterAnswer("trading 2!")
 
-      And("the intermediary selects no on the add-uk-trading-name page")
-      registration.checkJourneyUrl("add-uk-trading-name")
+      And("the intermediary selects no on the add-other-trading-name page")
+      registration.checkJourneyUrl("add-other-trading-name")
       registration.answerRadioButton("no")
 
       Then("the intermediary selects on yes if ever registered as an IOSS scheme in an Eu country")
@@ -117,9 +117,9 @@ class RegistrationSpec extends BaseSpec {
       registration.answerRadioButton("yes")
 
       And(
-        "the intermediary selects which country their fixed establishment is in on the eu-tax page"
+        "the intermediary selects which country their fixed establishment is in on the eu-fixed-establishment-country page"
       )
-      registration.checkJourneyUrl("eu-tax/1")
+      registration.checkJourneyUrl("eu-fixed-establishment-country/1")
       registration.selectCountry("Denmark")
 
       And("the intermediary enters the fixed establishment details on the eu-fixed-establishment-address page")
@@ -144,9 +144,9 @@ class RegistrationSpec extends BaseSpec {
       registration.answerRadioButton("yes")
 
       And(
-        "the intermediary selects which country their fixed establishment is in on the eu-tax page"
+        "the intermediary selects which country their fixed establishment is in on the eu-fixed-establishment-country page"
       )
-      registration.checkJourneyUrl("eu-tax/2")
+      registration.checkJourneyUrl("eu-fixed-establishment-country/2")
       registration.selectCountry("Slovenia")
 
       And("the intermediary enters the fixed establishment details on the eu-fixed-establishment-address page")
@@ -217,8 +217,8 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("confirm-vat-details")
       registration.answerVatDetailsChoice("Yes")
 
-      And("the intermediary selects no on the have-uk-trading-name page")
-      registration.checkJourneyUrl("have-uk-trading-name")
+      And("the intermediary selects no on the have-other-trading-name page")
+      registration.checkJourneyUrl("have-other-trading-name")
       registration.answerRadioButton("no")
 
       Then("the intermediary selects on no if ever registered as an IOSS scheme in an Eu country")
