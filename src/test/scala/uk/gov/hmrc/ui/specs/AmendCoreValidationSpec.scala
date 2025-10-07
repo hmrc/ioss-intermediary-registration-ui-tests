@@ -132,5 +132,45 @@ class AmendCoreValidationSpec extends BaseSpec {
       registration.submit()
       registration.checkJourneyUrl("successful-amend")
     }
+
+    Scenario(
+      "Intermediary can add already active and quarantined previous registrations when amending their registration"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossInt", "amend")
+      registration.checkJourneyUrl("change-your-registration")
+
+      When("the intermediary clicks change for Other IOSS intermediary registrations")
+      registration.selectChangeOrRemoveLink(
+        "has-previously-registered-as-intermediary\\?waypoints\\=change-your-registration"
+      )
+
+      And("the intermediary selects yes on the has-previously-registered-as-intermediary")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary?waypoints=change-your-registration")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary adds a previous registration that is already active in another member state")
+      registration.checkJourneyUrl("previous-eu-country/1?waypoints=change-your-registration")
+      registration.selectCountry("Slovenia")
+      registration.checkJourneyUrl("previous-intermediary-registration-number/1?waypoints=change-your-registration")
+      registration.enterAnswer("IN7057777123")
+      registration.checkJourneyUrl("add-previous-intermediary-registration?waypoints=change-your-registration")
+
+      And("the intermediary adds a previous registration that is quarantined in another member state")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("previous-eu-country/2?waypoints=change-your-registration")
+      registration.selectCountry("Latvia")
+      registration.checkJourneyUrl("previous-intermediary-registration-number/2?waypoints=change-your-registration")
+      registration.enterAnswer("IN4287777123")
+      registration.checkJourneyUrl("add-previous-intermediary-registration?waypoints=change-your-registration")
+      registration.answerRadioButton("no")
+
+      And("the intermediary can submit their amended registration")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+    }
   }
 }
