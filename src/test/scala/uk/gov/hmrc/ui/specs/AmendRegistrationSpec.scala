@@ -120,6 +120,9 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("change-your-registration")
       registration.submit()
       registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      registration.checkAmendedAnswers("noToYes")
     }
 
     Scenario("Intermediary can amend their bank and contact details") {
@@ -158,6 +161,8 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.submit()
       registration.checkJourneyUrl("successful-amend")
 
+      And("the correct details are shown as amended")
+      registration.checkAmendedAnswers("contactAndBankDetails")
     }
 
     Scenario(
@@ -200,6 +205,9 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("change-your-registration")
       registration.submit()
       registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      registration.checkAmendedAnswers("removeAll")
     }
 
     Scenario(
@@ -322,6 +330,9 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("change-your-registration")
       registration.submit()
       registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      registration.checkAmendedAnswers("tradingAndFixedEstablishments")
     }
 
     Scenario(
@@ -399,6 +410,9 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("change-your-registration")
       registration.submit()
       registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      registration.checkAmendedAnswers("previousRegistrations")
     }
 
     Scenario(
@@ -423,10 +437,26 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("change-your-registration")
       registration.submit()
       registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      registration.checkAmendedAnswers("niAddress")
     }
 
-//    Extra scenarios to add when functionality is implemented
-//    Need to check you can't remove previous schemes from etmp and only newly added schemes
+    Scenario("Intermediary can submit their registration without amending any details") {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossInt", "amend")
+      registration.checkJourneyUrl("change-your-registration")
+
+      When("the intermediary submits their registration without amending any details")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      Then("the confirmation of no answers changed is displayed")
+      registration.checkAmendedAnswers("noAmendedAnswers")
+
+    }
 
     Scenario("Intermediary can cancel their amended registration") {
 
