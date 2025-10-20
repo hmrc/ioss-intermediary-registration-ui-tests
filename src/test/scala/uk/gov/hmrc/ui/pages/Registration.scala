@@ -268,7 +268,7 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("Have a different UK trading name No"))
         Assert.assertTrue(body.contains("Trading names removed tradingName1"))
         Assert.assertTrue(body.contains("tradingName2"))
-        Assert.assertTrue(body.contains("Fixed establishments in other countries	No"))
+        Assert.assertTrue(body.contains("Fixed establishments in other countries No"))
         Assert.assertTrue(body.contains("Fixed establishments in other countries removed Germany"))
         Assert.assertTrue(body.contains("France"))
       case "tradingAndFixedEstablishments" =>
