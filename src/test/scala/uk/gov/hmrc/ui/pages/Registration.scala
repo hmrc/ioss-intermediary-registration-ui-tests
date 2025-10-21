@@ -284,8 +284,10 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("Other IOSS intermediary registrations details added Croatia"))
       case "niAddress"                     =>
         Assert.assertTrue(body.contains("You changed the following details:"))
-        // to be implemented
-        Assert.assertTrue(body.contains("NI checks"))
+        Assert.assertTrue(body.contains("Business address in Northern Ireland changed 1A Different Road"))
+        Assert.assertTrue(body.contains("Suburb"))
+        Assert.assertTrue(body.contains("Belfast"))
+        Assert.assertTrue(body.contains("BT1 1DD"))
 
       case _ =>
         throw new Exception("This amend variation does not exist")
