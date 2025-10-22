@@ -77,6 +77,9 @@ class AmendCoreValidationSpec extends BaseSpec {
       registration.checkJourneyUrl("change-your-registration")
       registration.submit()
       registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      registration.checkAmendedAnswers("coreValidationFixedEstablishments")
     }
 
     Scenario(
@@ -131,6 +134,9 @@ class AmendCoreValidationSpec extends BaseSpec {
       registration.checkJourneyUrl("change-your-registration")
       registration.submit()
       registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      registration.checkAmendedAnswers("coreValidationFixedEstablishments")
     }
 
     Scenario(
@@ -171,6 +177,43 @@ class AmendCoreValidationSpec extends BaseSpec {
       registration.checkJourneyUrl("change-your-registration")
       registration.submit()
       registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      registration.checkAmendedAnswers("coreValidationPreviousRegistrations")
+    }
+
+    Scenario(
+      "Intermediary with existing EU intermediary registration linked to UK VRN is able to access the amend intermediary registration journey"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("333333333", "Organisation", "vatAndIossInt", "amend")
+      registration.checkJourneyUrl("change-your-registration")
+
+      When("the intermediary submits their registration without amending any details")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      Then("the confirmation of no answers changed is displayed")
+      registration.checkAmendedAnswers("noAmendedAnswers")
+    }
+
+    Scenario(
+      "Intermediary with existing EU intermediary quarantine linked to UK VRN is able to access the amend intermediary registration journey"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("333333334", "Organisation", "vatAndIossInt", "amend")
+      registration.checkJourneyUrl("change-your-registration")
+
+      When("the intermediary submits their registration without amending any details")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      Then("the confirmation of no answers changed is displayed")
+      registration.checkAmendedAnswers("noAmendedAnswers")
     }
   }
 }

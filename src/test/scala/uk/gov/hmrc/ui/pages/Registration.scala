@@ -244,9 +244,9 @@ object Registration extends BasePage {
     val body = Driver.instance.findElement(By.tagName("body")).getText
 
     amendJourney match {
-      case "noAmendedAnswers"              =>
+      case "noAmendedAnswers"                    =>
         Assert.assertTrue(body.contains("You have not changed any of your registration details."))
-      case "noToYes"                       =>
+      case "noToYes"                             =>
         Assert.assertTrue(body.contains("You changed the following details:"))
         Assert.assertTrue(body.contains("Have a different UK trading name Yes"))
         Assert.assertTrue(body.contains("Trading names added first amend trading name"))
@@ -257,13 +257,13 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("Fixed establishments in other countries Yes"))
         Assert.assertTrue(body.contains("Fixed establishments in other countries added Denmark"))
         Assert.assertTrue(body.contains("Slovakia"))
-      case "contactAndBankDetails"         =>
+      case "contactAndBankDetails"               =>
         Assert.assertTrue(body.contains("You changed the following details:"))
         Assert.assertTrue(body.contains("Contact name Amended Test Name"))
         Assert.assertTrue(body.contains("Email address amend-test@email.com"))
         Assert.assertTrue(body.contains("BIC or SWIFT code (if you have one) Removed"))
         Assert.assertTrue(body.contains("IBAN GB91BKEN10000041610008"))
-      case "removeAll"                     =>
+      case "removeAll"                           =>
         Assert.assertTrue(body.contains("You changed the following details:"))
         Assert.assertTrue(body.contains("Have a different UK trading name No"))
         Assert.assertTrue(body.contains("Trading names removed tradingName1"))
@@ -271,7 +271,7 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("Fixed establishments in other countries No"))
         Assert.assertTrue(body.contains("Fixed establishments in other countries removed Germany"))
         Assert.assertTrue(body.contains("France"))
-      case "tradingAndFixedEstablishments" =>
+      case "tradingAndFixedEstablishments"       =>
         Assert.assertTrue(body.contains("You changed the following details:"))
         Assert.assertTrue(body.contains("Trading names added an amended trading name"))
         Assert.assertTrue(body.contains("Trading names removed tradingName1"))
@@ -279,17 +279,26 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("Fixed establishments in other countries added Malta"))
         Assert.assertTrue(body.contains("Fixed establishments in other countries removed Germany"))
         Assert.assertTrue(body.contains("France"))
-      case "previousRegistrations"         =>
+      case "previousRegistrations"               =>
         Assert.assertTrue(body.contains("You changed the following details:"))
         Assert.assertTrue(body.contains("Other IOSS intermediary registrations details added Croatia"))
-      case "niAddress"                     =>
+      case "niAddress"                           =>
         Assert.assertTrue(body.contains("You changed the following details:"))
         Assert.assertTrue(body.contains("Business address in Northern Ireland changed 1A Different Road"))
         Assert.assertTrue(body.contains("Suburb"))
         Assert.assertTrue(body.contains("Belfast"))
         Assert.assertTrue(body.contains("BT1 1DD"))
-
-      case _ =>
+      case "coreValidationFixedEstablishments"   =>
+        Assert.assertTrue(body.contains("You changed the following details:"))
+        Assert.assertTrue(body.contains("Fixed establishments in other countries Yes"))
+        Assert.assertTrue(body.contains("Fixed establishments in other countries added Portugal"))
+        Assert.assertTrue(body.contains("Lithuania"))
+      case "coreValidationPreviousRegistrations" =>
+        Assert.assertTrue(body.contains("You changed the following details:"))
+        Assert.assertTrue(body.contains("Other IOSS intermediary registrations Yes"))
+        Assert.assertTrue(body.contains("Other IOSS intermediary registrations details added Slovenia"))
+        Assert.assertTrue(body.contains("Latvia"))
+      case _                                     =>
         throw new Exception("This amend variation does not exist")
     }
   }
