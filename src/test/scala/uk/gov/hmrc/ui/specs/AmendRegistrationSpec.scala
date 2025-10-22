@@ -488,5 +488,20 @@ class AmendRegistrationSpec extends BaseSpec {
       Then("the user is on the cannot-use-not-registered page")
       registration.checkJourneyUrl("cannot-use-not-registered")
     }
+
+    Scenario("An intermediary with an expired VAT registration can amend their existing registration") {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service with an expired VRN")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000004", "Organisation", "vatAndIossInt", "amend")
+      registration.checkJourneyUrl("change-your-registration")
+
+      When("the intermediary submits their registration without amending any details")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      Then("the confirmation of no answers changed is displayed")
+      registration.checkAmendedAnswers("noAmendedAnswers")
+    }
   }
 }
