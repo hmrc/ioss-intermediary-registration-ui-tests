@@ -503,5 +503,73 @@ class AmendRegistrationSpec extends BaseSpec {
       Then("the confirmation of no answers changed is displayed")
       registration.checkAmendedAnswers("noAmendedAnswers")
     }
+
+    Scenario(
+      "Intermediary with manually entered NI address is excluded if they change to a non-NI address in amend registration"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "amendNIManual", "amend")
+      registration.checkJourneyUrl("change-your-registration")
+
+      When("the intermediary clicks change for the manually entered Northern Ireland address")
+      registration.selectChangeOrRemoveLink(
+        "ni-address\\?waypoints\\=change-your-registration"
+      )
+
+      And("the intermediary updates the postcode to a non-NI postcode")
+      registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
+      registration.updateField("postCode", "AA1 1AA")
+      registration.continue()
+
+      Then("the intermediary answers no on the have-business-address-in-ni page")
+      registration.checkJourneyUrl("have-business-address-in-ni?waypoints=change-your-registration")
+      registration.answerNiAddress("No, leave this service")
+
+      When("the intermediary clicks continue on the remove-business-no-ni-address page")
+      registration.checkJourneyUrl("remove-business-no-ni-address?waypoints=change-your-registration")
+      registration.continue()
+
+      Then("the intermediary is excluded from the service")
+      registration.checkJourneyUrl("removed-business-no-ni-address")
+    }
+
+    Scenario(
+      "Intermediary with manually entered NI address adds a non-NI address in amend registration then changes back to NI"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "amendNIManual", "amend")
+      registration.checkJourneyUrl("change-your-registration")
+
+      When("the intermediary clicks change for the manually entered Northern Ireland address")
+      registration.selectChangeOrRemoveLink(
+        "ni-address\\?waypoints\\=change-your-registration"
+      )
+
+      And("the intermediary updates the postcode to a non-NI postcode")
+      registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
+      registration.updateField("postCode", "AA1 1AA")
+      registration.continue()
+
+      Then("the intermediary answers yes on the have-business-address-in-ni page")
+      registration.checkJourneyUrl("have-business-address-in-ni?waypoints=change-your-registration")
+      registration.answerNiAddress("Yes, go back and add a new address")
+
+      And("the intermediary updates the postcode to an NI postcode")
+      registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
+      registration.updateField("postCode", "BT1 1AA")
+      registration.continue()
+
+      And("the intermediary can submit their amended registration")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      registration.checkAmendedAnswers("nonNiToNiAddress")
+    }
   }
 }

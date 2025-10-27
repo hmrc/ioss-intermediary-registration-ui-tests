@@ -298,8 +298,24 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("Other IOSS intermediary registrations Yes"))
         Assert.assertTrue(body.contains("Other IOSS intermediary registrations details added Slovenia"))
         Assert.assertTrue(body.contains("Latvia"))
+      case "nonNiToNiAddress"                    =>
+        Assert.assertTrue(body.contains("You changed the following details:"))
+        Assert.assertTrue(body.contains("Business address in Northern Ireland changed Other Address Line 1"))
+        Assert.assertTrue(body.contains("Other Address Line 2"))
+        Assert.assertTrue(body.contains("Other Town or City"))
+        Assert.assertTrue(body.contains("Other Region or State"))
+        Assert.assertTrue(body.contains("BT1 1AA"))
       case _                                     =>
         throw new Exception("This amend variation does not exist")
     }
+  }
+
+  def answerNiAddress(answer: String): Unit = {
+    answer match {
+      case "Yes, go back and add a new address" => click(By.id("value_0"))
+      case "No, leave this service"             => click(By.id("value_1"))
+      case _                                    => throw new Exception("Option doesn't exist")
+    }
+    click(continueButton)
   }
 }
