@@ -309,4 +309,13 @@ object Registration extends BasePage {
         throw new Exception("This amend variation does not exist")
     }
   }
+
+  def answerNiAddress(answer: String): Unit = {
+    answer match {
+      case "Yes, go back and add a new address" => click(By.id("value_0"))
+      case "No, leave this service"             => click(By.id("value_1"))
+      case _                                    => throw new Exception("Option doesn't exist")
+    }
+    click(continueButton)
+  }
 }

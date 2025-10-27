@@ -525,7 +525,7 @@ class AmendRegistrationSpec extends BaseSpec {
 
       Then("the intermediary answers no on the have-business-address-in-ni page")
       registration.checkJourneyUrl("have-business-address-in-ni?waypoints=change-your-registration")
-      registration.answerRadioButton("no")
+      registration.answerNiAddress("No, leave this service")
 
       When("the intermediary clicks continue on the remove-business-no-ni-address page")
       registration.checkJourneyUrl("remove-business-no-ni-address?waypoints=change-your-registration")
@@ -556,7 +556,7 @@ class AmendRegistrationSpec extends BaseSpec {
 
       Then("the intermediary answers yes on the have-business-address-in-ni page")
       registration.checkJourneyUrl("have-business-address-in-ni?waypoints=change-your-registration")
-      registration.answerRadioButton("yes")
+      registration.answerNiAddress("Yes, go back and add a new address")
 
       And("the intermediary updates the postcode to an NI postcode")
       registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
