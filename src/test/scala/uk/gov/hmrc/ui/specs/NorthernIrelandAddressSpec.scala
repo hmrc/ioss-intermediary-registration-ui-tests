@@ -299,7 +299,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossInt", "amend")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "standard", "amend")
       registration.checkJourneyUrl("change-your-registration")
 
       Then("the intermediary's Principal place of business address is displayed within the VAT details section")

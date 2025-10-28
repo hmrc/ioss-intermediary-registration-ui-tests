@@ -31,7 +31,7 @@ class AmendCoreValidationSpec extends BaseSpec {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossInt", "amend")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "standard", "amend")
       registration.checkJourneyUrl("change-your-registration")
 
       When("the intermediary clicks change for Fixed establishments in other countries")
@@ -88,7 +88,7 @@ class AmendCoreValidationSpec extends BaseSpec {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossInt", "amend")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "standard", "amend")
       registration.checkJourneyUrl("change-your-registration")
 
       When("the intermediary clicks change for Fixed establishments in other countries")
@@ -145,7 +145,7 @@ class AmendCoreValidationSpec extends BaseSpec {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossInt", "amend")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "standard", "amend")
       registration.checkJourneyUrl("change-your-registration")
 
       When("the intermediary clicks change for Other IOSS intermediary registrations")
@@ -188,7 +188,7 @@ class AmendCoreValidationSpec extends BaseSpec {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("333333333", "Organisation", "vatAndIossInt", "amend")
+      auth.loginUsingAuthorityWizard("333333333", "Organisation", "standard", "amend")
       registration.checkJourneyUrl("change-your-registration")
 
       When("the intermediary submits their registration without amending any details")
@@ -205,7 +205,7 @@ class AmendCoreValidationSpec extends BaseSpec {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("333333334", "Organisation", "vatAndIossInt", "amend")
+      auth.loginUsingAuthorityWizard("333333334", "Organisation", "standard", "amend")
       registration.checkJourneyUrl("change-your-registration")
 
       When("the intermediary submits their registration without amending any details")
