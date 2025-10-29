@@ -32,6 +32,10 @@ class RejoinRegistrationSpec extends BaseSpec {
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
       registration.checkJourneyUrl("rejoin-check-your-details")
+
+      Then("the intermediary can submit their registration and rejoin the service without changing any details")
+      registration.submit()
+      registration.checkJourneyUrl("successful-rejoin")
     }
 
     Scenario("Intermediary with an expired quarantine can rejoin the service") {
@@ -40,6 +44,10 @@ class RejoinRegistrationSpec extends BaseSpec {
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "quarantineExpired", "rejoin")
       registration.checkJourneyUrl("rejoin-check-your-details")
+
+      Then("the intermediary can submit their registration and rejoin the service without changing any details")
+      registration.submit()
+      registration.checkJourneyUrl("successful-rejoin")
     }
 
     Scenario("Intermediary with an exclusion effective date in the future cannot access the rejoin journey") {
@@ -66,8 +74,80 @@ class RejoinRegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("")
     }
 
+    Scenario("Intermediary can add and amend their data when rejoining the service - no to yes") {
 
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
+    }
 
+    Scenario("Intermediary can amend their existing data when rejoining the service") {
 
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedFullData", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
+    }
+
+    Scenario("Intermediary can remove their data when rejoining the service - yes to no") {
+
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedFullData", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
+    }
+
+    Scenario("Intermediary cannot access the remove-all-previous-intermediary-registrations page to remove all previous registrations") {
+
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedFullData", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
+
+      When("the intermediary attempts to access the remove-all-previous-intermediary-registrations in amend journey")
+      registration.goToPage("remove-all-previous-intermediary-registrations?waypoints=rejoin-check-your-details")
+
+      Then("the intermediary is shown the Sorry, there is a problem with the service page")
+      registration.checkProblemPage()
+
+    }
+
+    Scenario(
+      "Intermediary can add, amend and remove new previous registrations but cannot amend existing previous registrations"
+    ) {
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedFullData", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
+
+    }
+
+    Scenario("Intermediary with manual Northern Ireland address can amend address to another NI postcode") {
+
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "excludedNiManual", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
+
+      When("the intermediary clicks change for the manually entered Northern Ireland address")
+      registration.selectChangeOrRemoveLink(
+        "ni-address\\?waypoints\\=rejoin-check-your-details"
+      )
+
+    }
+
+    Scenario("Intermediary with manual Northern Ireland address cannot amend address to a non-NI postcode") {
+
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "excludedNiManual", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
+
+      When("the intermediary clicks change for the manually entered Northern Ireland address")
+      registration.selectChangeOrRemoveLink(
+        "ni-address\\?waypoints\\=rejoin-check-your-details"
+      )
+    }
   }
 }

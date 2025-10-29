@@ -91,6 +91,8 @@ object Auth extends BasePage {
         case "reversal"          => "IN9003233333"
         case "quarantined"       => "IN9002323334"
         case "quarantineExpired" => "IN9002323335"
+        case "excludedFullData"  => "IN9001113232"
+        case "excludedNiManual"  => "IN9001235555"
         case _                   => throw new Exception("No other account types available")
       }
       sendKeys(By.id("input-1-0-value"), intNumber)
