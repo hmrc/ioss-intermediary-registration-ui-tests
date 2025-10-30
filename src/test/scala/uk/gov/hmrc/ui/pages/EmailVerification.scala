@@ -42,11 +42,11 @@ object EmailVerification extends BasePage {
     click(By.className("govuk-button"))
 
     val page = journey match {
-      case "amend" =>
+      case "amend"  =>
         "change-your-registration"
-      case rejoin  =>
+      case "rejoin" =>
         "rejoin-check-your-details"
-      case _       => "change-your-registration"
+      case _        => "bank-account-details"
     }
 
     fluentWait.until(

@@ -162,6 +162,7 @@ class RejoinRegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("check-tax-details/2?waypoints=rejoin-check-your-details")
       registration.continue()
       registration.checkJourneyUrl("add-tax-details?waypoints=rejoin-check-your-details")
+      registration.answerRadioButton("no")
       registration.checkJourneyUrl("rejoin-check-your-details")
 
       Then("the intermediary can submit their registration and rejoin the service with their amended details")
@@ -224,7 +225,7 @@ class RejoinRegistrationSpec extends BaseSpec {
       registration.answerRadioButton("yes")
 
       When("the intermediary clicks change for the first country")
-      registration.checkJourneyUrl("add-tax-details?waypoints=change-your-registration")
+      registration.checkJourneyUrl("add-tax-details?waypoints=rejoin-check-your-details")
       registration.selectChangeOrRemoveLink(
         "check-tax-details\\/1\\?waypoints\\=change-add-tax-details\\%2Crejoin-check-your-details"
       )
@@ -323,7 +324,7 @@ class RejoinRegistrationSpec extends BaseSpec {
       registration.answerRadioButton("yes")
 
       When("the intermediary clicks change for Fixed establishments in other countries")
-      registration.checkJourneyUrl("change-your-registration")
+      registration.checkJourneyUrl("rejoin-check-your-details")
       registration.selectChangeOrRemoveLink(
         "eu-fixed-establishment\\?waypoints\\=rejoin-check-your-details"
       )
@@ -469,7 +470,7 @@ class RejoinRegistrationSpec extends BaseSpec {
       )
 
       And("the intermediary updates the postcode to a non-NI postcode")
-      registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
+      registration.checkJourneyUrl("ni-address?waypoints=rejoin-check-your-details")
       registration.updateField("postCode", "AA1 1AA")
       registration.continue()
 
