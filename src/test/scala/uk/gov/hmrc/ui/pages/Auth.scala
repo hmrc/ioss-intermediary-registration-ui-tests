@@ -78,12 +78,12 @@ object Auth extends BasePage {
       sendKeys(By.id("input-0-0-value"), vrn)
     }
 
-    if (accountType != "noVat" || accountType != "vatOnly") {
+    if (accountType != "noVat" && accountType != "vatOnly") {
       sendKeys(By.id("enrolment[1].name"), "HMRC-IOSS-INT")
       sendKeys(By.id("input-1-0-name"), "IntNumber")
 
       val intNumber = accountType match {
-        case "standard"          => "IN9001234567"
+        case "registration"      => ""
         case "fullAmendAnswers"  => "IN9001234568"
         case "amendNIManual"     => "IN9001234444"
         case "excludedPast"      => "IN9002323232"
@@ -93,9 +93,11 @@ object Auth extends BasePage {
         case "quarantineExpired" => "IN9002323335"
         case "excludedFullData"  => "IN9001113232"
         case "excludedNiManual"  => "IN9001235555"
-        case _                   => throw new Exception("No other account types available")
+        case _                   => "IN9001234567"
       }
-      sendKeys(By.id("input-1-0-value"), intNumber)
+      if (accountType != "registration") {
+        sendKeys(By.id("input-1-0-value"), intNumber)
+      }
     }
 
     click(By.cssSelector("Input[value='Submit']"))

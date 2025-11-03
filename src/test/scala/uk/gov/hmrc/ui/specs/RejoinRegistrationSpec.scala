@@ -81,7 +81,7 @@ class RejoinRegistrationSpec extends BaseSpec {
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
       registration.checkJourneyUrl("rejoin-check-your-details")
 
-      When("the intermediary clicks change for Have a different UK trading name")
+      When("the intermediary clicks change for Have other trading names")
       registration.selectChangeOrRemoveLink(
         "have-other-trading-name\\?waypoints\\=rejoin-check-your-details"
       )
@@ -310,7 +310,7 @@ class RejoinRegistrationSpec extends BaseSpec {
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedFullData", "rejoin")
       registration.checkJourneyUrl("rejoin-check-your-details")
 
-      When("the intermediary clicks change for Have a different UK trading name")
+      When("the intermediary clicks change for Have other trading names")
       registration.selectChangeOrRemoveLink(
         "have-other-trading-name\\?waypoints\\=rejoin-check-your-details"
       )

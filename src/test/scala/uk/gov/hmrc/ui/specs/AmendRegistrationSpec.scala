@@ -33,7 +33,7 @@ class AmendRegistrationSpec extends BaseSpec {
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "standard", "amend")
       registration.checkJourneyUrl("change-your-registration")
 
-      When("the intermediary clicks change for Have a different UK trading name")
+      When("the intermediary clicks change for Have other trading names")
       registration.selectChangeOrRemoveLink(
         "have-other-trading-name\\?waypoints\\=change-your-registration"
       )
@@ -174,7 +174,7 @@ class AmendRegistrationSpec extends BaseSpec {
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "fullAmendAnswers", "amend")
       registration.checkJourneyUrl("change-your-registration")
 
-      When("the intermediary clicks change for Have a different UK trading name")
+      When("the intermediary clicks change for Have other trading names")
       registration.selectChangeOrRemoveLink(
         "have-other-trading-name\\?waypoints\\=change-your-registration"
       )
