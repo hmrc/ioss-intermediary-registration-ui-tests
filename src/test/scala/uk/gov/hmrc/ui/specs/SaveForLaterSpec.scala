@@ -344,7 +344,7 @@ class SaveForLaterSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "registration")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "savedWithCredId")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary completes some of their registration details")
@@ -413,7 +413,7 @@ class SaveForLaterSpec extends BaseSpec {
 
       Given("the intermediary logs into IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "savedRegistration")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatOnly", "retrievedWithCredId")
 
       Then("the intermediary is on the continue-registration page")
       registration.checkJourneyUrl("continue-registration")
