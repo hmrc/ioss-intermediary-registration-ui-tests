@@ -552,7 +552,7 @@ class ChangeAnswersSpec extends BaseSpec {
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")
 
-      When("the intermediary selects change for Have a different UK trading name on the check-your-answers page")
+      When("the intermediary selects change for Have other trading names on the check-your-answers page")
       registration.checkJourneyUrl("check-your-answers")
       registration.selectChangeOrRemoveLink("have-other-trading-name\\?waypoints\\=check-your-answers")
 

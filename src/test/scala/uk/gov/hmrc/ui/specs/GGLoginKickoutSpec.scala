@@ -45,7 +45,7 @@ class GGLoginKickoutSpec extends BaseSpec {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service with an IOSS intermediary enrolment")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "vatAndIossInt", "registration")
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "standard", "registration")
       registration.checkJourneyUrl("ioss-intermediary-registered")
 
       When("the intermediary navigates through the filter question pages")

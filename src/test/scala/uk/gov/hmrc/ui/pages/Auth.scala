@@ -39,19 +39,21 @@ object Auth extends BasePage {
   def checkAuthUrl(): Unit =
     getCurrentUrl should startWith(authUrl)
 
-  def loginUsingAuthorityWizard(vrn: String, affinityGroup: String, enrolmentType: String, journey: String): Unit = {
+  def loginUsingAuthorityWizard(vrn: String, affinityGroup: String, accountType: String, journey: String): Unit = {
 
     getCurrentUrl should startWith(authUrl)
 
-    if (journey == "amend") {
-      sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl/start-amend-journey")
-    } else if (
-      journey == "savedRegistration" || journey == "registrationFailureSave" || journey == "retrievedWithCredId"
-    ) {
-      sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl/continue-on-sign-in")
-    } else {
-      sendKeys(By.name("redirectionUrl"), s"$registrationUrl$journeyUrl")
+    val redirectUrl = journey match {
+      case "amend"                                                                 =>
+        s"$registrationUrl$journeyUrl/start-amend-journey"
+      case "savedRegistration" | "registrationFailureSave" | "retrievedWithCredId" =>
+        s"$registrationUrl$journeyUrl/continue-on-sign-in"
+      case "rejoin"                                                                =>
+        s"$registrationUrl$journeyUrl/start-rejoin-journey"
+      case _                                                                       =>
+        s"$registrationUrl$journeyUrl"
     }
+    sendKeys(By.name("redirectionUrl"), redirectUrl)
 
     if (journey == "registrationFailure" || journey == "savedWithCredId") {
       generateCredId()
@@ -76,18 +78,26 @@ object Auth extends BasePage {
       sendKeys(By.id("input-0-0-value"), vrn)
     }
 
-    if (enrolmentType == "vatAndIossInt") {
+    if (accountType != "noVat" && accountType != "vatOnly") {
       sendKeys(By.id("enrolment[1].name"), "HMRC-IOSS-INT")
       sendKeys(By.id("input-1-0-name"), "IntNumber")
-      sendKeys(By.id("input-1-0-value"), "IN9001234567")
-    } else if (enrolmentType == "vatAndIossIntAmendAnswers") {
-      sendKeys(By.id("enrolment[1].name"), "HMRC-IOSS-INT")
-      sendKeys(By.id("input-1-0-name"), "IntNumber")
-      sendKeys(By.id("input-1-0-value"), "IN9001234568")
-    } else if (enrolmentType == "amendNIManual") {
-      sendKeys(By.id("enrolment[1].name"), "HMRC-IOSS-INT")
-      sendKeys(By.id("input-1-0-name"), "IntNumber")
-      sendKeys(By.id("input-1-0-value"), "IN9001234444")
+
+      val intNumber = accountType match {
+        case "registration"      => ""
+        case "fullAmendAnswers"  => "IN9001234568"
+        case "amendNIManual"     => "IN9001234444"
+        case "excludedPast"      => "IN9002323232"
+        case "excludedFuture"    => "IN9003232323"
+        case "reversal"          => "IN9003233333"
+        case "quarantined"       => "IN9002323334"
+        case "quarantineExpired" => "IN9002323335"
+        case "excludedFullData"  => "IN9001113232"
+        case "excludedNiManual"  => "IN9001235555"
+        case _                   => "IN9001234567"
+      }
+      if (accountType != "registration") {
+        sendKeys(By.id("input-1-0-value"), intNumber)
+      }
     }
 
     click(By.cssSelector("Input[value='Submit']"))

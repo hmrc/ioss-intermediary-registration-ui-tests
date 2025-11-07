@@ -41,19 +41,18 @@ object EmailVerification extends BasePage {
     sendKeys(By.id("passcode"), passcode)
     click(By.className("govuk-button"))
 
-    if (journey == "amend") {
-      fluentWait.until(
-        ExpectedConditions.urlToBe(
-          "http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/change-your-registration"
-        )
-      )
-    } else {
-      fluentWait.until(
-        ExpectedConditions.urlToBe(
-          "http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/bank-account-details"
-        )
-      )
+    val page = journey match {
+      case "amend"  =>
+        "change-your-registration"
+      case "rejoin" =>
+        "rejoin-check-your-details"
+      case _        => "bank-account-details"
     }
-  }
 
+    fluentWait.until(
+      ExpectedConditions.urlToBe(
+        s"http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/$page"
+      )
+    )
+  }
 }
