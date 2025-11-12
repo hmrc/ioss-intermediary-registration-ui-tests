@@ -20,15 +20,16 @@ sm2 --start IMPORT_ONE_STOP_SHOP_ALL
 
 ## Tests
 
-Run tests as follows:
-
-* Argument `<browser>` must be `chrome`, `edge`, or `firefox`.
-* Argument `<environment>` must be `local`, `dev`, `qa` or `staging`.
-
+Run tests on the command line via one of the run scripts:
 ```bash
-sbt clean -Dbrowser="<browser>" -Denvironment="<environment>" test testReport
+./run_tests.sh
+```
+or
+```bash
+./run_extra_tests.sh
+```
 
-or use ./run_tests.sh 
+These were simply split into two scripts so that they could run in parallel on Jenkins to save time.
 ```
 
 ## Scalafmt

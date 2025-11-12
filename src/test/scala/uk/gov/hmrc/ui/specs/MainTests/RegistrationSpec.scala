@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.specs
+package uk.gov.hmrc.ui.specs.MainTests
 
 import uk.gov.hmrc.ui.pages.{Auth, EmailVerification, Registration}
+import uk.gov.hmrc.ui.specs.BaseSpec
 
 class RegistrationSpec extends BaseSpec {
 
