@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.specs
+package uk.gov.hmrc.ui.specs.ExtraTests
 
 import uk.gov.hmrc.ui.pages.*
+import uk.gov.hmrc.ui.specs.BaseSpec
 
 class GGLoginKickoutSpec extends BaseSpec {
 
