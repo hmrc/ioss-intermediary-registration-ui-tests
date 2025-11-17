@@ -83,26 +83,43 @@ object Auth extends BasePage {
       sendKeys(By.id("input-1-0-name"), "IntNumber")
 
       val intNumber = accountType match {
-        case "registration"                       => ""
-        case "fullAmendAnswers"                   => "IN9001234568"
-        case "amendNIManual"                      => "IN9001234444"
-        case "excludedPast"                       => "IN9002323232"
-        case "excludedFuture"                     => "IN9003232323"
-        case "reversal"                           => "IN9002323333"
-        case "quarantined"                        => "IN9002323334"
-        case "quarantineExpired"                  => "IN9002323335"
-        case "excludedFullData"                   => "IN9001113232"
-        case "excludedNiManual"                   => "IN9001235555"
-        case "fixedEstablishmentActiveVrn"        => "IN9003344551"
+        case "registration"                  => ""
+        case "fullAmendAnswers"              => "IN9001234568"
+        case "amendNIManual"                 => "IN9001234444"
+        case "excludedPast"                  => "IN9002323232"
+        case "excludedFuture"                => "IN9003232323"
+        case "reversal"                      => "IN9002323333"
+        case "quarantined"                   => "IN9002323334"
+        case "quarantineExpired"             => "IN9002323335"
+        case "excludedFullData"              => "IN9001113232"
+        case "excludedNiManual"              => "IN9001235555"case "fixedEstablishmentActiveVrn"        => "IN9003344551"
         case "fixedEstablishmentQuarantineVrn"    => "IN9003344552"
         case "fixedEstablishmentActiveTaxRef"     => "IN9003344553"
         case "fixedEstablishmentQuarantineTaxRef" => "IN9003344554"
         case "previousRegistrationActive"         => "IN9003344555"
         case "previousRegistrationQuarantine"     => "IN9003344556"
-        case _                                    => "IN9001234567"
+        case "onePreviousRegistration"       => "IN9008230001"
+        case "multiplePreviousRegistrations" => "IN9009230002"
+        case _                               => "IN9001234567"
       }
       if (accountType != "registration") {
         sendKeys(By.id("input-1-0-value"), intNumber)
+      }
+
+      if (accountType == "onePreviousRegistration") {
+        sendKeys(By.id("enrolment[2].name"), "HMRC-IOSS-INT")
+        sendKeys(By.id("input-2-0-name"), "IntNumber")
+        sendKeys(By.id("input-2-0-value"), "IN9007230001")
+      }
+
+      if (accountType == "multiplePreviousRegistrations") {
+        sendKeys(By.id("enrolment[2].name"), "HMRC-IOSS-INT")
+        sendKeys(By.id("input-2-0-name"), "IntNumber")
+        sendKeys(By.id("input-2-0-value"), "IN9008230002")
+
+        sendKeys(By.id("enrolment[3].name"), "HMRC-IOSS-INT")
+        sendKeys(By.id("input-3-0-name"), "IntNumber")
+        sendKeys(By.id("input-3-0-value"), "IN9007230002")
       }
     }
 
