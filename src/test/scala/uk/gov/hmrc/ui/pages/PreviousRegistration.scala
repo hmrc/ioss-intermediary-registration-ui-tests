@@ -39,20 +39,58 @@ object PreviousRegistration extends BasePage {
           "Other IOSS intermediary registrations No\n" +
           "Fixed establishments in other countries No\n" +
           "Contact name Rocky Balboa Change\n" +
-          "your contact name or department\n" + //hidden text
+          "your contact name or department\n" + // hidden text
           "Telephone number 028 123 4567 Change\n" +
-          "your telephone number\n" + //hidden text
+          "your telephone number\n" + // hidden text
           "Email address rocky.balboa@chartoffwinkler.co.uk Change\n" +
-          "your email address\n" + //hidden text
+          "your email address\n" + // hidden text
           "Name on the account Chartoff Winkler and Co. Change\n" +
-          "the name on this bank account\n" + //hidden text
+          "the name on this bank account\n" + // hidden text
           "BIC or SWIFT code BARCGB22456 Change\n" +
-          "your BIC or SWIFT code\n" + //hidden text
+          "your BIC or SWIFT code\n" + // hidden text
           "IBAN GB33BUKB202015555555555 Change\n" +
-          "your IBAN\n" + //hidden text
+          "your IBAN\n" + // hidden text
           "Confirm these changes to save them to your account."
       )
     )
+  }
+
+  def selectPreviousRegistration(intermediaryNumber: String): Unit = {
+    intermediaryNumber match {
+      case "IN9007230002" => click(By.id("value_0"))
+      case "IN9008230002" => click(By.id("value_1"))
+      case _              => throw new Exception("Option doesn't exist")
+    }
+    click(continueButton)
+  }
+
+  def checkAmendedAnswersMultipleRegistrations(journey: String): Unit = {
+    val body = Driver.instance.findElement(By.tagName("body")).getText
+
+    journey match {
+      case "onePreviousRegistrationCurrent"       =>
+        Assert.assertTrue(
+          body.contains(
+            "You changed the following details:\n" +
+              "Trading names removed tradingName2\n" +
+              "Fixed establishments in other countries No\n" +
+              "Fixed establishments in other countries removed Germany\n" +
+              "France"
+          )
+        )
+      case "multiplePreviousRegistrationsCurrent" =>
+        Assert.assertTrue(
+          body.contains(
+            "You changed the following details:\n" +
+              "Have other trading names No\n" +
+              "Trading names removed tradingName1\n" +
+              "tradingName2\n" +
+              "Other IOSS intermediary registrations details added Croatia"
+          )
+        )
+      case _                                      =>
+        throw new Exception("This amend variation does not exist")
+    }
   }
 
 }

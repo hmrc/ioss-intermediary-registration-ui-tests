@@ -21,9 +21,9 @@ import uk.gov.hmrc.ui.specs.BaseSpec
 
 class MultiplePreviousRegistrationsSpec extends BaseSpec {
 
-  private val registration = Registration
-  private val auth         = Auth
-  private val email        = EmailVerification
+  private val registration         = Registration
+  private val auth                 = Auth
+  private val email                = EmailVerification
   private val previousRegistration = PreviousRegistration
 
   Feature("Multiple previous registration amend journeys") {
@@ -51,6 +51,125 @@ class MultiplePreviousRegistrationsSpec extends BaseSpec {
 
       And("change links are only displayed for Contact Details and Bank Details")
       previousRegistration.checkChangeLinks()
+
+      // use change links and submit - bug
+
+      When("the intermediary manually navigates back to their current registration")
+      registration.goToPage("start-amend-journey")
+      registration.checkJourneyUrl("change-your-registration")
+      previousRegistration.checkIntermediaryNumber("IN9008230001")
+
+      Then("the intermediary clicks change for Other trading names")
+      registration.selectChangeOrRemoveLink("add-other-trading-name\\?waypoints\\=change-your-registration")
+
+      And("the intermediary removes the second trading name")
+      registration.checkJourneyUrl("add-other-trading-name?waypoints=change-your-registration")
+      registration.selectChangeOrRemoveLink("remove-other-trading-name\\/2\\?waypoints\\=change-your-registration")
+      registration.checkJourneyUrl("remove-other-trading-name/2?waypoints=change-your-registration")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("add-other-trading-name?waypoints=change-your-registration")
+      registration.answerRadioButton("no")
+
+      And("the intermediary changes Fixed establishments in other countries to No")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.selectChangeOrRemoveLink("eu-fixed-establishment\\?waypoints\\=change-your-registration")
+      registration.checkJourneyUrl("eu-fixed-establishment?waypoints=change-your-registration")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("remove-all-tax-details?waypoints=change-your-registration")
+      registration.answerRadioButton("yes")
+
+      Then("the intermediary can submit their amended registration successfully")
+      registration.checkJourneyUrl("change-your-registration")
+      previousRegistration.checkIntermediaryNumber("IN9008230001")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended in their current registration")
+      previousRegistration.checkAmendedAnswersMultipleRegistrations("onePreviousRegistrationCurrent")
+    }
+
+    Scenario("Intermediary with a current registration and two previous registrations") {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "multiplePreviousRegistrations", "amend")
+
+      When("the intermediary's current registration is displayed")
+      registration.checkJourneyUrl("change-your-registration")
+      previousRegistration.checkIntermediaryNumber("IN9009230002")
+
+      Then("the intermediary can select the 'View or change a previous registration' link")
+      registration.clickLink("change-previous-registrations")
+
+      And("the intermediary selects previous registration IN9007230002")
+      registration.checkJourneyUrl("change-your-previous-registrations?waypoints=change-your-registration")
+      previousRegistration.selectPreviousRegistration("IN9007230002")
+
+      And("the correct previous registration is displayed")
+      registration.checkJourneyUrl("change-a-previous-registration")
+      previousRegistration.checkIntermediaryNumber("IN9007230002")
+
+      And("change links are only displayed for Contact Details and Bank Details")
+      previousRegistration.checkChangeLinks()
+
+      // use change links and submit - bug
+
+      When("the intermediary manually navigates back to their current registration")
+      registration.goToPage("start-amend-journey")
+      registration.checkJourneyUrl("change-your-registration")
+      previousRegistration.checkIntermediaryNumber("IN9009230002")
+
+      Then("the intermediary can select the 'View or change a previous registration' link")
+      registration.clickLink("change-previous-registrations")
+
+      And("the intermediary selects previous registration IN9008230002")
+      registration.checkJourneyUrl("change-your-previous-registrations?waypoints=change-your-registration")
+      previousRegistration.selectPreviousRegistration("IN9008230002")
+
+      And("the correct previous registration is displayed")
+      registration.checkJourneyUrl("change-a-previous-registration")
+      previousRegistration.checkIntermediaryNumber("IN9008230002")
+
+      And("change links are only displayed for Contact Details and Bank Details")
+      previousRegistration.checkChangeLinks()
+
+      // use change links and submit - bug
+
+      When("the intermediary manually navigates back to their current registration")
+      registration.goToPage("start-amend-journey")
+      registration.checkJourneyUrl("change-your-registration")
+      previousRegistration.checkIntermediaryNumber("IN9009230002")
+
+      And("the intermediary changes Have other trading names to No")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.selectChangeOrRemoveLink("have-other-trading-name\\?waypoints\\=change-your-registration")
+      registration.checkJourneyUrl("have-other-trading-name?waypoints=change-your-registration")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("remove-all-trading-names?waypoints=change-your-registration")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary adds another IOSS intermediary registration")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.selectChangeOrRemoveLink(
+        "add-previous-intermediary-registration\\?waypoints\\=change-your-registration"
+      )
+      registration.checkJourneyUrl("add-previous-intermediary-registration?waypoints=change-your-registration")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("previous-eu-country/2?waypoints=change-your-registration")
+      registration.selectCountry("Croatia")
+      registration.checkJourneyUrl("previous-intermediary-registration-number/2?waypoints=change-your-registration")
+      registration.enterAnswer("IN1917777777")
+      registration.checkJourneyUrl("add-previous-intermediary-registration?waypoints=change-your-registration")
+      registration.answerRadioButton("no")
+
+      Then("the intermediary can submit their amended registration successfully")
+      registration.checkJourneyUrl("change-your-registration")
+      previousRegistration.checkIntermediaryNumber("IN9009230002")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended in their current registration")
+      previousRegistration.checkAmendedAnswersMultipleRegistrations("multiplePreviousRegistrationsCurrent")
 
     }
   }
