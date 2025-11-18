@@ -17,9 +17,7 @@
 package uk.gov.hmrc.ui.pages
 
 import org.junit.Assert
-import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait}
-import org.openqa.selenium.{By, Keys}
-import uk.gov.hmrc.configuration.TestEnvironment
+import org.openqa.selenium.By
 import uk.gov.hmrc.selenium.webdriver.Driver
 
 object PreviousRegistration extends BasePage {
@@ -68,7 +66,7 @@ object PreviousRegistration extends BasePage {
     val body = Driver.instance.findElement(By.tagName("body")).getText
 
     journey match {
-      case "onePreviousRegistrationCurrent"       =>
+      case "onePreviousRegistrationCurrent"                                          =>
         Assert.assertTrue(
           body.contains(
             "You changed the following details:\n" +
@@ -78,7 +76,7 @@ object PreviousRegistration extends BasePage {
               "France"
           )
         )
-      case "multiplePreviousRegistrationsCurrent" =>
+      case "multiplePreviousRegistrationsCurrent"                                    =>
         Assert.assertTrue(
           body.contains(
             "You changed the following details:\n" +
@@ -88,7 +86,26 @@ object PreviousRegistration extends BasePage {
               "Other IOSS intermediary registrations details added Croatia"
           )
         )
-      case _                                      =>
+      case "onePreviousRegistrationPrevious" | "multiplePreviousRegistrationsOldest" =>
+        Assert.assertTrue(
+          body.contains(
+            "You changed the following details:\n" +
+              "Contact name Previous Registration Test Name\n" +
+              "Email address amend-test@email.com\n" +
+              "BIC or SWIFT code (if you have one) Removed\n" +
+              "IBAN GB91BKEN10000041610008"
+          )
+        )
+      case "multiplePreviousRegistrationsPrevious"                                   =>
+        Assert.assertTrue(
+          body.contains(
+            "You changed the following details:\n" +
+              "Telephone number 01234 564712\n" +
+              "Name on the account Previous registration bank-account-name\n" +
+              "BIC or SWIFT code (if you have one) CITIGB2L"
+          )
+        )
+      case _                                                                         =>
         throw new Exception("This amend variation does not exist")
     }
   }

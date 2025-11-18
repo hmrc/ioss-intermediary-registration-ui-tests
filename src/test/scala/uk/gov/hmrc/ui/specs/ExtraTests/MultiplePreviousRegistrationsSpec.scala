@@ -52,7 +52,31 @@ class MultiplePreviousRegistrationsSpec extends BaseSpec {
       And("change links are only displayed for Contact Details and Bank Details")
       previousRegistration.checkChangeLinks()
 
-      // use change links and submit - bug
+      Then("the intermediary can amend contact details in their previous registration")
+      registration.selectChangeOrRemoveLink("contact-details\\?waypoints\\=change-a-previous-registration")
+      registration.checkJourneyUrl("contact-details?waypoints=change-a-previous-registration")
+      registration.updateField("fullName", "Previous Registration Test Name")
+      registration.updateField("emailAddress", "amend-test@email.com")
+      registration.continue()
+      email.completeEmailVerification("previousRegistration")
+      registration.checkJourneyUrl("change-a-previous-registration")
+      previousRegistration.checkIntermediaryNumber("IN9007230001")
+
+      And("the intermediary can amend bank details in their previous registration")
+      registration.selectChangeOrRemoveLink("bank-account-details\\?waypoints\\=change-a-previous-registration")
+      registration.checkJourneyUrl("bank-account-details?waypoints=change-a-previous-registration")
+      registration.updateField("bic", "")
+      registration.updateField("iban", "GB91BKEN10000041610008")
+      registration.continue()
+
+      And("the intermediary can successfully submit their amended previous registration")
+      registration.checkJourneyUrl("change-a-previous-registration")
+      previousRegistration.checkIntermediaryNumber("IN9007230001")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended in their previous registration")
+      previousRegistration.checkAmendedAnswersMultipleRegistrations("onePreviousRegistrationPrevious")
 
       When("the intermediary manually navigates back to their current registration")
       registration.goToPage("start-amend-journey")
@@ -112,7 +136,31 @@ class MultiplePreviousRegistrationsSpec extends BaseSpec {
       And("change links are only displayed for Contact Details and Bank Details")
       previousRegistration.checkChangeLinks()
 
-      // use change links and submit - bug
+      Then("the intermediary can amend contact details in their previous registration")
+      registration.selectChangeOrRemoveLink("contact-details\\?waypoints\\=change-a-previous-registration")
+      registration.checkJourneyUrl("contact-details?waypoints=change-a-previous-registration")
+      registration.updateField("fullName", "Previous Registration Test Name")
+      registration.updateField("emailAddress", "amend-test@email.com")
+      registration.continue()
+      email.completeEmailVerification("previousRegistration")
+      registration.checkJourneyUrl("change-a-previous-registration")
+      previousRegistration.checkIntermediaryNumber("IN9007230002")
+
+      And("the intermediary can amend bank details in their previous registration")
+      registration.selectChangeOrRemoveLink("bank-account-details\\?waypoints\\=change-a-previous-registration")
+      registration.checkJourneyUrl("bank-account-details?waypoints=change-a-previous-registration")
+      registration.updateField("bic", "")
+      registration.updateField("iban", "GB91BKEN10000041610008")
+      registration.continue()
+
+      And("the intermediary can successfully submit their amended previous registration")
+      registration.checkJourneyUrl("change-a-previous-registration")
+      previousRegistration.checkIntermediaryNumber("IN9007230002")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended in their previous registration")
+      previousRegistration.checkAmendedAnswersMultipleRegistrations("multiplePreviousRegistrationsOldest")
 
       When("the intermediary manually navigates back to their current registration")
       registration.goToPage("start-amend-journey")
@@ -133,7 +181,30 @@ class MultiplePreviousRegistrationsSpec extends BaseSpec {
       And("change links are only displayed for Contact Details and Bank Details")
       previousRegistration.checkChangeLinks()
 
-      // use change links and submit - bug
+      Then("the intermediary can amend contact details in their previous registration")
+      registration.selectChangeOrRemoveLink("contact-details\\?waypoints\\=change-a-previous-registration")
+      registration.checkJourneyUrl("contact-details?waypoints=change-a-previous-registration")
+      registration.updateField("telephoneNumber", "01234 564712")
+      registration.continue()
+      email.completeEmailVerification("secondPreviousRegistration")
+      registration.checkJourneyUrl("change-a-previous-registration")
+      previousRegistration.checkIntermediaryNumber("IN9008230002")
+
+      And("the intermediary can amend bank details in their previous registration")
+      registration.selectChangeOrRemoveLink("bank-account-details\\?waypoints\\=change-a-previous-registration")
+      registration.checkJourneyUrl("bank-account-details?waypoints=change-a-previous-registration")
+      registration.updateField("accountName", "Previous registration bank-account-name")
+      registration.updateField("bic", "CITIGB2L")
+      registration.continue()
+
+      And("the intermediary can successfully submit their amended previous registration")
+      registration.checkJourneyUrl("change-a-previous-registration")
+      previousRegistration.checkIntermediaryNumber("IN9008230002")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended in their previous registration")
+      previousRegistration.checkAmendedAnswersMultipleRegistrations("multiplePreviousRegistrationsPrevious")
 
       When("the intermediary manually navigates back to their current registration")
       registration.goToPage("start-amend-journey")
@@ -170,7 +241,6 @@ class MultiplePreviousRegistrationsSpec extends BaseSpec {
 
       And("the correct details are shown as amended in their current registration")
       previousRegistration.checkAmendedAnswersMultipleRegistrations("multiplePreviousRegistrationsCurrent")
-
     }
   }
 }
