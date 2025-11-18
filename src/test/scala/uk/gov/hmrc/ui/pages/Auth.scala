@@ -83,17 +83,23 @@ object Auth extends BasePage {
       sendKeys(By.id("input-1-0-name"), "IntNumber")
 
       val intNumber = accountType match {
-        case "registration"      => ""
-        case "fullAmendAnswers"  => "IN9001234568"
-        case "amendNIManual"     => "IN9001234444"
-        case "excludedPast"      => "IN9002323232"
-        case "excludedFuture"    => "IN9003232323"
-        case "reversal"          => "IN9003233333"
-        case "quarantined"       => "IN9002323334"
-        case "quarantineExpired" => "IN9002323335"
-        case "excludedFullData"  => "IN9001113232"
-        case "excludedNiManual"  => "IN9001235555"
-        case _                   => "IN9001234567"
+        case "registration"                       => ""
+        case "fullAmendAnswers"                   => "IN9001234568"
+        case "amendNIManual"                      => "IN9001234444"
+        case "excludedPast"                       => "IN9002323232"
+        case "excludedFuture"                     => "IN9003232323"
+        case "reversal"                           => "IN9003233333"
+        case "quarantined"                        => "IN9002323334"
+        case "quarantineExpired"                  => "IN9002323335"
+        case "excludedFullData"                   => "IN9001113232"
+        case "excludedNiManual"                   => "IN9001235555"
+        case "fixedEstablishmentActiveVrn"        => "IN9003344551"
+        case "fixedEstablishmentQuarantineVrn"    => "IN9003344552"
+        case "fixedEstablishmentActiveTaxRef"     => "IN9003344553"
+        case "fixedEstablishmentQuarantineTaxRef" => "IN9003344554"
+        case "previousRegistrationActive"         => "IN9003344555"
+        case "previousRegistrationQuarantine"     => "IN9003344556"
+        case _                                    => "IN9001234567"
       }
       if (accountType != "registration") {
         sendKeys(By.id("input-1-0-value"), intNumber)
