@@ -88,7 +88,7 @@ object Auth extends BasePage {
         case "amendNIManual"                      => "IN9001234444"
         case "excludedPast"                       => "IN9002323232"
         case "excludedFuture"                     => "IN9003232323"
-        case "reversal"                           => "IN9003233333"
+        case "reversal"                           => "IN9002323333"
         case "quarantined"                        => "IN9002323334"
         case "quarantineExpired"                  => "IN9002323335"
         case "excludedFullData"                   => "IN9001113232"
