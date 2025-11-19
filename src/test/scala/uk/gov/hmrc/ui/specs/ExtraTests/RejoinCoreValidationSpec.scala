@@ -145,6 +145,7 @@ class RejoinCoreValidationSpec extends BaseSpec {
       Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
 
       When("the intermediary clicks change for Other IOSS intermediary registrations")
       registration.selectChangeOrRemoveLink(
@@ -172,6 +173,7 @@ class RejoinCoreValidationSpec extends BaseSpec {
       Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
 
       When("the intermediary clicks change for Other IOSS intermediary registrations")
       registration.selectChangeOrRemoveLink(
@@ -199,6 +201,7 @@ class RejoinCoreValidationSpec extends BaseSpec {
       Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
 
       When("the intermediary clicks change for Fixed establishments in other countries")
       registration.selectChangeOrRemoveLink(
@@ -231,6 +234,7 @@ class RejoinCoreValidationSpec extends BaseSpec {
       Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
 
       When("the intermediary clicks change for Fixed establishments in other countries")
       registration.selectChangeOrRemoveLink(
@@ -263,6 +267,7 @@ class RejoinCoreValidationSpec extends BaseSpec {
       Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
 
       When("the intermediary clicks change for Fixed establishments in other countries")
       registration.selectChangeOrRemoveLink(
@@ -295,6 +300,7 @@ class RejoinCoreValidationSpec extends BaseSpec {
       Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
 
       When("the intermediary clicks change for Fixed establishments in other countries")
       registration.selectChangeOrRemoveLink(
