@@ -64,8 +64,8 @@ class RejoinCoreValidationSpec extends BaseSpec {
       When("the intermediary has an active scheme linked to their VRN")
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "fixedEstablishmentActiveVrn", "rejoin")
 
-      Then("the intermediary is on the cannot-rejoin-vat-number-already-registered/DE page")
-      registration.checkJourneyUrl("cannot-rejoin-vat-number-already-registered/DE")
+      Then("the intermediary is on the cannot-rejoin-vat-number-already-registered/EE page")
+      registration.checkJourneyUrl("cannot-rejoin-vat-number-already-registered/EE")
     }
 
     Scenario(
@@ -92,8 +92,8 @@ class RejoinCoreValidationSpec extends BaseSpec {
       When("the intermediary has an active scheme linked to their VRN")
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "fixedEstablishmentActiveTaxRef", "rejoin")
 
-      Then("the intermediary is on the cannot-rejoin-vat-number-already-registered/DE page")
-      registration.checkJourneyUrl("cannot-rejoin-vat-number-already-registered/DE")
+      Then("the intermediary is on the cannot-rejoin-vat-number-already-registered/EE page")
+      registration.checkJourneyUrl("cannot-rejoin-vat-number-already-registered/EE")
     }
 
     Scenario(
