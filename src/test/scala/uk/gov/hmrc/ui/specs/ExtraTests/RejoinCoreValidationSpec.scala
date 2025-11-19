@@ -36,8 +36,8 @@ class RejoinCoreValidationSpec extends BaseSpec {
       When("the intermediary has an active scheme linked to their VRN")
       auth.loginUsingAuthorityWizard("333333333", "Organisation", "excludedPast", "rejoin")
 
-      Then("the intermediary is on the <page> page")
-      registration.checkJourneyUrl("")
+      Then("the intermediary is on the scheme-still-active page")
+      registration.checkJourneyUrl("scheme-still-active?countryCode=EE")
     }
 
     Scenario(
@@ -50,8 +50,8 @@ class RejoinCoreValidationSpec extends BaseSpec {
       When("the intermediary has an active quarantine linked to their VRN")
       auth.loginUsingAuthorityWizard("333333334", "Organisation", "excludedPast", "rejoin")
 
-      Then("the intermediary is on the <page> page")
-      registration.checkJourneyUrl("")
+      Then("the intermediary is on the other-country-excluded-and-quarantined page")
+      registration.checkJourneyUrl("other-country-excluded-and-quarantined?countryCode=EE&exclusionDate=")
     }
 
     Scenario(
@@ -136,6 +136,188 @@ class RejoinCoreValidationSpec extends BaseSpec {
 
       Then("the intermediary is on the cannot-rejoin-quarantined-by-other-country/LV page")
       registration.checkJourneyUrl("cannot-rejoin-quarantined-by-other-country/LV")
+    }
+
+    Scenario(
+      "Intermediary cannot add previous registration that is still active in another country during rejoin intermediary registration journey"
+    ) {
+
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
+
+      When("the intermediary clicks change for Other IOSS intermediary registrations")
+      registration.selectChangeOrRemoveLink(
+        "has-previously-registered-as-intermediary\\?waypoints\\=rejoin-check-your-details"
+      )
+
+      And("the intermediary selects yes on the has-previously-registered-as-intermediary")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary?waypoints=rejoin-check-your-details")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary adds a previous registration that is already active in another member state")
+      registration.checkJourneyUrl("previous-eu-country/1?waypoints=rejoin-check-your-details")
+      registration.selectCountry("Slovenia")
+      registration.checkJourneyUrl("previous-intermediary-registration-number/1?waypoints=rejoin-check-your-details")
+      registration.enterAnswer("IN7057777123")
+
+      Then("the intermediary is on the scheme-still-active page")
+      registration.checkJourneyUrl("scheme-still-active?countryCode=EE")
+    }
+
+    Scenario(
+      "Intermediary cannot add previous registration that is quarantined in another country during rejoin intermediary registration journey"
+    ) {
+
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
+
+      When("the intermediary clicks change for Other IOSS intermediary registrations")
+      registration.selectChangeOrRemoveLink(
+        "has-previously-registered-as-intermediary\\?waypoints\\=rejoin-check-your-details"
+      )
+
+      And("the intermediary selects yes on the has-previously-registered-as-intermediary")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary?waypoints=rejoin-check-your-details")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary adds a previous registration that is already active in another member state")
+      registration.checkJourneyUrl("previous-eu-country/1?waypoints=rejoin-check-your-details")
+      registration.selectCountry("Latvia")
+      registration.checkJourneyUrl("previous-intermediary-registration-number/1?waypoints=rejoin-check-your-details")
+      registration.enterAnswer("IN4287777123")
+
+      Then("the intermediary is on the other-country-excluded-and-quarantined page")
+      registration.checkJourneyUrl("other-country-excluded-and-quarantined?countryCode=EE&exclusionDate=")
+    }
+
+    Scenario(
+      "Intermediary cannot add a fixed establishment by VRN that is still active in another country during rejoin intermediary registration journey"
+    ) {
+
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
+
+      When("the intermediary clicks change for Fixed establishments in other countries")
+      registration.selectChangeOrRemoveLink(
+        "eu-fixed-establishment\\?waypoints\\=rejoin-check-your-details"
+      )
+
+      And("the intermediary selects yes on the eu-fixed-establishment page")
+      registration.checkJourneyUrl("eu-fixed-establishment?waypoints=rejoin-check-your-details")
+      registration.answerRadioButton("yes")
+
+      Then("the intermediary can add tax details for one EU country that is already active in another member state")
+      registration.checkJourneyUrl("eu-fixed-establishment-country/1?waypoints=rejoin-check-your-details")
+      registration.selectCountry("Portugal")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/1?waypoints=rejoin-check-your-details")
+      registration.enterFETradingName("Company Name")
+      registration.enterFixedEstablishmentAddress("1 Street Name", "", "Town", "", "")
+      registration.checkJourneyUrl("registration-tax-type/1?waypoints=rejoin-check-your-details")
+      registration.selectRegistrationType("vat number")
+      registration.checkJourneyUrl("eu-vat-number/1?waypoints=rejoin-check-your-details")
+      registration.enterAnswer("PT111222333")
+
+      Then("the intermediary is on the scheme-still-active page")
+      registration.checkJourneyUrl("scheme-still-active?countryCode=EE")
+    }
+
+    Scenario(
+      "Intermediary cannot add a fixed establishment by VRN that is quarantined in another country during rejoin intermediary registration journey"
+    ) {
+
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
+
+      When("the intermediary clicks change for Fixed establishments in other countries")
+      registration.selectChangeOrRemoveLink(
+        "eu-fixed-establishment\\?waypoints\\=rejoin-check-your-details"
+      )
+
+      And("the intermediary selects yes on the eu-fixed-establishment page")
+      registration.checkJourneyUrl("eu-fixed-establishment?waypoints=rejoin-check-your-details")
+      registration.answerRadioButton("yes")
+
+      Then("the intermediary can add tax details for one EU country that is already active in another member state")
+      registration.checkJourneyUrl("eu-fixed-establishment-country/1?waypoints=rejoin-check-your-details")
+      registration.selectCountry("Lithuania")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/1?waypoints=rejoin-check-your-details")
+      registration.enterFETradingName("Company Name")
+      registration.enterFixedEstablishmentAddress("1 Street Name", "", "Town", "", "")
+      registration.checkJourneyUrl("registration-tax-type/1?waypoints=rejoin-check-your-details")
+      registration.selectRegistrationType("vat number")
+      registration.checkJourneyUrl("eu-vat-number/1?waypoints=rejoin-check-your-details")
+      registration.enterAnswer("LT999888777")
+
+      Then("the intermediary is on the other-country-excluded-and-quarantined page")
+      registration.checkJourneyUrl("other-country-excluded-and-quarantined?countryCode=EE&exclusionDate=")
+    }
+
+    Scenario(
+      "Intermediary cannot add a fixed establishment by Tax Reference that is still active in another country during rejoin intermediary registration journey"
+    ) {
+
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
+
+      When("the intermediary clicks change for Fixed establishments in other countries")
+      registration.selectChangeOrRemoveLink(
+        "eu-fixed-establishment\\?waypoints\\=rejoin-check-your-details"
+      )
+
+      And("the intermediary selects yes on the eu-fixed-establishment page")
+      registration.checkJourneyUrl("eu-fixed-establishment?waypoints=rejoin-check-your-details")
+      registration.answerRadioButton("yes")
+
+      Then("the intermediary can add tax details for one EU country that is already active in another member state")
+      registration.checkJourneyUrl("eu-fixed-establishment-country/1?waypoints=rejoin-check-your-details")
+      registration.selectCountry("Portugal")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/1?waypoints=rejoin-check-your-details")
+      registration.enterFETradingName("Company Name")
+      registration.enterFixedEstablishmentAddress("1 Street Name", "", "Town", "", "")
+      registration.checkJourneyUrl("registration-tax-type/1?waypoints=rejoin-check-your-details")
+      registration.selectRegistrationType("tax id number")
+      registration.checkJourneyUrl("eu-tax-identification-number/1?waypoints=rejoin-check-your-details")
+      registration.enterAnswer("123LIS123")
+
+      Then("the intermediary is on the scheme-still-active page")
+      registration.checkJourneyUrl("scheme-still-active?countryCode=EE")
+    }
+
+    Scenario(
+      "Intermediary cannot add a fixed establishment by Tax Reference that is quarantined in another country during rejoin intermediary registration journey"
+    ) {
+
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
+
+      When("the intermediary clicks change for Fixed establishments in other countries")
+      registration.selectChangeOrRemoveLink(
+        "eu-fixed-establishment\\?waypoints\\=rejoin-check-your-details"
+      )
+
+      And("the intermediary selects yes on the eu-fixed-establishment page")
+      registration.checkJourneyUrl("eu-fixed-establishment?waypoints=rejoin-check-your-details")
+      registration.answerRadioButton("yes")
+
+      Then("the intermediary can add tax details for one EU country that is already active in another member state")
+      registration.checkJourneyUrl("eu-fixed-establishment-country/1?waypoints=rejoin-check-your-details")
+      registration.selectCountry("Lithuania")
+      registration.checkJourneyUrl("eu-fixed-establishment-address/1?waypoints=rejoin-check-your-details")
+      registration.enterFETradingName("Company Name")
+      registration.enterFixedEstablishmentAddress("1 Street Name", "", "Town", "", "")
+      registration.checkJourneyUrl("registration-tax-type/1?waypoints=rejoin-check-your-details")
+      registration.selectRegistrationType("tax id number")
+      registration.checkJourneyUrl("eu-tax-identification-number/1?waypoints=rejoin-check-your-details")
+      registration.enterAnswer("ABC123123")
+
+      Then("the intermediary is on the other-country-excluded-and-quarantined page")
+      registration.checkJourneyUrl("other-country-excluded-and-quarantined?countryCode=EE&exclusionDate=")
     }
   }
 }
