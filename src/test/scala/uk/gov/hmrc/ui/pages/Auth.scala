@@ -99,10 +99,28 @@ object Auth extends BasePage {
         case "fixedEstablishmentQuarantineTaxRef" => "IN9003344554"
         case "previousRegistrationActive"         => "IN9003344555"
         case "previousRegistrationQuarantine"     => "IN9003344556"
+        case "onePreviousRegistration"            => "IN9008230001"
+        case "multiplePreviousRegistrations"      => "IN9009230002"
         case _                                    => "IN9001234567"
       }
       if (accountType != "registration") {
         sendKeys(By.id("input-1-0-value"), intNumber)
+      }
+
+      if (accountType == "onePreviousRegistration") {
+        sendKeys(By.id("enrolment[2].name"), "HMRC-IOSS-INT")
+        sendKeys(By.id("input-2-0-name"), "IntNumber")
+        sendKeys(By.id("input-2-0-value"), "IN9007230001")
+      }
+
+      if (accountType == "multiplePreviousRegistrations") {
+        sendKeys(By.id("enrolment[2].name"), "HMRC-IOSS-INT")
+        sendKeys(By.id("input-2-0-name"), "IntNumber")
+        sendKeys(By.id("input-2-0-value"), "IN9008230002")
+
+        sendKeys(By.id("enrolment[3].name"), "HMRC-IOSS-INT")
+        sendKeys(By.id("input-3-0-name"), "IntNumber")
+        sendKeys(By.id("input-3-0-value"), "IN9007230002")
       }
     }
 
