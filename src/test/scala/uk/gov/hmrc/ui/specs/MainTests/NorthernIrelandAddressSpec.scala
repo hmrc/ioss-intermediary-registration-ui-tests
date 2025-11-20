@@ -309,5 +309,54 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       And("the manually entered NI address field is not displayed")
       registration.checkNiAddressOnCya(false)
     }
+
+    Scenario(
+      "Intermediary who no longer has an NI address in VAT info has to enter an NI address to stay registered in the service"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "standard", "amend")
+
+      When("the intermediary is presented with the NI address intercept page")
+      registration.checkJourneyUrl("has-business-address-in-ni?waypoints=change-your-registration")
+
+      Then("the intermediary adds an NI address")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("ni-business-address?waypoints=change-your-registration")
+      registration.enterNiAddress("123 Street Name", "", "Town", "", "BT1 1AA")
+
+      And("the intermediary submits the amended registration successfully")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      registration.checkAmendedAnswers("vatInfoIntercept")
+    }
+
+    Scenario(
+      "Intermediary who no longer has an NI address in VAT info does not enter a new NI address and is excluded from the service"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "standard", "amend")
+
+      When("the intermediary is presented with the NI address intercept page")
+      registration.checkJourneyUrl("has-business-address-in-ni?waypoints=change-your-registration")
+
+      Then("the intermediary answers no to having an NI address")
+      registration.answerRadioButton("no")
+
+      And("the intermediary is on the remove-business-no-ni-address")
+      registration.checkJourneyUrl("remove-business-no-ni-address?waypoints=change-your-registration")
+
+      And("the intermediary selects continue")
+      registration.continue()
+
+      Then("the intermediary has been excluded from the service")
+      registration.checkJourneyUrl("removed-business-no-ni-address")
+    }
   }
 }
