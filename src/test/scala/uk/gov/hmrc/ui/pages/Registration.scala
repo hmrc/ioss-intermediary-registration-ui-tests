@@ -305,6 +305,12 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("Other Town or City"))
         Assert.assertTrue(body.contains("Other Region or State"))
         Assert.assertTrue(body.contains("BT1 1AA"))
+      case "vatInfoIntercept"                    =>
+        Assert.assertTrue(body.contains("You changed the following details:"))
+        Assert.assertTrue(body.contains("Business address in Northern Ireland changed"))
+        Assert.assertTrue(body.contains("123 Street Name"))
+        Assert.assertTrue(body.contains("Town"))
+        Assert.assertTrue(body.contains("BT1 1AA"))
       case _                                     =>
         throw new Exception("This amend variation does not exist")
     }
