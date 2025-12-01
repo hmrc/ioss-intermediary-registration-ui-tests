@@ -25,10 +25,13 @@ import scala.util.Random
 
 object Auth extends BasePage {
 
-  private val authUrl: String         = TestEnvironment.url("auth-login-stub") + "/auth-login-stub/gg-sign-in"
-  private val registrationUrl: String =
+  private val authUrl: String             = TestEnvironment.url("auth-login-stub") + "/auth-login-stub/gg-sign-in"
+  private val registrationUrl: String     =
     TestEnvironment.url("ioss-intermediary-registration-frontend")
-  private val journeyUrl: String      = "/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary"
+  private val journeyUrl: String          = "/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary"
+  private val dashboardUrl: String        =
+    TestEnvironment.url("ioss-intermediary-dashboard-frontend")
+  private val dashboardJourneyUrl: String = "/pay-clients-vat-on-eu-sales/manage-ioss-returns-payments-clients"
 
   var credId: String = "1234123412341234"
 
@@ -50,6 +53,8 @@ object Auth extends BasePage {
         s"$registrationUrl$journeyUrl/continue-on-sign-in"
       case "rejoin"                                                                =>
         s"$registrationUrl$journeyUrl/start-rejoin-journey"
+      case "dashboard"                                                             =>
+        s"$dashboardUrl$dashboardJourneyUrl"
       case _                                                                       =>
         s"$registrationUrl$journeyUrl"
     }
@@ -101,6 +106,7 @@ object Auth extends BasePage {
         case "previousRegistrationQuarantine"     => "IN9003344556"
         case "onePreviousRegistration"            => "IN9008230001"
         case "multiplePreviousRegistrations"      => "IN9009230002"
+        case "unusableEmailStatus"                => "IN9002222222"
         case _                                    => "IN9001234567"
       }
       if (accountType != "registration") {
