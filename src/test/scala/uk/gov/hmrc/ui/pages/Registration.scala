@@ -311,6 +311,9 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("123 Street Name"))
         Assert.assertTrue(body.contains("Town"))
         Assert.assertTrue(body.contains("BT1 1AA"))
+      case "emailChanged"                        =>
+        Assert.assertTrue(body.contains("You changed the following details:"))
+        Assert.assertTrue(body.contains("Email address unusable-test@email.com"))
       case _                                     =>
         throw new Exception("This amend variation does not exist")
     }
