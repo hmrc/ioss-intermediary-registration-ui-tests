@@ -107,6 +107,7 @@ object Auth extends BasePage {
         case "onePreviousRegistration"            => "IN9008230001"
         case "multiplePreviousRegistrations"      => "IN9009230002"
         case "unusableEmailStatus"                => "IN9002222222"
+        case "netpOutstandingReturns"             => "IN9000306832"
         case _                                    => "IN9001234567"
       }
       if (accountType != "registration") {

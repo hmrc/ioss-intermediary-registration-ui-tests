@@ -478,5 +478,13 @@ class RejoinRegistrationSpec extends BaseSpec {
       Then("the intermediary is on the cannot-register-not-ni-based-business page")
       registration.checkJourneyUrl("cannot-register-not-ni-based-business")
     }
+
+    Scenario("Intermediary who has a NETP with outstanding returns cannot rejoin the service") {
+
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "netpOutstandingReturns", "rejoin")
+      registration.checkJourneyUrl("cannot-rejoin")
+    }
   }
 }
