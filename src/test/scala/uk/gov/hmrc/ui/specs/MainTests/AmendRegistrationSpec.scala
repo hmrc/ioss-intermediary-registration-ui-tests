@@ -572,5 +572,21 @@ class AmendRegistrationSpec extends BaseSpec {
       And("the correct details are shown as amended")
       registration.checkAmendedAnswers("nonNiToNiAddress")
     }
+
+    Scenario(
+      "Intermediary submits their amended registration and receives an error"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "amendFailure", "amend")
+
+      When("the intermediary submits the amended registration")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.submit()
+
+      Then("the error-submitting-amend page is displayed")
+      registration.checkJourneyUrl("error-submitting-amend")
+    }
   }
 }
