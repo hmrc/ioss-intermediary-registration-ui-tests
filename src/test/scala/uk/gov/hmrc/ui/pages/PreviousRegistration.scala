@@ -37,17 +37,17 @@ object PreviousRegistration extends BasePage {
           "Other IOSS intermediary registrations No\n" +
           "Fixed establishments in other countries No\n" +
           "Contact name Rocky Balboa Change\n" +
-          "your contact name or department\n" + // hidden text
+          "Contact name\n" + // hidden text
           "Telephone number 028 123 4567 Change\n" +
-          "your telephone number\n" + // hidden text
+          "Telephone number\n" + // hidden text
           "Email address rocky.balboa@chartoffwinkler.co.uk Change\n" +
-          "your email address\n" + // hidden text
+          "Email address\n" + // hidden text
           "Name on the account Chartoff Winkler and Co. Change\n" +
-          "the name on this bank account\n" + // hidden text
+          "Name on the account\n" + // hidden text
           "BIC or SWIFT code BARCGB22456 Change\n" +
-          "your BIC or SWIFT code\n" + // hidden text
+          "BIC or SWIFT code\n" + // hidden text
           "IBAN GB33BUKB202015555555555 Change\n" +
-          "your IBAN\n" + // hidden text
+          "IBAN\n" + // hidden text
           "Confirm these changes to save them to your account."
       )
     )
