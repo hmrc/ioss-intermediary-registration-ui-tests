@@ -1,13 +1,6 @@
 {
   "add":[
     {
-      "reason":"No content, this is a redirect only",
-      "contextId":1,
-      "url":"http://localhost:10179/pay-clients-vat-on-eu-sales/manage-ioss-returns-payments-clients/your-account",
-      "ruleId":10038,
-      "newLevel":-1
-    },
-    {
       "reason":"No content, this is a page that is not accessible in this journey",
       "contextId":1,
       "url":"http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/remove-all-previous-intermediary-registrations?waypoints=change-your-registration",
