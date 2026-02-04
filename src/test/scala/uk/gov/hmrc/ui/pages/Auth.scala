@@ -134,7 +134,7 @@ object Auth extends BasePage {
 
     click(By.cssSelector("Input[value='Submit']"))
 
-    if (journey == "accountType") {
+    if (journey == "netpOutstandingReturns") {
       fluentWait.until(
         ExpectedConditions.urlContains(
           s"$registrationUrl$journeyUrl/cannot-rejoin"
