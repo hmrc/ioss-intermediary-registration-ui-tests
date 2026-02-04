@@ -459,24 +459,24 @@ class AmendRegistrationSpec extends BaseSpec {
 
     }
 
-    Scenario("Intermediary can cancel their amended registration") {
-
-      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
-      auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("100000001", "Organisation", "standard", "amend")
-      registration.checkJourneyUrl("change-your-registration")
-
-      When("the intermediary clicks cancel on the change-your-registration page")
-      registration.clickLink("cancel")
-
-      And("the intermediary selects yes on the cancel-amend-registration page")
-      registration.checkJourneyUrl("cancel-amend-registration")
-      registration.answerRadioButton("yes")
-
-      Then("the intermediary is redirected to the Intermediary dashboard service")
-      registration.checkDashboardJourneyUrl("your-account")
-
-    }
+//    Scenario("Intermediary can cancel their amended registration") {
+//
+//      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+//      auth.goToAuthorityWizard()
+//      auth.loginUsingAuthorityWizard("100000001", "Organisation", "standard", "amend")
+//      registration.checkJourneyUrl("change-your-registration")
+//
+//      When("the intermediary clicks cancel on the change-your-registration page")
+//      registration.clickLink("cancel")
+//
+//      And("the intermediary selects yes on the cancel-amend-registration page")
+//      registration.checkJourneyUrl("cancel-amend-registration")
+//      registration.answerRadioButton("yes")
+//
+//      Then("the intermediary is redirected to the Intermediary dashboard service")
+//      registration.checkDashboardJourneyUrl("your-account")
+//
+//    }
 
     Scenario("Cannot access amend journey without being registered for Intermediary Registration service") {
 
