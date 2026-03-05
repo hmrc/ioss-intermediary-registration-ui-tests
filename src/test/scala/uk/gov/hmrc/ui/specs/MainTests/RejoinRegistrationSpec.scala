@@ -479,6 +479,60 @@ class RejoinRegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("cannot-register-not-ni-based-business")
     }
 
+    Scenario(
+      "Intermediary with no manual Northern Ireland address and VAT details no longer have NI postcode cannot enter manual address with a non-NI postcode"
+    ) {
+
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "excludedPast", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
+
+      When("the intermediary attempts to submit their rejoin registration with no NI postcode")
+      registration.submit()
+
+      Then("the intermediary is on the has-business-address-in-ni?waypoints=rejoin-check-your-details page")
+      registration.checkJourneyUrl(
+        "has-business-address-in-ni?waypoints=rejoin-check-your-details"
+      )
+
+      When("the intermediary answers no")
+      registration.answerRadioButton("no")
+
+      Then("the intermediary is on the cannot-register-not-ni-based-business page")
+      registration.checkJourneyUrl("cannot-register-not-ni-based-business")
+    }
+
+    Scenario(
+      "Intermediary with no manual Northern Ireland address and VAT details no longer have NI postcode can enter manual address with an-NI postcode"
+    ) {
+
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "excludedPast", "rejoin")
+      registration.checkJourneyUrl("rejoin-check-your-details")
+
+      When("the intermediary attempts to submit their rejoin registration with no NI postcode")
+      registration.submit()
+
+      Then("the intermediary is on the has-business-address-in-ni?waypoints=rejoin-check-your-details page")
+      registration.checkJourneyUrl(
+        "has-business-address-in-ni?waypoints=rejoin-check-your-details"
+      )
+
+      When("the intermediary answers yes")
+      registration.answerRadioButton("yes")
+
+      Then("the intermediary can update their address")
+      registration.checkJourneyUrl("ni-business-address?waypoints=rejoin-check-your-details")
+      registration.enterNiAddress("1A Different Road", "Suburb", "Belfast", "", "BT1 1DD")
+
+      Then("the intermediary can submit their registration and rejoin the service with their amended details")
+      registration.checkJourneyUrl("rejoin-check-your-details")
+      registration.submit()
+      registration.checkJourneyUrl("successful-rejoin")
+    }
+
     Scenario("Intermediary who has a NETP with outstanding returns cannot rejoin the service") {
 
       Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
