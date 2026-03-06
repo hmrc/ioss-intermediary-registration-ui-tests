@@ -504,7 +504,7 @@ class RejoinRegistrationSpec extends BaseSpec {
     }
 
     Scenario(
-      "Intermediary with no manual Northern Ireland address and VAT details no longer have NI postcode can enter manual address with an-NI postcode"
+      "Intermediary with no manual Northern Ireland address and VAT details no longer have NI postcode can enter manual address with an NI postcode"
     ) {
 
       Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
