@@ -261,8 +261,8 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("You changed the following details:"))
         Assert.assertTrue(body.contains("Contact name Amended Test Name"))
         Assert.assertTrue(body.contains("Email address amend-test@email.com"))
-        Assert.assertTrue(body.contains("BIC or SWIFT code (if you have one) Removed"))
-        Assert.assertTrue(body.contains("IBAN GB91BKEN10000041610008"))
+        Assert.assertTrue(body.contains("BIC (Business Identifier Code) or SWIFT code (if you have one) Removed"))
+        Assert.assertTrue(body.contains("IBAN (International Bank Account Number) GB91BKEN10000041610008"))
       case "removeAll"                           =>
         Assert.assertTrue(body.contains("You changed the following details:"))
         Assert.assertTrue(body.contains("Have other trading names No"))
