@@ -92,8 +92,8 @@ object PreviousRegistration extends BasePage {
             "You changed the following details:\n" +
               "Contact name Previous Registration Test Name\n" +
               "Email address amend-test@email.com\n" +
-              "BIC or SWIFT code (if you have one) Removed\n" +
-              "IBAN GB91BKEN10000041610008"
+              "BIC (Business Identifier Code) or SWIFT code (if you have one) Removed\n" +
+              "IBAN (International Bank Account Number) GB91BKEN10000041610008"
           )
         )
       case "multiplePreviousRegistrationsPrevious"                                   =>
@@ -102,7 +102,7 @@ object PreviousRegistration extends BasePage {
             "You changed the following details:\n" +
               "Telephone number 01234 564712\n" +
               "Name on the account Previous registration bank-account-name\n" +
-              "BIC or SWIFT code (if you have one) CITIGB2L"
+              "BIC (Business Identifier Code) or SWIFT code (if you have one) CITIGB2L"
           )
         )
       case _                                                                         =>
