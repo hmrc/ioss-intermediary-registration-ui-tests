@@ -85,7 +85,9 @@ object ExcludedAmend extends BasePage {
 
     journey match {
       case "manualNiAddress" =>
-        Assert.assertTrue(body.contains(""))
+        Assert.assertTrue(body.contains("")) // TODO add text
+      case "postcode"        =>
+        Assert.assertTrue(body.contains("")) // TODO add text
       case _                 =>
         throw new Exception("This amend variation does not exist")
     }

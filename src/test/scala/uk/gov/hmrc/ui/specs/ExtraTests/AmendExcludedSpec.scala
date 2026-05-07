@@ -183,6 +183,31 @@ class AmendExcludedSpec extends BaseSpec {
       Then("the user is redirected to their dashboard")
       registration.checkDashboardJourneyUrl("your-account")
     }
-//    add in scenario for changing to non-NI postcode in excluded amend
+
+    Scenario("Excluded intermediary with a manual NI address can amend their address to a non-NI postcode") {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "excludedNiManual", "amend")
+
+      When("the intermediary is on the change-your-registration page")
+      registration.checkJourneyUrl("change-your-registration")
+
+      And("the intermediary clicks change on the Business address in Northern Ireland")
+      registration.selectChangeOrRemoveLink("ni-address\\?waypoints\\=change-your-registration")
+
+      And("the intermediary changes their postcode to a non-NI postcode")
+      registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
+      registration.updateField("postCode", "AA111AH")
+      registration.continue()
+      registration.checkJourneyUrl("change-your-registration")
+
+      Then("the intermediary can submit their amended registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      excludedAmend.checkAmendedAnswersExcludedIntermediary("postcode")
+    }
   }
 }
