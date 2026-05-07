@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ import uk.gov.hmrc.ui.specs.BaseSpec
 
 class AmendExcludedSpec extends BaseSpec {
 
-  private val registration = Registration
-  private val auth         = Auth
-  private val email        = EmailVerification
+  private val registration  = Registration
+  private val auth          = Auth
+  private val email         = EmailVerification
   private val excludedAmend = ExcludedAmend
 
   Feature("Amend registration for excluded intermediary journeys") {
@@ -81,7 +81,9 @@ class AmendExcludedSpec extends BaseSpec {
       excludedAmend.checkAmendedAnswersExcludedIntermediary("manualNiAddress")
     }
 
-    Scenario("Excluded intermediary with an NI address in their VAT info can only amend their bank and contact details") {
+    Scenario(
+      "Excluded intermediary with an NI address in their VAT info can only amend their bank and contact details"
+    ) {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -94,7 +96,9 @@ class AmendExcludedSpec extends BaseSpec {
       excludedAmend.checkChangeLinksVatInfoNi()
     }
 
-    Scenario("Excluded intermediary cannot access trading names, previous registrations or other EU registrations in amend") {
+    Scenario(
+      "Excluded intermediary cannot access trading names, previous registrations or other EU registrations in amend"
+    ) {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -102,21 +106,23 @@ class AmendExcludedSpec extends BaseSpec {
 
       When("the intermediary is on the change-your-registration page")
       registration.checkJourneyUrl("change-your-registration")
-      
+
       And("the intermediary manually browses to have-other-trading-name?waypoints=change-your-registration")
       registration.goToPage("have-other-trading-name?waypoints=change-your-registration")
-      
+
       Then("the user is redirected to their dashboard")
       registration.checkDashboardJourneyUrl("your-account")
 
-      When("the intermediary manually browses to other-trading-name/1?waypoints=add-other-trading-name%2Cchange-your-registration")
+      When(
+        "the intermediary manually browses to other-trading-name/1?waypoints=add-other-trading-name%2Cchange-your-registration"
+      )
       registration.clickBackButton()
       registration.checkJourneyUrl("change-your-registration")
       registration.goToPage("other-trading-name/1?waypoints=add-other-trading-name%2Cchange-your-registration")
 
       Then("the user is redirected to their dashboard")
       registration.checkDashboardJourneyUrl("your-account")
-      
+
       When("the intermediary manually browses to add-other-trading-name?waypoints=change-your-registration")
       registration.clickBackButton()
       registration.checkJourneyUrl("change-your-registration")
@@ -125,7 +131,9 @@ class AmendExcludedSpec extends BaseSpec {
       Then("the user is redirected to their dashboard")
       registration.checkDashboardJourneyUrl("your-account")
 
-      When("the intermediary manually browses to has-previously-registered-as-intermediary?waypoints=change-your-registration")
+      When(
+        "the intermediary manually browses to has-previously-registered-as-intermediary?waypoints=change-your-registration"
+      )
       registration.clickBackButton()
       registration.checkJourneyUrl("change-your-registration")
       registration.goToPage("has-previously-registered-as-intermediary?waypoints=change-your-registration")
@@ -141,7 +149,9 @@ class AmendExcludedSpec extends BaseSpec {
       Then("the user is redirected to their dashboard")
       registration.checkDashboardJourneyUrl("your-account")
 
-      When("the intermediary manually browses to add-previous-intermediary-registration?waypoints=change-your-registration")
+      When(
+        "the intermediary manually browses to add-previous-intermediary-registration?waypoints=change-your-registration"
+      )
       registration.clickBackButton()
       registration.checkJourneyUrl("change-your-registration")
       registration.goToPage("add-previous-intermediary-registration?waypoints=change-your-registration")
