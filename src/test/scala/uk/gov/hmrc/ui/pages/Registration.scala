@@ -327,4 +327,28 @@ object Registration extends BasePage {
     }
     click(continueButton)
   }
+
+  def clickBackButton(): Unit =
+    Driver.instance
+      .navigate()
+      .back()
+
+  def checkNiAddressText(shouldBeDisplayed: Boolean): Unit = {
+    val body        = Driver.instance.findElement(By.tagName("body")).getText
+    val textToCheck = "You must have a business address in Northern Ireland to use this scheme."
+    if (shouldBeDisplayed) {
+      Assert.assertTrue(body.contains(textToCheck))
+    } else {
+      Assert.assertFalse(body.contains(textToCheck))
+    }
+  }
+
+  def checkNiAddressH1(niVersion: Boolean): Unit = {
+    val h1 = Driver.instance.findElement(By.tagName("h1")).getText
+    if (niVersion) {
+      Assert.assertTrue(h1.contains("What is your business address in Northern Ireland?"))
+    } else {
+      Assert.assertTrue(h1.contains("What is your business address?"))
+    }
+  }
 }

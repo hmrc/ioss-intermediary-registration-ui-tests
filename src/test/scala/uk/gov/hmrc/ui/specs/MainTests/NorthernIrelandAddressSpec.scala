@@ -48,6 +48,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
 
       When("the intermediary enters a non-NI postcode on the ni-address page")
       registration.checkJourneyUrl("ni-address")
+      registration.checkNiAddressH1(true)
       registration.enterNiAddress("1 Street Name", "", "Non-NI city", "", "AB1 1AB")
 
       Then("the intermediary is on the cannot-register-not-ni-based-business page")
@@ -323,7 +324,9 @@ class NorthernIrelandAddressSpec extends BaseSpec {
 
       Then("the intermediary adds an NI address")
       registration.answerRadioButton("yes")
-      registration.checkJourneyUrl("ni-business-address?waypoints=change-your-registration")
+      registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
+      registration.checkNiAddressText(true)
+      registration.checkNiAddressH1(false)
       registration.enterNiAddress("123 Street Name", "", "Town", "", "BT1 1AA")
 
       And("the intermediary submits the amended registration successfully")

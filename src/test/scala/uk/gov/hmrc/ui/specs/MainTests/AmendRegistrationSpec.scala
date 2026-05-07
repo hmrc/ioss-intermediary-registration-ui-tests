@@ -432,6 +432,8 @@ class AmendRegistrationSpec extends BaseSpec {
 
       Then("the intermediary can update their address")
       registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
+      registration.checkNiAddressText(false)
+      registration.checkNiAddressH1(true)
       registration.enterNiAddress("1A Different Road", "Suburb", "Belfast", "", "BT1 1DD")
 
       And("the intermediary can submit their amended registration")
