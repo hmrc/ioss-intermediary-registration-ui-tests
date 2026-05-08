@@ -112,4 +112,18 @@ object ExcludedAmend extends BasePage {
         throw new Exception("This amend variation does not exist")
     }
   }
+
+  def checkLabelUpdate(): Unit = {
+    val body = Driver.instance.findElement(By.tagName("body")).getText
+    Assert.assertTrue(
+      body.contains(
+        "Import One Stop Shop details\n" +
+          "Business address Other Address Line 1\n" +
+          "Other Address Line 2\n" +
+          "Other Town or City\n" +
+          "Other Region or State\n" +
+          "AA111AH Change\n"
+      )
+    )
+  }
 }

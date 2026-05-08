@@ -51,6 +51,7 @@ class AmendExcludedSpec extends BaseSpec {
       registration.updateField("county", "")
       registration.updateField("postCode", "BT1 9AA")
       registration.continue()
+      excludedAmend.checkLabelUpdate()
       registration.checkJourneyUrl("change-your-registration")
 
       And("the intermediary clicks change for contact details")
