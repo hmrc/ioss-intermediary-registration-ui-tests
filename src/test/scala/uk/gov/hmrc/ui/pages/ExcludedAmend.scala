@@ -85,9 +85,29 @@ object ExcludedAmend extends BasePage {
 
     journey match {
       case "manualNiAddress" =>
-        Assert.assertTrue(body.contains("")) // TODO add text
+        Assert.assertTrue(
+          body.contains(
+            "You changed the following details:\n" +
+              "Contact name New Name\n" +
+              "Email address new-email@test.com\n" +
+              "BIC (Business Identifier Code) or SWIFT code (if you have one) Removed\n" +
+              "Business address in Northern Ireland changed\tOther Address Line 1\n" +
+              "Other Address Line 2\n" +
+              "Belfast\n" +
+              "BT1 9AA"
+          )
+        )
       case "postcode"        =>
-        Assert.assertTrue(body.contains("")) // TODO add text
+        Assert.assertTrue(
+          body.contains(
+            "You changed the following details:\n" +
+              "Business address changed Other Address Line 1\n" +
+              "Other Address Line 2\n" +
+              "Other Town or City\n" +
+              "Other Region or State\n" +
+              "AA111AH"
+          )
+        )
       case _                 =>
         throw new Exception("This amend variation does not exist")
     }

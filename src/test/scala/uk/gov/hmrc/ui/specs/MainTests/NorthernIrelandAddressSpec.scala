@@ -326,7 +326,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
       registration.answerRadioButton("yes")
       registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
       registration.checkNiAddressText(true)
-      registration.checkNiAddressH1(false)
+      registration.checkNiAddressH1(true)
       registration.enterNiAddress("123 Street Name", "", "Town", "", "BT1 1AA")
 
       And("the intermediary submits the amended registration successfully")
