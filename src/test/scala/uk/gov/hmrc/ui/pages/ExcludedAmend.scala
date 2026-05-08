@@ -125,5 +125,12 @@ object ExcludedAmend extends BasePage {
           "AA111AH Change\n"
       )
     )
+
+    Assert.assertFalse(
+      body.contains(
+        "Import One Stop Shop details\n" +
+          "Business address in Northern Ireland Other Address Line 1"
+      )
+    )
   }
 }
