@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -524,7 +524,9 @@ class RejoinRegistrationSpec extends BaseSpec {
       registration.answerRadioButton("yes")
 
       Then("the intermediary can update their address")
-      registration.checkJourneyUrl("ni-business-address?waypoints=rejoin-check-your-details")
+      registration.checkJourneyUrl("ni-address?waypoints=rejoin-check-your-details")
+      registration.checkNiAddressText(true)
+      registration.checkNiAddressH1(false)
       registration.enterNiAddress("1A Different Road", "Suburb", "Belfast", "", "BT1 1DD")
 
       Then("the intermediary can submit their registration and rejoin the service with their amended details")
