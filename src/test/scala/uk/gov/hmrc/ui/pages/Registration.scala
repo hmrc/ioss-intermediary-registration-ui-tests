@@ -351,4 +351,9 @@ object Registration extends BasePage {
       Assert.assertTrue(h1.contains("What is your business address?"))
     }
   }
+
+  def noAmendments(): Unit = {
+    val htmlBody = Driver.instance.findElement(By.tagName("body")).getText
+    Assert.assertTrue(htmlBody.contains("You have not made any changes."))
+  }
 }

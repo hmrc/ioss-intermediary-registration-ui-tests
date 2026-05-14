@@ -32,7 +32,10 @@ class AmendRegistrationSpec extends BaseSpec {
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "standard", "amend")
+
+      And("the intermediary is on the change-your-registration page with no changes made yet")
       registration.checkJourneyUrl("change-your-registration")
+      registration.noAmendments()
 
       When("the intermediary clicks change for Have other trading names")
       registration.selectChangeOrRemoveLink(
@@ -131,7 +134,10 @@ class AmendRegistrationSpec extends BaseSpec {
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "standard", "amend")
+
+      And("the intermediary is on the change-your-registration page with no changes made yet")
       registration.checkJourneyUrl("change-your-registration")
+      registration.noAmendments()
 
       When("the intermediary clicks change for contact details")
       registration.selectChangeOrRemoveLink(
@@ -173,7 +179,10 @@ class AmendRegistrationSpec extends BaseSpec {
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "fullAmendAnswers", "amend")
+
+      And("the intermediary is on the change-your-registration page with no changes made yet")
       registration.checkJourneyUrl("change-your-registration")
+      registration.noAmendments()
 
       When("the intermediary clicks change for Have other trading names")
       registration.selectChangeOrRemoveLink(
@@ -218,7 +227,10 @@ class AmendRegistrationSpec extends BaseSpec {
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "fullAmendAnswers", "amend")
+
+      And("the intermediary is on the change-your-registration page with no changes made yet")
       registration.checkJourneyUrl("change-your-registration")
+      registration.noAmendments()
 
       When("the intermediary attempts to access the remove-all-previous-intermediary-registrations in amend journey")
       registration.goToPage("remove-all-previous-intermediary-registrations?waypoints=change-your-registration")
@@ -232,7 +244,10 @@ class AmendRegistrationSpec extends BaseSpec {
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "fullAmendAnswers", "amend")
+
+      And("the intermediary is on the change-your-registration page with no changes made yet")
       registration.checkJourneyUrl("change-your-registration")
+      registration.noAmendments()
 
       When("the intermediary clicks change for add-other-trading-name")
       registration.selectChangeOrRemoveLink(
@@ -343,7 +358,10 @@ class AmendRegistrationSpec extends BaseSpec {
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "fullAmendAnswers", "amend")
+
+      And("the intermediary is on the change-your-registration page with no changes made yet")
       registration.checkJourneyUrl("change-your-registration")
+      registration.noAmendments()
 
       When("the intermediary clicks add for add-previous-intermediary-registration")
       registration.selectChangeOrRemoveLink(
@@ -423,7 +441,10 @@ class AmendRegistrationSpec extends BaseSpec {
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("700000003", "Organisation", "amendNIManual", "amend")
+
+      And("the intermediary is on the change-your-registration page with no changes made yet")
       registration.checkJourneyUrl("change-your-registration")
+      registration.noAmendments()
 
       When("the intermediary clicks change for the manually entered Northern Ireland address")
       registration.selectChangeOrRemoveLink(
@@ -445,20 +466,21 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.checkAmendedAnswers("niAddress")
     }
 
-    Scenario("Intermediary can submit their registration without amending any details") {
+    Scenario("Intermediary cannot submit their registration without amending any details") {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "standard", "amend")
+
+      And("the intermediary is on the change-your-registration page with no changes made")
       registration.checkJourneyUrl("change-your-registration")
+      registration.noAmendments()
 
-      When("the intermediary submits their registration without amending any details")
-      registration.submit()
-      registration.checkJourneyUrl("successful-amend")
+      When("the intermediary clicks the 'Return to your account link")
+      registration.clickLink("return-to-your-account")
 
-      Then("the confirmation of no answers changed is displayed")
-      registration.checkAmendedAnswers("noAmendedAnswers")
-
+      Then("the intermediary is returned to their dashboard")
+      registration.checkDashboardJourneyUrl("your-account")
     }
 
     Scenario("Cannot access amend journey without being registered for Intermediary Registration service") {
@@ -478,14 +500,42 @@ class AmendRegistrationSpec extends BaseSpec {
       Given("the intermediary accesses the IOSS Intermediary Registration Service with an expired VRN")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("700000004", "Organisation", "standard", "amend")
+
+      And("the intermediary is on the change-your-registration page with no changes made")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.noAmendments()
+
+      When("the intermediary clicks change for contact details")
+      registration.selectChangeOrRemoveLink(
+        "contact-details\\?waypoints\\=change-your-registration"
+      )
+
+      Then("the intermediary can update their name and email address")
+      registration.checkJourneyUrl("contact-details")
+      registration.updateField("fullName", "Amended Test Name")
+      registration.updateField("emailAddress", "amend-test@email.com")
+      registration.continue()
+      email.completeEmailVerification("amend")
       registration.checkJourneyUrl("change-your-registration")
 
-      When("the intermediary submits their registration without amending any details")
+      When("the intermediary clicks change for bank details")
+      registration.selectChangeOrRemoveLink(
+        "bank-account-details\\?waypoints\\=change-your-registration"
+      )
+
+      Then("the intermediary can update their IBAN and remove their BIC code")
+      registration.checkJourneyUrl("bank-account-details")
+      registration.updateField("bic", "")
+      registration.updateField("iban", "GB91BKEN10000041610008")
+      registration.continue()
+
+      Then("the intermediary can submit their amended registration")
+      registration.checkJourneyUrl("change-your-registration")
       registration.submit()
       registration.checkJourneyUrl("successful-amend")
 
-      Then("the confirmation of no answers changed is displayed")
-      registration.checkAmendedAnswers("noAmendedAnswers")
+      And("the correct details are shown as amended")
+      registration.checkAmendedAnswers("contactAndBankDetails")
     }
 
     Scenario(
@@ -495,7 +545,10 @@ class AmendRegistrationSpec extends BaseSpec {
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("700000003", "Organisation", "amendNIManual", "amend")
+
+      And("the intermediary is on the change-your-registration page with no changes made")
       registration.checkJourneyUrl("change-your-registration")
+      registration.noAmendments()
 
       When("the intermediary clicks change for the manually entered Northern Ireland address")
       registration.selectChangeOrRemoveLink(
@@ -526,7 +579,10 @@ class AmendRegistrationSpec extends BaseSpec {
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("700000003", "Organisation", "amendNIManual", "amend")
+
+      And("the intermediary is on the change-your-registration page with no changes made")
       registration.checkJourneyUrl("change-your-registration")
+      registration.noAmendments()
 
       When("the intermediary clicks change for the manually entered Northern Ireland address")
       registration.selectChangeOrRemoveLink(
@@ -563,6 +619,21 @@ class AmendRegistrationSpec extends BaseSpec {
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "amendFailure", "amend")
+
+      And("the intermediary is on the change-your-registration page with no changes made")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.noAmendments()
+
+      When("the intermediary clicks change for bank details")
+      registration.selectChangeOrRemoveLink(
+        "bank-account-details\\?waypoints\\=change-your-registration"
+      )
+
+      Then("the intermediary can update their IBAN and remove their BIC code")
+      registration.checkJourneyUrl("bank-account-details")
+      registration.updateField("bic", "")
+      registration.updateField("iban", "GB91BKEN10000041610008")
+      registration.continue()
 
       When("the intermediary submits the amended registration")
       registration.checkJourneyUrl("change-your-registration")
