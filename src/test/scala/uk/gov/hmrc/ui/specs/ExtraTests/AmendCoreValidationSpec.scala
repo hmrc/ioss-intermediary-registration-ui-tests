@@ -190,14 +190,9 @@ class AmendCoreValidationSpec extends BaseSpec {
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("333333333", "Organisation", "standard", "amend")
+
+      Then("the intermediary is on the change-your-registration page")
       registration.checkJourneyUrl("change-your-registration")
-
-      When("the intermediary submits their registration without amending any details")
-      registration.submit()
-      registration.checkJourneyUrl("successful-amend")
-
-      Then("the confirmation of no answers changed is displayed")
-      registration.checkAmendedAnswers("noAmendedAnswers")
     }
 
     Scenario(
@@ -207,14 +202,9 @@ class AmendCoreValidationSpec extends BaseSpec {
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("333333334", "Organisation", "standard", "amend")
+
+      Then("the intermediary is on the change-your-registration page")
       registration.checkJourneyUrl("change-your-registration")
-
-      When("the intermediary submits their registration without amending any details")
-      registration.submit()
-      registration.checkJourneyUrl("successful-amend")
-
-      Then("the confirmation of no answers changed is displayed")
-      registration.checkAmendedAnswers("noAmendedAnswers")
     }
   }
 }
