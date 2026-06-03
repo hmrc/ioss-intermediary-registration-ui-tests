@@ -46,8 +46,8 @@ object PreviousRegistration extends BasePage {
           "Name on the account\n" + // hidden text
           "BIC or SWIFT code BARCGB22456 Change\n" +
           "BIC or SWIFT code\n" + // hidden text
-          "IBAN GB33BUKB202015555555555 Change\n" +
-          "IBAN\n" + // hidden text
+          "IBAN (International Bank Account Number) GB33BUKB202015555555555 Change\n" +
+          "IBAN (International Bank Account Number)\n" + // hidden text
           "You have not made any changes."
       )
     )
