@@ -97,15 +97,13 @@ object ExcludedAmend extends BasePage {
               "BT1 9AA"
           )
         )
-      case "postcode"        =>
+      case "global"          =>
         Assert.assertTrue(
           body.contains(
             "You changed the following details:\n" +
-              "Business address changed Other Address Line 1\n" +
-              "Other Address Line 2\n" +
-              "Other Town or City\n" +
-              "Other Region or State\n" +
-              "AA111AH"
+              "Business address changed 200 A Street Name\n" +
+              "Town Name\n" +
+              "The Bahamas"
           )
         )
       case _                 =>
@@ -118,11 +116,9 @@ object ExcludedAmend extends BasePage {
     Assert.assertTrue(
       body.contains(
         "Import One Stop Shop details\n" +
-          "Business address Other Address Line 1\n" +
-          "Other Address Line 2\n" +
-          "Other Town or City\n" +
-          "Other Region or State\n" +
-          "AA111AH Change\n"
+          "Business address 200 A Street Name\n" +
+          "Town Name\n" +
+          "The Bahamas Change"
       )
     )
 

@@ -361,7 +361,7 @@ class RejoinRegistrationSpec extends BaseSpec {
     }
 
     Scenario(
-      "Intermediary can add, amend and remove new previous registrations but cannot amend existing previous registrations"
+      "Intermediary can add, amend and remove new previous registrations but cannot amend existing previous registrations in rejoin"
     ) {
       Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()

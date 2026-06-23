@@ -41,7 +41,11 @@ class AmendExcludedSpec extends BaseSpec {
       excludedAmend.checkChangeLinksManualNi()
 
       And("the intermediary clicks change on the Business address in Northern Ireland")
-      registration.selectChangeOrRemoveLink("ni-address\\?waypoints\\=change-your-registration")
+      registration.selectChangeOrRemoveLink("still-based-in-ni\\?waypoints\\=change-your-registration")
+
+      And("the intermediary answers yes on the still-based-in-ni page")
+      registration.checkJourneyUrl("still-based-in-ni?waypoints=change-your-registration")
+      registration.answerRadioButton("yes")
 
       And("the intermediary changes some of their Northern Ireland address details")
       registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
@@ -184,7 +188,7 @@ class AmendExcludedSpec extends BaseSpec {
       registration.checkDashboardJourneyUrl("your-account")
     }
 
-    Scenario("Excluded intermediary with a manual NI address can amend their address to a non-NI postcode") {
+    Scenario("Excluded intermediary with a manual NI address can amend their address to a non-NI based address") {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -194,11 +198,19 @@ class AmendExcludedSpec extends BaseSpec {
       registration.checkJourneyUrl("change-your-registration")
 
       And("the intermediary clicks change on the Business address in Northern Ireland")
-      registration.selectChangeOrRemoveLink("ni-address\\?waypoints\\=change-your-registration")
+      registration.selectChangeOrRemoveLink("still-based-in-ni\\?waypoints\\=change-your-registration")
 
-      And("the intermediary changes their postcode to a non-NI postcode")
-      registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
-      registration.updateField("postCode", "AA111AH")
+      And("the intermediary answers no on the still-based-in-ni page")
+      registration.checkJourneyUrl("still-based-in-ni?waypoints=change-your-registration")
+      registration.answerRadioButton("no")
+
+      And("the intermediary selects a country for their non-NI address")
+      registration.checkJourneyUrl("global-country-based-in?waypoints=change-your-registration")
+      registration.selectCountry("The Bahamas")
+
+      And("the intermediary enters a non-NI address")
+      registration.updateField("line1", "200 A Street Name")
+      registration.updateField("townOrCity", "Town Name")
       registration.continue()
       registration.checkJourneyUrl("change-your-registration")
       excludedAmend.checkLabelUpdate()
@@ -208,7 +220,7 @@ class AmendExcludedSpec extends BaseSpec {
       registration.checkJourneyUrl("successful-amend")
 
       And("the correct details are shown as amended")
-      excludedAmend.checkAmendedAnswersExcludedIntermediary("postcode")
+      excludedAmend.checkAmendedAnswersExcludedIntermediary("global")
     }
   }
 }
