@@ -106,27 +106,59 @@ object ExcludedAmend extends BasePage {
               "The Bahamas"
           )
         )
+      case "global2"         =>
+        Assert.assertTrue(
+          body.contains(
+            "You changed the following details:\n" +
+              "Business address changed 200 A Street Name\n"
+//TODO: requires further update
+          )
+        )
       case _                 =>
         throw new Exception("This amend variation does not exist")
     }
   }
 
-  def checkLabelUpdate(): Unit = {
+  def checkLabelUpdate(version: String): Unit = {
     val body = Driver.instance.findElement(By.tagName("body")).getText
-    Assert.assertTrue(
-      body.contains(
-        "Import One Stop Shop details\n" +
-          "Business address 200 A Street Name\n" +
-          "Town Name\n" +
-          "The Bahamas Change"
-      )
-    )
 
+    if (version == "global1") {
+      Assert.assertTrue(
+        body.contains(
+          "Import One Stop Shop details\n" +
+            "Business address 200 A Street Name\n" +
+            "Town Name\n" +
+            "The Bahamas Change"
+        )
+      )
+    } else {
+      Assert.assertTrue(
+        body.contains(
+          "Import One Stop Shop details\n" +
+            "Business address 200 A street name\n" +
+            "Suburb Name\n" +
+            "City\n" +
+            "Region\n" +
+            "FIJI 12345\n" +
+            "Fiji Change"
+        )
+      )
+    }
     Assert.assertFalse(
       body.contains(
         "Import One Stop Shop details\n" +
           "Business address in Northern Ireland Other Address Line 1"
       )
     )
+  }
+
+  def checkHeading(version: String): Unit = {
+    val heading = Driver.instance.findElement(By.tagName("h2")).getText
+
+    if (version == "ni") {
+      Assert.assertTrue(heading.equals("Is your business still based in Northern Ireland?"))
+    } else {
+      Assert.assertTrue(heading.equals("Is your business based in Northern Ireland?"))
+    }
   }
 }

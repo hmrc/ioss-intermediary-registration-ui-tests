@@ -98,6 +98,7 @@ object Auth extends BasePage {
         case "quarantineExpired"                  => "IN9002323335"
         case "excludedFullData"                   => "IN9001113232"
         case "excludedNiManual"                   => "IN9001235555"
+        case "excludedGlobalOtherAddress"         => "IN9001236666"
         case "fixedEstablishmentActiveVrn"        => "IN9003344551"
         case "fixedEstablishmentQuarantineVrn"    => "IN9003344552"
         case "fixedEstablishmentActiveTaxRef"     => "IN9003344553"
