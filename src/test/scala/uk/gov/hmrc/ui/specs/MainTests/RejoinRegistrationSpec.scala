@@ -549,7 +549,7 @@ class RejoinRegistrationSpec extends BaseSpec {
 
       Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
-      auth.loginUsingAuthorityWizard("700000003", "Organisation", "excludedGlobalOtherAddress", "rejoin")
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "excludedGlobalOtherAddressRejoin", "rejoin")
       registration.checkJourneyUrl("rejoin-check-your-details")
 
       When("the intermediary attempts to submit their rejoin registration with no NI postcode")

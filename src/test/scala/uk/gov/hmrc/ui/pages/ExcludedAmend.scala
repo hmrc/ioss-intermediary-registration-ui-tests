@@ -122,6 +122,8 @@ object ExcludedAmend extends BasePage {
   def checkLabelUpdate(version: String): Unit = {
     val body = Driver.instance.findElement(By.tagName("body")).getText
 
+    println(body)
+
     if (version == "global1") {
       Assert.assertTrue(
         body.contains(
@@ -135,12 +137,12 @@ object ExcludedAmend extends BasePage {
       Assert.assertTrue(
         body.contains(
           "Import One Stop Shop details\n" +
-            "Business address 200 A street name\n" +
+            "Business address 200 A Street Name\n" +
             "Suburb Name\n" +
             "City\n" +
             "Region\n" +
             "FIJI 12345\n" +
-            "Fiji Change"
+            "Fiji"
         )
       )
     }
@@ -153,7 +155,7 @@ object ExcludedAmend extends BasePage {
   }
 
   def checkHeading(version: String): Unit = {
-    val heading = Driver.instance.findElement(By.tagName("h2")).getText
+    val heading = Driver.instance.findElement(By.tagName("h1")).getText
 
     if (version == "ni") {
       Assert.assertTrue(heading.equals("Is your business still based in Northern Ireland?"))

@@ -244,6 +244,7 @@ class AmendExcludedSpec extends BaseSpec {
 
       And("the intermediary changes the country")
       registration.checkJourneyUrl("global-country-based-in?waypoints=change-your-registration")
+      registration.clearCountry()
       registration.selectCountry("Fiji")
 
       And("the intermediary enters a new non-NI address")
