@@ -225,7 +225,9 @@ class AmendExcludedSpec extends BaseSpec {
       excludedAmend.checkAmendedAnswersExcludedIntermediary("global")
     }
 
-    Scenario("Excluded intermediary with a global other address can amend their address another global based address") {
+    Scenario(
+      "Excluded intermediary with a global other address can amend their address to another global based address"
+    ) {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -263,6 +265,39 @@ class AmendExcludedSpec extends BaseSpec {
 
       And("the correct details are shown as amended")
       excludedAmend.checkAmendedAnswersExcludedIntermediary("global2")
+    }
+
+    Scenario("Excluded intermediary with a global other address can amend their address back to an NI address") {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "excludedGlobalOtherAddress", "amend")
+
+      When("the intermediary is on the change-your-registration page")
+      registration.checkJourneyUrl("change-your-registration")
+
+      And("the intermediary clicks change on the Business address in Northern Ireland")
+      registration.selectChangeOrRemoveLink("still-based-in-ni\\?waypoints\\=change-your-registration")
+
+      And("the intermediary answers yes on the still-based-in-ni page")
+      registration.checkJourneyUrl("still-based-in-ni?waypoints=change-your-registration")
+      excludedAmend.checkHeading("global")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary changes some of their Northern Ireland address details")
+      registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
+      registration.checkNiAddressText(false)
+      registration.checkNiAddressH1(false)
+      registration.enterNiAddress("1 Street Name", "", "Belfast", "", "BT1 12AA")
+      registration.checkJourneyUrl("change-your-registration")
+      excludedAmend.checkLabelUpdate("ni")
+
+      Then("the intermediary can submit their amended registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      excludedAmend.checkAmendedAnswersExcludedIntermediary("ni")
     }
   }
 }

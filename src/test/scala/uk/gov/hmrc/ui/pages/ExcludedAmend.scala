@@ -110,8 +110,21 @@ object ExcludedAmend extends BasePage {
         Assert.assertTrue(
           body.contains(
             "You changed the following details:\n" +
-              "Business address changed 200 A Street Name\n"
-//TODO: requires further update
+              "Business address changed 200 A Street Name\n" +
+              "Suburb Name\n" +
+              "City\n" +
+              "Region\n" +
+              "FIJI 12345\n" +
+              "Fiji"
+          )
+        )
+      case "ni"              =>
+        Assert.assertTrue(
+          body.contains(
+            "You changed the following details:\n" +
+              "Business address in Northern Ireland changed 1 Street Name\n" +
+              "Belfast\n" +
+              "BT1 12AA"
           )
         )
       case _                 =>
@@ -122,8 +135,6 @@ object ExcludedAmend extends BasePage {
   def checkLabelUpdate(version: String): Unit = {
     val body = Driver.instance.findElement(By.tagName("body")).getText
 
-    println(body)
-
     if (version == "global1") {
       Assert.assertTrue(
         body.contains(
@@ -133,7 +144,13 @@ object ExcludedAmend extends BasePage {
             "The Bahamas Change"
         )
       )
-    } else {
+      Assert.assertFalse(
+        body.contains(
+          "Import One Stop Shop details\n" +
+            "Business address in Northern Ireland"
+        )
+      )
+    } else if (version == "global2") {
       Assert.assertTrue(
         body.contains(
           "Import One Stop Shop details\n" +
@@ -145,13 +162,22 @@ object ExcludedAmend extends BasePage {
             "Fiji"
         )
       )
-    }
-    Assert.assertFalse(
-      body.contains(
-        "Import One Stop Shop details\n" +
-          "Business address in Northern Ireland Other Address Line 1"
+      Assert.assertFalse(
+        body.contains(
+          "Import One Stop Shop details\n" +
+            "Business address in Northern Ireland"
+        )
       )
-    )
+    } else {
+      Assert.assertTrue(
+        body.contains(
+          "Import One Stop Shop details\n" +
+            "Business address in Northern Ireland 1 Street Name\n" +
+            "Belfast\n" +
+            "BT1 12AA\n"
+        )
+      )
+    }
   }
 
   def checkHeading(version: String): Unit = {
