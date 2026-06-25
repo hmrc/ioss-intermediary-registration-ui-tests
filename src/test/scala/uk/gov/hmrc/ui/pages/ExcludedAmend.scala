@@ -174,7 +174,7 @@ object ExcludedAmend extends BasePage {
           "Import One Stop Shop details\n" +
             "Business address in Northern Ireland 1 Street Name\n" +
             "Belfast\n" +
-            "BT1 12AA\n"
+            "BT1 12AA Change\n"
         )
       )
     }
