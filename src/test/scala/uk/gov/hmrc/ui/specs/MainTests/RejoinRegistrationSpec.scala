@@ -566,7 +566,7 @@ class RejoinRegistrationSpec extends BaseSpec {
       Then("the intermediary can update their address")
       registration.checkJourneyUrl("ni-address?waypoints=rejoin-check-your-details")
       registration.checkNiAddressText(true)
-      registration.checkNiAddressH1(false)
+      registration.checkNiAddressH1(true)
       registration.enterNiAddress("1A Different Road", "Suburb", "Belfast", "", "BT1 1DD")
 
       Then("the intermediary can submit their registration and rejoin the service with their amended details")
