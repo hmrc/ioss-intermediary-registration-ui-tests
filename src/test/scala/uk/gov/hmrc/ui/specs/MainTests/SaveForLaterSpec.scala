@@ -194,7 +194,7 @@ class SaveForLaterSpec extends BaseSpec {
 
       Then("the intermediary enters credentials on Contact-details page")
       registration.checkJourneyUrl("contact-details")
-      registration.fillContactDetails("Testname", "12345678", "test@email.com")
+      registration.fillContactDetails("Testname", "12345678", "iossint@iossint.hmrc.gov.uk")
 
       Then("the intermediary completes the email verification process")
       email.completeEmailVerification("registration")
@@ -326,7 +326,7 @@ class SaveForLaterSpec extends BaseSpec {
       registration.checkJourneyUrl("add-tax-details")
       registration.answerRadioButton("no")
       registration.checkJourneyUrl("contact-details")
-      registration.fillContactDetails("Testname", "12345678", "test@email.com")
+      registration.fillContactDetails("Testname", "12345678", "iossint@iossint.hmrc.gov.uk")
       email.completeEmailVerification("registration")
       registration.checkJourneyUrl("bank-account-details")
       registration.fillBankAccountDetails("Accountname", "SMCOGB2LXXM", "GB29NWBK60161331926819")

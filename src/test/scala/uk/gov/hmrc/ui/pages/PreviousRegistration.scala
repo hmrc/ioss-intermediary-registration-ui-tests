@@ -40,7 +40,7 @@ object PreviousRegistration extends BasePage {
           "Contact name\n" + // hidden text
           "Telephone number 028 123 4567 Change\n" +
           "Telephone number\n" + // hidden text
-          "Email address rocky.balboa@chartoffwinkler.co.uk Change\n" +
+          "Email address iossint@iossint.hmrc.gov.uk Change\n" +
           "Email address\n" + // hidden text
           "Name on the account Chartoff Winkler and Co. Change\n" +
           "Name on the account\n" + // hidden text
@@ -91,7 +91,7 @@ object PreviousRegistration extends BasePage {
           body.contains(
             "You changed the following details:\n" +
               "Contact name Previous Registration Test Name\n" +
-              "Email address amend-test@email.com\n" +
+              "Email address amend-iossint@iossint.hmrc.gov.uk\n" +
               "BIC (Business Identifier Code) or SWIFT code (if you have one) Removed\n" +
               "IBAN (International Bank Account Number) GB91BKEN10000041610008"
           )

@@ -280,7 +280,7 @@ class RejoinRegistrationSpec extends BaseSpec {
       Then("the intermediary can update their name and email address")
       registration.checkJourneyUrl("contact-details?waypoints=rejoin-check-your-details")
       registration.updateField("fullName", "Amended Test Name")
-      registration.updateField("emailAddress", "amend-test@email.com")
+      registration.updateField("emailAddress", "amend-iossint@iossint.hmrc.gov.uk")
       registration.continue()
       email.completeEmailVerification("rejoin")
       registration.checkJourneyUrl("rejoin-check-your-details")

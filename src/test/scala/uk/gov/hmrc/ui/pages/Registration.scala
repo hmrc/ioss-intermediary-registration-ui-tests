@@ -260,7 +260,7 @@ object Registration extends BasePage {
       case "contactAndBankDetails"               =>
         Assert.assertTrue(body.contains("You changed the following details:"))
         Assert.assertTrue(body.contains("Contact name Amended Test Name"))
-        Assert.assertTrue(body.contains("Email address amend-test@email.com"))
+        Assert.assertTrue(body.contains("Email address amend-iossint@iossint.hmrc.gov.uk"))
         Assert.assertTrue(body.contains("BIC (Business Identifier Code) or SWIFT code (if you have one) Removed"))
         Assert.assertTrue(body.contains("IBAN (International Bank Account Number) GB91BKEN10000041610008"))
       case "removeAll"                           =>
@@ -313,7 +313,7 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("BT1 1AA"))
       case "emailChanged"                        =>
         Assert.assertTrue(body.contains("You changed the following details:"))
-        Assert.assertTrue(body.contains("Email address unusable-test@email.com"))
+        Assert.assertTrue(body.contains("Email address unusable-iossint@iossint.hmrc.gov.uk"))
       case _                                     =>
         throw new Exception("This amend variation does not exist")
     }

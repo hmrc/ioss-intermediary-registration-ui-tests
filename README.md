@@ -29,8 +29,12 @@ or
 ./run_extra_tests.sh
 ```
 
-These were simply split into two scripts so that they could run in parallel on Jenkins to save time.
-```
+These were simply split into two scripts so that they could run in parallel on Jenkins to save time. 
+
+Note: we have also created run scripts for the QA environment - run_tests_qa.sh and run_extra_tests_qa.sh, however they
+will only work when all of the connected services are stubbed out and are only required for very specific uses, such
+as testing audit events when all downstream services and pre-requisite third party data setup is not available.
+
 
 ## Scalafmt
 

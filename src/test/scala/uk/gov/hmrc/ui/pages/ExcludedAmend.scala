@@ -41,7 +41,7 @@ object ExcludedAmend extends BasePage {
           "Contact name\n" + // hidden text
           "Telephone number 028 123 4567 Change\n" +
           "Telephone number\n" + // hidden text
-          "Email address rocky.balboa@chartoffwinkler.co.uk Change\n" +
+          "Email address iossint@iossint.hmrc.gov.uk Change\n" +
           "Email address\n" + // hidden text
           "Name on the account Chartoff Winkler and Co. Change\n" +
           "Name on the account\n" + // hidden text
@@ -67,7 +67,7 @@ object ExcludedAmend extends BasePage {
           "Contact name\n" + // hidden text
           "Telephone number 028 123 4567 Change\n" +
           "Telephone number\n" + // hidden text
-          "Email address rocky.balboa@chartoffwinkler.co.uk Change\n" +
+          "Email address iossint@iossint.hmrc.gov.uk Change\n" +
           "Email address\n" + // hidden text
           "Name on the account Chartoff Winkler and Co. Change\n" +
           "Name on the account\n" + // hidden text
