@@ -18,27 +18,31 @@ package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.By
 import org.openqa.selenium.support.ui.ExpectedConditions
+import uk.gov.hmrc.configuration.TestEnvironment
 
 object EmailVerification extends BasePage {
 
   def completeEmailVerification(journey: String): Unit = {
 
-    fluentWait.until(ExpectedConditions.urlContains("http://localhost:9890/email-verification/journey"))
+    val emailUrl        = TestEnvironment.url("email-verification")
+    val registrationUrl = TestEnvironment.url("ioss-intermediary-registration-frontend")
+
+    fluentWait.until(ExpectedConditions.urlContains(s"$emailUrl/email-verification/journey"))
 
     val journeyId   = getCurrentUrl.split("/")(5)
     val testOnlyUrl =
-      "http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/test-only/get-passcodes"
+      s"$registrationUrl/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/test-only/get-passcodes"
     get(testOnlyUrl)
     fluentWait.until(ExpectedConditions.urlContains(testOnlyUrl))
 
     val passcode = if (journey == "secondPreviousRegistration") {
-      getText(By.tagName("body")).split("rocky.balboa@chartoffwinkler.co.uk,")(1).dropRight(42)
+      getText(By.tagName("body")).split("iossint@iossint.hmrc.gov.uk,")(2).dropRight(42)
     } else {
       getText(By.tagName("body")).split(">")(3).dropRight(3)
     }
 
     val emailVerificationUrl =
-      s"http://localhost:9890/email-verification/journey/$journeyId/passcode?continueUrl=http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/bank-account-details&origin=IOSS-Intermediary"
+      s"$emailUrl/email-verification/journey/$journeyId/passcode?continueUrl=$registrationUrl/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/bank-account-details&origin=IOSS-Intermediary"
     get(emailVerificationUrl)
     fluentWait.until(ExpectedConditions.urlContains(emailVerificationUrl))
 
@@ -57,7 +61,7 @@ object EmailVerification extends BasePage {
 
     fluentWait.until(
       ExpectedConditions.urlToBe(
-        s"http://localhost:10184/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/$page"
+        s"$registrationUrl/pay-clients-vat-on-eu-sales/register-import-one-stop-shop-intermediary/$page"
       )
     )
   }

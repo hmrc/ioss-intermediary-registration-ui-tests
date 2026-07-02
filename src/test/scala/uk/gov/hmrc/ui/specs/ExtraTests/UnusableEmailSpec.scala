@@ -43,7 +43,7 @@ class UnusableEmailSpec extends BaseSpec {
       registration.checkJourneyUrl("contact-details?waypoints=change-your-registration")
 
       Then("the intermediary updates their email address")
-      registration.updateField("emailAddress", "unusable-test@email.com")
+      registration.updateField("emailAddress", "unusable-iossint@iossint.hmrc.gov.uk")
       registration.continue()
       email.completeEmailVerification("amend")
 
