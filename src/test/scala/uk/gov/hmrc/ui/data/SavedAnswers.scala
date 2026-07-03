@@ -27,15 +27,14 @@ object SavedAnswers {
       s"""
          |{
          |  "_id": {
-         |    "$$oid": "68a317651ca3d6d1c163ed02"
+         |    "$$oid": "6a47a4495ffd2910ac37e26b"
          |  },
          |  "vrn": "700000003",
-         |  "data": "UKB8QnCCFQ6pETEFWuh4K4OrwmTZsGZXrKLl/sZJdasNdKIY28c/s7htOI6oR6TPwWx3cDKEJmMkuzI8sjAkcGh/W5OzbLNUOGTMqeGuMOHYYyFEa3gUOag4CjbP1rjp28s2EDvkKJGRzc//EpESziA3hSaolWwEWze6iQwJ71NvfbuoMditPmHm5GOAIuiZFYjnal5PaseOk62vWF9TzYqf1vhRn4v0rpQoEx8DnwSozcK06+DZpiqvzEbZPkUu7aGdhUqE/TwDuYIWZiq8gVbnqHTnMq5f4eNoo66n53QXshVON0j5N1hKmMZHmtc4mHEtX9TZENubqs3OJcALVPV4u4sGP4+/CAr/XnPkKiynV77nd5O7YSdP/LMIacX+c95VKvSE5P7Lq4hgC0FIL0R9gm0jwKlTgC5+u3z4n+GRjgVuZ5N/Oj9YgmBeDQxFRz5VvuzV9CC4TwLZQ6Wd0lGK+6Jp819HqCOvvGyEY3HkP3yfzxlUNXcRYblqhqmzBzst5zXZI5f/3l78xw6de45NxydzQA==",
+         |  "data": "/a29CL6jTJXKT+YQP693zdpeJ2o9C9j1MR6lj7904bNhuvDkun7+aJjKcGAlOwrdpKZZnvrXsf9hTzEB8TZBMAPqAxaG2XRFZnBDa2zHf2ac+3gbSBXskJMgLZ6ZVTXs99EkdSrJ6C+6N8bHqtoN2nmrAcFAAC3DkezARiOzyRau1914ChcfMTbQruR7HEDy2bOT24+NWB1Twut04sBs/Ceuvg0TP5z58cLFcFd+1q+8tSZAu2Nq921qTgXqViS0ZhkT4MkfHxExn+GuV4sWcahIoczmW+CKI1r/mVS5tNHdb2r/+8euet1Kfk6vbUtdav+gtQ3VRPLkhHSSIqfb0Efks7dktNFlgCu4ZILW5iob+3KJFatwJAIhJIVkNipfxQ4iKpCVYtzsHZsxrr5ea56ph4GGPGRKNKJ+CbXicP+ODrOu8JojSvcg1z8BFaw3a3Q=",
          |  "lastUpdated": {
-         |    "$$date": "${yesterday}T12:07:01.434Z"
+         |    "$$date": "${yesterday}T12:00:07.020Z"
          |  }
          |}
-         |
         |""".stripMargin
     )
 }
