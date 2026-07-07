@@ -118,6 +118,16 @@ object ExcludedAmend extends BasePage {
               "Fiji"
           )
         )
+      case "uk"              =>
+        Assert.assertTrue(
+          body.contains(
+            "You changed the following details:\n" +
+              "Business address changed 200 A Street Name\n" +
+              "Town Name\n" +
+              "AA1 1AA\n" +
+              "United Kingdom"
+          )
+        )
       case "ni"              =>
         Assert.assertTrue(
           body.contains(
@@ -160,6 +170,22 @@ object ExcludedAmend extends BasePage {
             "Region\n" +
             "FIJI 12345\n" +
             "Fiji"
+        )
+      )
+      Assert.assertFalse(
+        body.contains(
+          "Import One Stop Shop details\n" +
+            "Business address in Northern Ireland"
+        )
+      )
+    } else if (version == "uk") {
+      Assert.assertTrue(
+        body.contains(
+          "Import One Stop Shop details\n" +
+            "Business address 200 A Street Name\n" +
+            "Town Name\n" +
+            "AA1 1AA\n" +
+            "United Kingdom Change"
         )
       )
       Assert.assertFalse(
