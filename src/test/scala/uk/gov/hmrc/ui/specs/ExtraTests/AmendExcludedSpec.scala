@@ -41,7 +41,12 @@ class AmendExcludedSpec extends BaseSpec {
       excludedAmend.checkChangeLinksManualNi()
 
       And("the intermediary clicks change on the Business address in Northern Ireland")
-      registration.selectChangeOrRemoveLink("ni-address\\?waypoints\\=change-your-registration")
+      registration.selectChangeOrRemoveLink("still-based-in-ni\\?waypoints\\=change-your-registration")
+
+      And("the intermediary answers yes on the still-based-in-ni page")
+      registration.checkJourneyUrl("still-based-in-ni?waypoints=change-your-registration")
+      excludedAmend.checkHeading("ni")
+      registration.answerRadioButton("yes")
 
       And("the intermediary changes some of their Northern Ireland address details")
       registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
@@ -184,7 +189,7 @@ class AmendExcludedSpec extends BaseSpec {
       registration.checkDashboardJourneyUrl("your-account")
     }
 
-    Scenario("Excluded intermediary with a manual NI address can amend their address to a non-NI postcode") {
+    Scenario("Excluded intermediary with a manual NI address can amend their address to a non-NI based address") {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -194,21 +199,175 @@ class AmendExcludedSpec extends BaseSpec {
       registration.checkJourneyUrl("change-your-registration")
 
       And("the intermediary clicks change on the Business address in Northern Ireland")
-      registration.selectChangeOrRemoveLink("ni-address\\?waypoints\\=change-your-registration")
+      registration.selectChangeOrRemoveLink("still-based-in-ni\\?waypoints\\=change-your-registration")
 
-      And("the intermediary changes their postcode to a non-NI postcode")
-      registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
-      registration.updateField("postCode", "AA111AH")
+      And("the intermediary answers no on the still-based-in-ni page")
+      registration.checkJourneyUrl("still-based-in-ni?waypoints=change-your-registration")
+      excludedAmend.checkHeading("ni")
+      registration.answerRadioButton("no")
+
+      And("the intermediary selects a country for their non-NI address")
+      registration.checkJourneyUrl("global-country-based-in?waypoints=change-your-registration")
+      registration.selectCountry("The Bahamas")
+
+      And("the intermediary enters a non-NI address")
+      registration.updateField("line1", "200 A Street Name")
+      registration.updateField("townOrCity", "Town Name")
       registration.continue()
       registration.checkJourneyUrl("change-your-registration")
-      excludedAmend.checkLabelUpdate()
+      excludedAmend.checkLabelUpdate("global1")
 
       Then("the intermediary can submit their amended registration")
       registration.submit()
       registration.checkJourneyUrl("successful-amend")
 
       And("the correct details are shown as amended")
-      excludedAmend.checkAmendedAnswersExcludedIntermediary("postcode")
+      excludedAmend.checkAmendedAnswersExcludedIntermediary("global")
+    }
+
+    Scenario("Excluded intermediary with a manual NI address can amend their address to a non-NI UK based address") {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "excludedNiManual", "amend")
+
+      When("the intermediary is on the change-your-registration page")
+      registration.checkJourneyUrl("change-your-registration")
+
+      And("the intermediary clicks change on the Business address in Northern Ireland")
+      registration.selectChangeOrRemoveLink("still-based-in-ni\\?waypoints\\=change-your-registration")
+
+      And("the intermediary answers no on the still-based-in-ni page")
+      registration.checkJourneyUrl("still-based-in-ni?waypoints=change-your-registration")
+      excludedAmend.checkHeading("ni")
+      registration.answerRadioButton("no")
+
+      And("the intermediary selects United Kingdom")
+      registration.checkJourneyUrl("global-country-based-in?waypoints=change-your-registration")
+      registration.selectCountry("United Kingdom")
+
+      And("the intermediary enters a UK address")
+      registration.updateField("line1", "200 A Street Name")
+      registration.updateField("townOrCity", "Town Name")
+      registration.updateField("postCode", "AA1 1AA")
+      registration.continue()
+      registration.checkJourneyUrl("change-your-registration")
+      excludedAmend.checkLabelUpdate("uk")
+
+      Then("the intermediary can submit their amended registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      excludedAmend.checkAmendedAnswersExcludedIntermediary("uk")
+    }
+
+    Scenario(
+      "Excluded intermediary with a global other address can amend their address to another global based address"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "excludedGlobalOtherAddress", "amend")
+
+      When("the intermediary is on the change-your-registration page")
+      registration.checkJourneyUrl("change-your-registration")
+
+      And("the intermediary clicks change on the Business address in Northern Ireland")
+      registration.selectChangeOrRemoveLink("still-based-in-ni\\?waypoints\\=change-your-registration")
+
+      And("the intermediary answers no on the still-based-in-ni page")
+      registration.checkJourneyUrl("still-based-in-ni?waypoints=change-your-registration")
+      excludedAmend.checkHeading("global")
+      registration.answerRadioButton("no")
+
+      And("the intermediary changes the country")
+      registration.checkJourneyUrl("global-country-based-in?waypoints=change-your-registration")
+      registration.clearCountry()
+      registration.selectCountry("Fiji")
+
+      And("the intermediary enters a new non-NI address")
+      registration.updateField("line1", "200 A Street Name")
+      registration.updateField("line2", "Suburb Name")
+      registration.updateField("townOrCity", "City")
+      registration.updateField("stateOrRegion", "Region")
+      registration.updateField("postCode", "FIJI 12345")
+      registration.continue()
+      registration.checkJourneyUrl("change-your-registration")
+      excludedAmend.checkLabelUpdate("global2")
+
+      Then("the intermediary can submit their amended registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      excludedAmend.checkAmendedAnswersExcludedIntermediary("global2")
+    }
+
+    Scenario("Excluded intermediary with a global other address can amend their address back to an NI address") {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "excludedGlobalOtherAddress", "amend")
+
+      When("the intermediary is on the change-your-registration page")
+      registration.checkJourneyUrl("change-your-registration")
+
+      And("the intermediary clicks change on the Business address")
+      registration.selectChangeOrRemoveLink("still-based-in-ni\\?waypoints\\=change-your-registration")
+
+      And("the intermediary answers yes on the still-based-in-ni page")
+      registration.checkJourneyUrl("still-based-in-ni?waypoints=change-your-registration")
+      excludedAmend.checkHeading("global")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary adds their Northern Ireland address details")
+      registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
+      registration.checkNiAddressText(false)
+      registration.checkNiAddressH1(false)
+      registration.enterNiAddress("1 Street Name", "", "Belfast", "", "BT1 12AA")
+      registration.checkJourneyUrl("change-your-registration")
+      excludedAmend.checkLabelUpdate("ni")
+
+      Then("the intermediary can submit their amended registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      excludedAmend.checkAmendedAnswersExcludedIntermediary("ni")
+    }
+
+    Scenario("Excluded intermediary with a uk other address can amend their address back to an NI address") {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "excludedUkAddress", "amend")
+
+      When("the intermediary is on the change-your-registration page")
+      registration.checkJourneyUrl("change-your-registration")
+
+      And("the intermediary clicks change on the Business address")
+      registration.selectChangeOrRemoveLink("still-based-in-ni\\?waypoints\\=change-your-registration")
+
+      And("the intermediary answers yes on the still-based-in-ni page")
+      registration.checkJourneyUrl("still-based-in-ni?waypoints=change-your-registration")
+      excludedAmend.checkHeading("global")
+      registration.answerRadioButton("yes")
+
+      And("the intermediary adds their Northern Ireland address details")
+      registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
+      registration.checkNiAddressText(false)
+      registration.checkNiAddressH1(false)
+      registration.enterNiAddress("1 Street Name", "", "Belfast", "", "BT1 12AA")
+      registration.checkJourneyUrl("change-your-registration")
+      excludedAmend.checkLabelUpdate("ni")
+
+      Then("the intermediary can submit their amended registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      excludedAmend.checkAmendedAnswersExcludedIntermediary("ni")
     }
   }
 }

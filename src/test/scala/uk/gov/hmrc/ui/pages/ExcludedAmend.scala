@@ -97,15 +97,44 @@ object ExcludedAmend extends BasePage {
               "BT1 9AA"
           )
         )
-      case "postcode"        =>
+      case "global"          =>
         Assert.assertTrue(
           body.contains(
             "You changed the following details:\n" +
-              "Business address changed Other Address Line 1\n" +
-              "Other Address Line 2\n" +
-              "Other Town or City\n" +
-              "Other Region or State\n" +
-              "AA111AH"
+              "Business address changed 200 A Street Name\n" +
+              "Town Name\n" +
+              "The Bahamas"
+          )
+        )
+      case "global2"         =>
+        Assert.assertTrue(
+          body.contains(
+            "You changed the following details:\n" +
+              "Business address changed 200 A Street Name\n" +
+              "Suburb Name\n" +
+              "City\n" +
+              "Region\n" +
+              "FIJI 12345\n" +
+              "Fiji"
+          )
+        )
+      case "uk"              =>
+        Assert.assertTrue(
+          body.contains(
+            "You changed the following details:\n" +
+              "Business address changed 200 A Street Name\n" +
+              "Town Name\n" +
+              "AA1 1AA\n" +
+              "United Kingdom"
+          )
+        )
+      case "ni"              =>
+        Assert.assertTrue(
+          body.contains(
+            "You changed the following details:\n" +
+              "Business address in Northern Ireland changed 1 Street Name\n" +
+              "Belfast\n" +
+              "BT1 12AA"
           )
         )
       case _                 =>
@@ -113,24 +142,77 @@ object ExcludedAmend extends BasePage {
     }
   }
 
-  def checkLabelUpdate(): Unit = {
+  def checkLabelUpdate(version: String): Unit = {
     val body = Driver.instance.findElement(By.tagName("body")).getText
-    Assert.assertTrue(
-      body.contains(
-        "Import One Stop Shop details\n" +
-          "Business address Other Address Line 1\n" +
-          "Other Address Line 2\n" +
-          "Other Town or City\n" +
-          "Other Region or State\n" +
-          "AA111AH Change\n"
-      )
-    )
 
-    Assert.assertFalse(
-      body.contains(
-        "Import One Stop Shop details\n" +
-          "Business address in Northern Ireland Other Address Line 1"
+    if (version == "global1") {
+      Assert.assertTrue(
+        body.contains(
+          "Import One Stop Shop details\n" +
+            "Business address 200 A Street Name\n" +
+            "Town Name\n" +
+            "The Bahamas Change"
+        )
       )
-    )
+      Assert.assertFalse(
+        body.contains(
+          "Import One Stop Shop details\n" +
+            "Business address in Northern Ireland"
+        )
+      )
+    } else if (version == "global2") {
+      Assert.assertTrue(
+        body.contains(
+          "Import One Stop Shop details\n" +
+            "Business address 200 A Street Name\n" +
+            "Suburb Name\n" +
+            "City\n" +
+            "Region\n" +
+            "FIJI 12345\n" +
+            "Fiji"
+        )
+      )
+      Assert.assertFalse(
+        body.contains(
+          "Import One Stop Shop details\n" +
+            "Business address in Northern Ireland"
+        )
+      )
+    } else if (version == "uk") {
+      Assert.assertTrue(
+        body.contains(
+          "Import One Stop Shop details\n" +
+            "Business address 200 A Street Name\n" +
+            "Town Name\n" +
+            "AA1 1AA\n" +
+            "United Kingdom Change"
+        )
+      )
+      Assert.assertFalse(
+        body.contains(
+          "Import One Stop Shop details\n" +
+            "Business address in Northern Ireland"
+        )
+      )
+    } else {
+      Assert.assertTrue(
+        body.contains(
+          "Import One Stop Shop details\n" +
+            "Business address in Northern Ireland 1 Street Name\n" +
+            "Belfast\n" +
+            "BT1 12AA Change\n"
+        )
+      )
+    }
+  }
+
+  def checkHeading(version: String): Unit = {
+    val heading = Driver.instance.findElement(By.tagName("h1")).getText
+
+    if (version == "ni") {
+      Assert.assertTrue(heading.equals("Is your business still based in Northern Ireland?"))
+    } else {
+      Assert.assertTrue(heading.equals("Is your business based in Northern Ireland?"))
+    }
   }
 }
