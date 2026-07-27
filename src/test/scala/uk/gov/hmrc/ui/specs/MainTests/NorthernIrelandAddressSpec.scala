@@ -16,14 +16,15 @@
 
 package uk.gov.hmrc.ui.specs.MainTests
 
-import uk.gov.hmrc.ui.pages.{Auth, EmailVerification, Registration}
+import uk.gov.hmrc.ui.pages.{Auth, EmailVerification, ExcludedAmend, Registration}
 import uk.gov.hmrc.ui.specs.BaseSpec
 
 class NorthernIrelandAddressSpec extends BaseSpec {
 
-  private val registration = Registration
-  private val auth         = Auth
-  private val email        = EmailVerification
+  private val registration  = Registration
+  private val auth          = Auth
+  private val email         = EmailVerification
+  private val excludedAmend = ExcludedAmend
 
   Feature("Northern Ireland Address journeys") {
 
@@ -339,7 +340,7 @@ class NorthernIrelandAddressSpec extends BaseSpec {
     }
 
     Scenario(
-      "Intermediary who no longer has an NI address in VAT info does not enter a new NI address and is excluded from the service"
+      "Intermediary who no longer has an NI address in VAT info does not enter a new NI address is excluded from the service"
     ) {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
@@ -360,6 +361,65 @@ class NorthernIrelandAddressSpec extends BaseSpec {
 
       Then("the intermediary has been excluded from the service")
       registration.checkJourneyUrl("removed-business-no-ni-address")
+    }
+
+    Scenario(
+      "Intermediary who is excluded, does not have an NI address in VAT info and does not have a manual NI address can add an NI address when amending their registration"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "excludedPast", "amend")
+
+      When("the intermediary is presented with the NI address intercept page")
+      registration.checkJourneyUrl("has-business-address-in-ni?waypoints=change-your-registration")
+
+      Then("the intermediary adds an NI address")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("ni-address?waypoints=change-your-registration")
+      registration.enterNiAddress("123 Street Name", "", "Town", "", "BT1 1AA")
+
+      And("the intermediary submits the amended registration successfully")
+      registration.checkJourneyUrl("change-your-registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      registration.checkAmendedAnswers("vatInfoIntercept")
+    }
+
+    Scenario(
+      "Intermediary who is excluded, does not have an NI address in VAT info and does not have a manual NI address can add a non-NI address when amending their registration"
+    ) {
+
+      Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("700000003", "Organisation", "excludedPast", "amend")
+
+      When("the intermediary is presented with the NI address intercept page")
+      registration.checkJourneyUrl("has-business-address-in-ni?waypoints=change-your-registration")
+
+      Then("the intermediary adds a non-NI address")
+      registration.answerRadioButton("no")
+
+      And("the intermediary selects a country for their non-NI address")
+      registration.checkJourneyUrl("global-country-based-in?waypoints=change-your-registration")
+      registration.selectCountry("The Bahamas")
+
+      And("the intermediary enters a non-NI address")
+      registration.checkJourneyUrl("global-address?waypoints=change-your-registration")
+      registration.updateField("line1", "200 A Street Name")
+      registration.updateField("townOrCity", "Town Name")
+      registration.continue()
+      registration.checkJourneyUrl("change-your-registration")
+      excludedAmend.checkLabelUpdate("global1")
+
+      Then("the intermediary can submit their amended registration")
+      registration.submit()
+      registration.checkJourneyUrl("successful-amend")
+
+      And("the correct details are shown as amended")
+      excludedAmend.checkAmendedAnswersExcludedIntermediary("global")
     }
   }
 }
