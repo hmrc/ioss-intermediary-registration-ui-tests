@@ -211,6 +211,7 @@ class AmendExcludedSpec extends BaseSpec {
       registration.selectCountry("The Bahamas")
 
       And("the intermediary enters a non-NI address")
+      registration.checkJourneyUrl("global-address?waypoints=change-your-registration")
       registration.updateField("line1", "200 A Street Name")
       registration.updateField("townOrCity", "Town Name")
       registration.continue()
@@ -287,6 +288,7 @@ class AmendExcludedSpec extends BaseSpec {
       registration.selectCountry("Fiji")
 
       And("the intermediary enters a new non-NI address")
+      registration.checkJourneyUrl("global-address?waypoints=change-your-registration")
       registration.updateField("line1", "200 A Street Name")
       registration.updateField("line2", "Suburb Name")
       registration.updateField("townOrCity", "City")
