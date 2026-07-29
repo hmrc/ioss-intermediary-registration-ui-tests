@@ -20,6 +20,13 @@
       "url":"http://localhost:10179/pay-clients-vat-on-eu-sales/manage-ioss-returns-payments-clients/your-account",
       "ruleId":10038,
       "newLevel":-1
+    },
+    {
+      "reason":"Not PII and not our service",
+      "contextId":1,
+      "url":"http://localhost:9949/auth-login-stub/gg-sign-in",
+      "ruleId":10062,
+      "newLevel":-1
     }
   ]
 }
