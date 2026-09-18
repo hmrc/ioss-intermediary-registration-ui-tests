@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.ui.specs.ExtraTests
 
-import uk.gov.hmrc.ui.pages.{Auth, EmailVerification, Registration}
+import uk.gov.hmrc.ui.pages.{Auth, Registration}
 import uk.gov.hmrc.ui.specs.BaseSpec
 
 class ReviewRegistrationSpec extends BaseSpec {
