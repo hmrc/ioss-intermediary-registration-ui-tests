@@ -314,6 +314,9 @@ object Registration extends BasePage {
       case "emailChanged"                        =>
         Assert.assertTrue(body.contains("You changed the following details:"))
         Assert.assertTrue(body.contains("Email address unusable-iossint@iossint.hmrc.gov.uk"))
+      case "reviewRegistration"                  =>
+        Assert.assertTrue(body.contains("You changed the following details:"))
+        Assert.assertTrue(body.contains("Name on the account Review Registration Name"))
       case _                                     =>
         throw new Exception("This amend variation does not exist")
     }
@@ -355,5 +358,19 @@ object Registration extends BasePage {
   def noAmendments(): Unit = {
     val htmlBody = Driver.instance.findElement(By.tagName("body")).getText
     Assert.assertTrue(htmlBody.contains("You have not made any changes."))
+  }
+
+  def cssLink(link: String): Unit =
+    click(By.cssSelector(s"a[href*=$link]"))
+
+  def checkAmendRegistrationTitle(version: String): Unit = {
+    val h1 = Driver.instance.findElement(By.tagName("h1")).getText
+
+    if (version == "review") {
+      Assert.assertTrue(h1.equals("Review your registration"))
+    } else {
+      Assert.assertTrue(h1.equals("Change your registration"))
+    }
+
   }
 }

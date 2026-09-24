@@ -112,6 +112,7 @@ object Auth extends BasePage {
         case "unusableEmailStatus"                => "IN9002222222"
         case "netpOutstandingReturns"             => "IN9000306832"
         case "amendFailure"                       => "IN9009999966"
+        case "reviewRegistration"                 => "IN9002221222"
         case _                                    => "IN9001234567"
       }
       if (accountType != "registration") {

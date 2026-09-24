@@ -35,6 +35,7 @@ class AmendRegistrationSpec extends BaseSpec {
 
       And("the intermediary is on the change-your-registration page with no changes made yet")
       registration.checkJourneyUrl("change-your-registration")
+      registration.checkAmendRegistrationTitle("change")
       registration.noAmendments()
 
       When("the intermediary clicks change for Have other trading names")
