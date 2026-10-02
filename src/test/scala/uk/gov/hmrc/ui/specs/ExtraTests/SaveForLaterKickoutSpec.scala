@@ -38,7 +38,9 @@ class SaveForLaterKickoutSpec extends BaseSpec {
       registration.checkJourneyUrl("saved-progress-expired-vrn-date")
     }
 
-    Scenario("Intermediary returns to saved registration and now has existing EU intermediary registration linked to UK VRN") {
+    Scenario(
+      "Intermediary returns to saved registration and now has existing EU intermediary registration linked to UK VRN"
+    ) {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -50,7 +52,9 @@ class SaveForLaterKickoutSpec extends BaseSpec {
       registration.checkJourneyUrl("saved-progress-client-already-registered")
     }
 
-    Scenario("Intermediary returns to saved registration and now is quarantined on an existing EU intermediary registration linked to UK VRN") {
+    Scenario(
+      "Intermediary returns to saved registration and now is quarantined on an existing EU intermediary registration linked to UK VRN"
+    ) {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -62,7 +66,9 @@ class SaveForLaterKickoutSpec extends BaseSpec {
       registration.checkJourneyUrl("saved-progress-quarantined")
     }
 
-    Scenario("Intermediary returns to saved registration where IOSS Number in previous registration data is active in another country") {
+    Scenario(
+      "Intermediary returns to saved registration where IOSS Number in previous registration data is active in another country"
+    ) {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -74,7 +80,9 @@ class SaveForLaterKickoutSpec extends BaseSpec {
       registration.checkJourneyUrl("saved-progress-client-already-registered")
     }
 
-    Scenario("Intermediary returns to saved registration where IOSS Number in previous registration data is quarantined in another country") {
+    Scenario(
+      "Intermediary returns to saved registration where IOSS Number in previous registration data is quarantined in another country"
+    ) {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -86,7 +94,9 @@ class SaveForLaterKickoutSpec extends BaseSpec {
       registration.checkJourneyUrl("saved-progress-quarantined")
     }
 
-    Scenario("Intermediary returns to saved registration where an EU VRN in the registration data is active in another country") {
+    Scenario(
+      "Intermediary returns to saved registration where an EU VRN in the registration data is active in another country"
+    ) {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -98,7 +108,9 @@ class SaveForLaterKickoutSpec extends BaseSpec {
       registration.checkJourneyUrl("saved-progress-client-already-registered")
     }
 
-    Scenario("Intermediary returns to saved registration where their EU Tax Reference in the registration data is quarantined in another country") {
+    Scenario(
+      "Intermediary returns to saved registration where their EU Tax Reference in the registration data is quarantined in another country"
+    ) {
 
       Given("the intermediary accesses the IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()

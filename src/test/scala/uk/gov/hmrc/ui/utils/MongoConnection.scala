@@ -75,5 +75,12 @@ object MongoConnection {
     dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "700000005")
     dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "333333333")
     dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "333333334")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "333333111")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "700000008")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "333333222")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "100000111")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "100000222")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "100000333")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "100000444")
   }
 }
