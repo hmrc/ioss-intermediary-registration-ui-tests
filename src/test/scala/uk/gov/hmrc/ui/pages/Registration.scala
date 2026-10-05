@@ -209,7 +209,7 @@ object Registration extends BasePage {
     checkJourneyUrl("confirm-vat-details")
     answerVatDetailsChoice("Yes")
     checkJourneyUrl("have-no-other-trading-names")
-    answerRadioButton("no")
+    answerRadioButton("yes")
     checkJourneyUrl("has-previously-registered-as-intermediary")
     answerRadioButton("no")
     checkJourneyUrl("eu-fixed-establishment")
@@ -248,7 +248,7 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("You have not changed any of your registration details."))
       case "noToYes"                             =>
         Assert.assertTrue(body.contains("You changed the following details:"))
-        Assert.assertTrue(body.contains("Is your only trading name Yes"))
+        Assert.assertTrue(body.contains("Is your only trading name No"))
         Assert.assertTrue(body.contains("Trading names added first amend trading name"))
         Assert.assertTrue(body.contains("amend trading 2!"))
         Assert.assertTrue(body.contains("Other IOSS intermediary registrations Yes"))
@@ -265,7 +265,7 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("IBAN (International Bank Account Number) GB91BKEN10000041610008"))
       case "removeAll"                           =>
         Assert.assertTrue(body.contains("You changed the following details:"))
-        Assert.assertTrue(body.contains("Is your only trading name No"))
+        Assert.assertTrue(body.contains("Is your only trading name Yes"))
         Assert.assertTrue(body.contains("Trading names removed tradingName1"))
         Assert.assertTrue(body.contains("tradingName2"))
         Assert.assertTrue(body.contains("Fixed establishments in other countries No"))
