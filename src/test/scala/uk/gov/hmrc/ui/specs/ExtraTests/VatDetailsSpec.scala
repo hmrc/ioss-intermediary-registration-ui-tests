@@ -52,9 +52,9 @@ class VatDetailsSpec extends BaseSpec {
       When("the intermediary navigates through the filter question pages")
       registration.initialSteps()
 
-      Then("the intermediary answers that some of the VAT details are incorrect")
+      Then("the intermediary answers that some of the details are incorrect")
       registration.checkJourneyUrl("confirm-vat-details")
-      registration.answerVatDetailsChoice("Yes, but some of my VAT details are incorrect")
+      registration.answerVatDetailsChoice("Yes, but some of my details are incorrect")
       registration.checkJourneyUrl("update-vat-details")
     }
 

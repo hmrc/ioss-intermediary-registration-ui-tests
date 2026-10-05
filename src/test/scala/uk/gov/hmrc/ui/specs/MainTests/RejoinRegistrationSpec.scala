@@ -75,21 +75,21 @@ class RejoinRegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("cannot-rejoin")
     }
 
-    Scenario("Intermediary can add new data to their registration when rejoining the service - no to yes") {
+    Scenario("Intermediary can add new data to their registration when rejoining the service") {
 
       Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedPast", "rejoin")
       registration.checkJourneyUrl("rejoin-check-your-details")
 
-      When("the intermediary clicks change for Have other trading names")
+      When("the intermediary clicks change for Is your only trading name")
       registration.selectChangeOrRemoveLink(
-        "have-other-trading-name\\?waypoints\\=rejoin-check-your-details"
+        "have-no-other-trading-names\\?waypoints\\=rejoin-check-your-details"
       )
 
-      And("the intermediary selects yes on the have-other-trading-name page")
-      registration.checkJourneyUrl("have-other-trading-name?waypoints=rejoin-check-your-details")
-      registration.answerRadioButton("yes")
+      And("the intermediary selects no on the have-no-other-trading-names page")
+      registration.checkJourneyUrl("have-no-other-trading-names?waypoints=rejoin-check-your-details")
+      registration.answerRadioButton("no")
 
       And("the intermediary adds two trading names")
       registration.checkJourneyUrl("other-trading-name/1?waypoints=add-other-trading-name%2Crejoin-check-your-details")
@@ -303,7 +303,7 @@ class RejoinRegistrationSpec extends BaseSpec {
     }
 
     Scenario(
-      "Intermediary can remove their existing trading names and fixed establishments data when rejoining the service - yes to no"
+      "Intermediary can remove their existing trading names and fixed establishments data when rejoining the service"
     ) {
 
       Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
@@ -311,14 +311,14 @@ class RejoinRegistrationSpec extends BaseSpec {
       auth.loginUsingAuthorityWizard("100000001", "Organisation", "excludedFullData", "rejoin")
       registration.checkJourneyUrl("rejoin-check-your-details")
 
-      When("the intermediary clicks change for Have other trading names")
+      When("the intermediary clicks change for Is your only trading name")
       registration.selectChangeOrRemoveLink(
-        "have-other-trading-name\\?waypoints\\=rejoin-check-your-details"
+        "have-no-other-trading-names\\?waypoints\\=rejoin-check-your-details"
       )
 
-      And("the intermediary selects no on the have-other-trading-name page")
-      registration.checkJourneyUrl("have-other-trading-name?waypoints=rejoin-check-your-details")
-      registration.answerRadioButton("no")
+      And("the intermediary selects yes on the have-no-other-trading-names page")
+      registration.checkJourneyUrl("have-no-other-trading-names?waypoints=rejoin-check-your-details")
+      registration.answerRadioButton("yes")
 
       Then("the intermediary selects yes on the remove-all-trading-names page")
       registration.checkJourneyUrl("remove-all-trading-names?waypoints=rejoin-check-your-details")

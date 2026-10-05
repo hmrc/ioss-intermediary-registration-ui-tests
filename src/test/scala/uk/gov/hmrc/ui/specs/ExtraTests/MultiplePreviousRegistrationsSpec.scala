@@ -211,11 +211,11 @@ class MultiplePreviousRegistrationsSpec extends BaseSpec {
       registration.checkJourneyUrl("change-your-registration")
       previousRegistration.checkIntermediaryNumber("IN9009230002")
 
-      And("the intermediary changes Have other trading names to No")
+      And("the intermediary changes Is your only trading name to Yes")
       registration.checkJourneyUrl("change-your-registration")
-      registration.selectChangeOrRemoveLink("have-other-trading-name\\?waypoints\\=change-your-registration")
-      registration.checkJourneyUrl("have-other-trading-name?waypoints=change-your-registration")
-      registration.answerRadioButton("no")
+      registration.selectChangeOrRemoveLink("have-no-other-trading-names\\?waypoints\\=change-your-registration")
+      registration.checkJourneyUrl("have-no-other-trading-names?waypoints=change-your-registration")
+      registration.answerRadioButton("yes")
       registration.checkJourneyUrl("remove-all-trading-names?waypoints=change-your-registration")
       registration.answerRadioButton("yes")
 

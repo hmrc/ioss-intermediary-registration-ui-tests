@@ -27,7 +27,7 @@ class AmendRegistrationSpec extends BaseSpec {
 
   Feature("Amend registration journeys") {
 
-    Scenario("Intermediary can amend their registration - changing answers from no to yes") {
+    Scenario("Intermediary can amend their registration - adding non-mandatory answers") {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
       auth.goToAuthorityWizard()
@@ -38,14 +38,14 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.checkAmendRegistrationTitle("change")
       registration.noAmendments()
 
-      When("the intermediary clicks change for Have other trading names")
+      When("the intermediary clicks change for Is your only trading name")
       registration.selectChangeOrRemoveLink(
-        "have-other-trading-name\\?waypoints\\=change-your-registration"
+        "have-no-other-trading-names\\?waypoints\\=change-your-registration"
       )
 
-      And("the intermediary selects yes on the have-other-trading-name page")
-      registration.checkJourneyUrl("have-other-trading-name?waypoints=change-your-registration")
-      registration.answerRadioButton("yes")
+      And("the intermediary selects no on the have-no-other-trading-names page")
+      registration.checkJourneyUrl("have-no-other-trading-names?waypoints=change-your-registration")
+      registration.answerRadioButton("no")
 
       And("the intermediary adds two trading names")
       registration.checkJourneyUrl("other-trading-name/1?waypoints=add-other-trading-name%2Cchange-your-registration")
@@ -174,7 +174,7 @@ class AmendRegistrationSpec extends BaseSpec {
     }
 
     Scenario(
-      "Intermediary can remove all trading names and fixed establishments from their registration - changing answers from yes to no"
+      "Intermediary can remove all trading names and fixed establishments from their registration"
     ) {
 
       Given("the intermediary accesses the amend journey within IOSS Intermediary Registration Service")
@@ -185,14 +185,14 @@ class AmendRegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("change-your-registration")
       registration.noAmendments()
 
-      When("the intermediary clicks change for Have other trading names")
+      When("the intermediary clicks change for Is your only trading name")
       registration.selectChangeOrRemoveLink(
-        "have-other-trading-name\\?waypoints\\=change-your-registration"
+        "have-no-other-trading-names\\?waypoints\\=change-your-registration"
       )
 
-      And("the intermediary selects no on the have-other-trading-name page")
-      registration.checkJourneyUrl("have-other-trading-name?waypoints=change-your-registration")
-      registration.answerRadioButton("no")
+      And("the intermediary selects yes on the have-no-other-trading-names page")
+      registration.checkJourneyUrl("have-no-other-trading-names?waypoints=change-your-registration")
+      registration.answerRadioButton("yes")
 
       Then("the intermediary selects yes on the remove-all-trading-names page")
       registration.checkJourneyUrl("remove-all-trading-names?waypoints=change-your-registration")

@@ -33,7 +33,7 @@ object PreviousRegistration extends BasePage {
     Assert.assertTrue(
       body.contains(
         "Import One Stop Shop details\n" +
-          "Have other trading names No\n" +
+          "Is your only trading name No\n" +
           "Other IOSS intermediary registrations No\n" +
           "Fixed establishments in other countries No\n" +
           "Contact name Rocky Balboa Change\n" +
@@ -80,7 +80,7 @@ object PreviousRegistration extends BasePage {
         Assert.assertTrue(
           body.contains(
             "You changed the following details:\n" +
-              "Have other trading names No\n" +
+              "Is your only trading name No\n" +
               "Trading names removed tradingName1\n" +
               "tradingName2\n" +
               "Other IOSS intermediary registrations details added Croatia"
