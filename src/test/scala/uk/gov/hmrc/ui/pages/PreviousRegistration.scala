@@ -80,7 +80,7 @@ object PreviousRegistration extends BasePage {
         Assert.assertTrue(
           body.contains(
             "You changed the following details:\n" +
-              "Is your only trading name No\n" +
+              "Is your only trading name Yes\n" +
               "Trading names removed tradingName1\n" +
               "tradingName2\n" +
               "Other IOSS intermediary registrations details added Croatia"
