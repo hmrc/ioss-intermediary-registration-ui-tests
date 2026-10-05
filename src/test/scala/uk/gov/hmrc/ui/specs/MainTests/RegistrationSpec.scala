@@ -53,9 +53,9 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("confirm-vat-details")
       registration.answerVatDetailsChoice("Yes")
 
-      And("the intermediary selects yes on the have-other-trading-name page")
-      registration.checkJourneyUrl("have-other-trading-name")
-      registration.answerRadioButton("yes")
+      And("the intermediary selects no on the have-no-other-trading-names page")
+      registration.checkJourneyUrl("have-no-other-trading-names")
+      registration.answerRadioButton("no")
 
       And("the intermediary adds the first trading name")
       registration.checkJourneyUrl("other-trading-name/1")
@@ -218,9 +218,9 @@ class RegistrationSpec extends BaseSpec {
       registration.checkJourneyUrl("confirm-vat-details")
       registration.answerVatDetailsChoice("Yes")
 
-      And("the intermediary selects no on the have-other-trading-name page")
-      registration.checkJourneyUrl("have-other-trading-name")
-      registration.answerRadioButton("no")
+      And("the intermediary selects yes on the have-no-other-trading-names page")
+      registration.checkJourneyUrl("have-no-other-trading-names")
+      registration.answerRadioButton("yes")
 
       Then("the intermediary selects on no if ever registered as an IOSS scheme in an Eu country")
       registration.checkJourneyUrl("has-previously-registered-as-intermediary")

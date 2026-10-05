@@ -57,10 +57,10 @@ object Registration extends BasePage {
 
   def answerVatDetailsChoice(answer: String): Unit = {
     answer match {
-      case "Yes"                                           => click(By.id("value_0"))
-      case "Yes, but some of my VAT details are incorrect" => click(By.id("value_1"))
-      case "No, I want to register a different business"   => click(By.id("value_2"))
-      case _                                               => throw new Exception("Option doesn't exist")
+      case "Yes"                                         => click(By.id("value_0"))
+      case "Yes, but some of my details are incorrect"   => click(By.id("value_1"))
+      case "No, I want to register a different business" => click(By.id("value_2"))
+      case _                                             => throw new Exception("Option doesn't exist")
     }
     click(continueButton)
   }
@@ -208,8 +208,8 @@ object Registration extends BasePage {
     continue()
     checkJourneyUrl("confirm-vat-details")
     answerVatDetailsChoice("Yes")
-    checkJourneyUrl("have-other-trading-name")
-    answerRadioButton("no")
+    checkJourneyUrl("have-no-other-trading-names")
+    answerRadioButton("yes")
     checkJourneyUrl("has-previously-registered-as-intermediary")
     answerRadioButton("no")
     checkJourneyUrl("eu-fixed-establishment")
@@ -248,7 +248,7 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("You have not changed any of your registration details."))
       case "noToYes"                             =>
         Assert.assertTrue(body.contains("You changed the following details:"))
-        Assert.assertTrue(body.contains("Have other trading names Yes"))
+        Assert.assertTrue(body.contains("Is your only trading name No"))
         Assert.assertTrue(body.contains("Trading names added first amend trading name"))
         Assert.assertTrue(body.contains("amend trading 2!"))
         Assert.assertTrue(body.contains("Other IOSS intermediary registrations Yes"))
@@ -265,7 +265,7 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("IBAN (International Bank Account Number) GB91BKEN10000041610008"))
       case "removeAll"                           =>
         Assert.assertTrue(body.contains("You changed the following details:"))
-        Assert.assertTrue(body.contains("Have other trading names No"))
+        Assert.assertTrue(body.contains("Is your only trading name Yes"))
         Assert.assertTrue(body.contains("Trading names removed tradingName1"))
         Assert.assertTrue(body.contains("tradingName2"))
         Assert.assertTrue(body.contains("Fixed establishments in other countries No"))

@@ -34,7 +34,7 @@ object ExcludedAmend extends BasePage {
           "Other Region or State\n" +
           "BT111AH Change\n" +
           "Business address in Northern Ireland\n" + // hidden text
-          "Have other trading names No\n" +
+          "Is your only trading name Yes\n" +
           "Other IOSS intermediary registrations No\n" +
           "Fixed establishments in other countries No\n" +
           "Contact name Rocky Balboa Change\n" +
@@ -60,7 +60,7 @@ object ExcludedAmend extends BasePage {
     Assert.assertTrue(
       body.contains(
         "Import One Stop Shop details\n" +
-          "Have other trading names No\n" +
+          "Is your only trading name Yes\n" +
           "Other IOSS intermediary registrations No\n" +
           "Fixed establishments in other countries No\n" +
           "Contact name Rocky Balboa Change\n" +

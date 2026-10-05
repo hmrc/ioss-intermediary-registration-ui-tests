@@ -112,8 +112,8 @@ class AmendExcludedSpec extends BaseSpec {
       When("the intermediary is on the change-your-registration page")
       registration.checkJourneyUrl("change-your-registration")
 
-      And("the intermediary manually browses to have-other-trading-name?waypoints=change-your-registration")
-      registration.goToPage("have-other-trading-name?waypoints=change-your-registration")
+      And("the intermediary manually browses to have-no-other-trading-names?waypoints=change-your-registration")
+      registration.goToPage("have-no-other-trading-names?waypoints=change-your-registration")
 
       Then("the user is redirected to their dashboard")
       registration.checkDashboardJourneyUrl("your-account")
