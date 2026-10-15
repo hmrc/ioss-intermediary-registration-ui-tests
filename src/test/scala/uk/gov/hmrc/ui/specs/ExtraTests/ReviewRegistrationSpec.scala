@@ -24,7 +24,7 @@ class ReviewRegistrationSpec extends BaseSpec {
   private val registration = Registration
   private val auth         = Auth
 
-  Feature("Intermediary has not updated their registration for over 2 years") {
+  Feature("Intermediary has not updated their registration for over 6 months") {
 
     Scenario("Intermediary reviews their registration - does not make changes") {
 
