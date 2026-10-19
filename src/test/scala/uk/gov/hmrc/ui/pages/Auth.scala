@@ -84,8 +84,6 @@ object Auth extends BasePage {
     }
 
     if (accountType != "noVat" && accountType != "vatOnly") {
-      sendKeys(By.id("enrolment[1].name"), "HMRC-IOSS-INT")
-      sendKeys(By.id("input-1-0-name"), "IntNumber")
 
       val intNumber = accountType match {
         case "registration"                       => ""
@@ -116,6 +114,8 @@ object Auth extends BasePage {
         case _                                    => "IN9001234567"
       }
       if (accountType != "registration") {
+        sendKeys(By.id("enrolment[1].name"), "HMRC-IOSS-INT")
+        sendKeys(By.id("input-1-0-name"), "IntNumber")
         sendKeys(By.id("input-1-0-value"), intNumber)
       }
 
@@ -134,6 +134,12 @@ object Auth extends BasePage {
         sendKeys(By.id("input-3-0-name"), "IntNumber")
         sendKeys(By.id("input-3-0-value"), "IN9007230002")
       }
+    }
+
+    if (accountType == "crossSchemaOss") {
+      sendKeys(By.id("enrolment[1].name"), "HMRC-OSS-ORG")
+      sendKeys(By.id("input-1-0-name"), "VRN")
+      sendKeys(By.id("input-1-0-value"), vrn)
     }
 
     click(By.cssSelector("Input[value='Submit']"))
