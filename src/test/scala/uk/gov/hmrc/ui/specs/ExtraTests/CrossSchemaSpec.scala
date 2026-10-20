@@ -482,5 +482,20 @@ class CrossSchemaSpec extends BaseSpec {
       registration.checkJourneyUrl("successful-rejoin")
       crossSchema.checkConfirmation(true)
     }
+
+    Scenario("Intermediary with OSS registration has correct warnings/hint text when rejoining - no changes made") {
+
+      Given("the intermediary accesses the rejoin journey within IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("300000002", "Organisation", "crossSchemaOssRejoin", "rejoin")
+
+      Then(
+        "the intermediary can submit their registration without making changes and the message is not displayed on the acknowledgement page"
+      )
+      registration.checkJourneyUrl("rejoin-check-your-details")
+      registration.submit()
+      registration.checkJourneyUrl("successful-rejoin")
+      crossSchema.checkConfirmation(false)
+    }
   }
 }
