@@ -27,8 +27,12 @@ object CrossSchema extends BasePage {
 
     if (version == "singular") {
       Assert.assertTrue(header.equals("You have one UK trading name from a previous One Stop Shop scheme"))
-    } else {
+    } else if (version == "plural") {
       Assert.assertTrue(header.equals("You have 2 UK trading names from a previous One Stop Shop scheme"))
+    } else if (version == "nonCrossSchemaPlural") {
+      Assert.assertTrue(header.equals("You have added 2 other trading names"))
+    } else {
+      Assert.assertTrue(header.equals("You have added one other trading name"))
     }
   }
 

@@ -183,7 +183,7 @@ class CrossSchemaSpec extends BaseSpec {
       registration.checkJourneyUrl("add-other-trading-name")
 
       Then(
-        "they are shown their trading names from their OSS registration and advised any changes will be made to those as well"
+        "they are shown their trading names from their existing registrations and advised any changes will be made to those as well"
       )
       crossSchema.checkTradingNames("plural")
       crossSchema.checkHintTextAndWarnings("registration", true, "trading names")
@@ -205,7 +205,7 @@ class CrossSchemaSpec extends BaseSpec {
       registration.checkJourneyUrl("contact-details")
 
       Then(
-        "the contact details are already populated from their OSS registration and the correct warnings and hint text are shown"
+        "the contact details are already populated from their existing registrations and the correct warnings and hint text are shown"
       )
       crossSchema.checkHintTextAndWarnings("registration", true, "contact details")
 
@@ -218,7 +218,7 @@ class CrossSchemaSpec extends BaseSpec {
       registration.checkJourneyUrl("bank-account-details")
 
       Then(
-        "the bank details are already populated from their OSS registration and the correct warnings and hint text are shown"
+        "the bank details are already populated from their existing registrations and the correct warnings and hint text are shown"
       )
       crossSchema.checkHintTextAndWarnings("registration", true, "bank details")
 
@@ -240,79 +240,78 @@ class CrossSchemaSpec extends BaseSpec {
       crossSchema.checkConfirmation(true)
     }
 
-//    Bug VEI-964 is blocking this
-//    Scenario("Registration for trader with previous IOSS registrations - makes changes") {
-//
-//      Given("the intermediary accesses the IOSS Intermediary Registration Service")
-//      auth.goToAuthorityWizard()
-//      auth.loginUsingAuthorityWizard("100000001", "Organisation", "crossSchemaMultipleIOSS", "registration")
-//      registration.checkJourneyUrl("ioss-intermediary-registered")
-//
-//      And("the intermediary answers the initial questions")
-//      registration.initialSteps()
-//      registration.checkJourneyUrl("confirm-vat-details")
-//      registration.answerVatDetailsChoice("Yes")
-//
-//      When("the intermediary is at the trading names section")
-//      registration.checkJourneyUrl("add-other-trading-name")
-//
-//      Then(
-//        "they are shown their trading names from their OSS registration and advised any changes will be made to those as well"
-//      )
-//      crossSchema.checkTradingNames("plural")
-//      crossSchema.checkHintTextAndWarnings("registration", true, "trading names")
-//
-//      And("the intermediary removes a trading name")
-//      registration.selectChangeOrRemoveLink("remove-other-trading-name\\/1")
-//      registration.checkJourneyUrl("remove-other-trading-name/1")
-//      registration.answerRadioButton("yes")
-//      registration.checkJourneyUrl("add-other-trading-name")
-//      registration.answerRadioButton("no")
-//
-//      And("the intermediary answers no on the next few sections")
-//      registration.checkJourneyUrl("has-previously-registered-as-intermediary")
-//      registration.answerRadioButton("no")
-//      registration.checkJourneyUrl("eu-fixed-establishment")
-//      registration.answerRadioButton("no")
-//
-//      When("the intermediary is on the contact-details page")
-//      registration.checkJourneyUrl("contact-details")
-//
-//      Then(
-//        "the contact details are already populated from their OSS registration and the correct warnings and hint text are shown"
-//      )
-//      crossSchema.checkHintTextAndWarnings("registration", true, "contact details")
-//
-//      And("the intermediary amends their name")
-//      registration.updateField("fullName", "New Name")
-//      registration.continue()
-//      email.completeEmailVerification("registration")
-//
-//      When("the intermediary is on the bank-account-details page")
-//      registration.checkJourneyUrl("bank-account-details")
-//
-//      Then(
-//        "the bank details are already populated from their OSS registration and the correct warnings and hint text are shown"
-//      )
-//      crossSchema.checkHintTextAndWarnings("registration", true, "bank details")
-//
-//      And("the intermediary updates some of their bank details")
-//      registration.updateField("bic", "")
-//      registration.updateField("iban", "GB91BKEN10000041610008")
-//      registration.continue()
-//
-//      When("the intermediary is on the check-your-answers page")
-//      registration.checkJourneyUrl("check-your-answers")
-//
-//      And("the intermediary submits their registration")
-//      registration.submit()
-//
-//      Then(
-//        "the intermediary is shown the acknowledgment page with the correct text regarding updating other registrations"
-//      )
-//      registration.checkJourneyUrl("successful")
-//      crossSchema.checkConfirmation(true)
-//    }
+    Scenario("Registration for trader with previous IOSS registrations - makes changes") {
+
+      Given("the intermediary accesses the IOSS Intermediary Registration Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard("100000001", "Organisation", "crossSchemaMultipleIOSS", "registration")
+      registration.checkJourneyUrl("ioss-intermediary-registered")
+
+      And("the intermediary answers the initial questions")
+      registration.initialSteps()
+      registration.checkJourneyUrl("confirm-vat-details")
+      registration.answerVatDetailsChoice("Yes")
+
+      When("the intermediary is at the trading names section")
+      registration.checkJourneyUrl("add-other-trading-name")
+
+      Then(
+        "they are shown their trading names from their existing registration and advised any changes will be made to those as well"
+      )
+      crossSchema.checkTradingNames("plural")
+      crossSchema.checkHintTextAndWarnings("registration", true, "trading names")
+
+      And("the intermediary removes a trading name")
+      registration.selectChangeOrRemoveLink("remove-other-trading-name\\/1")
+      registration.checkJourneyUrl("remove-other-trading-name/1")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("add-other-trading-name")
+      registration.answerRadioButton("no")
+
+      And("the intermediary answers no on the next few sections")
+      registration.checkJourneyUrl("has-previously-registered-as-intermediary")
+      registration.answerRadioButton("no")
+      registration.checkJourneyUrl("eu-fixed-establishment")
+      registration.answerRadioButton("no")
+
+      When("the intermediary is on the contact-details page")
+      registration.checkJourneyUrl("contact-details")
+
+      Then(
+        "the contact details are already populated from their existing registration and the correct warnings and hint text are shown"
+      )
+      crossSchema.checkHintTextAndWarnings("registration", true, "contact details")
+
+      And("the intermediary amends their name")
+      registration.updateField("fullName", "New Name")
+      registration.continue()
+      email.completeEmailVerification("registration")
+
+      When("the intermediary is on the bank-account-details page")
+      registration.checkJourneyUrl("bank-account-details")
+
+      Then(
+        "the bank details are already populated from their existing registration and the correct warnings and hint text are shown"
+      )
+      crossSchema.checkHintTextAndWarnings("registration", true, "bank details")
+
+      And("the intermediary updates some of their bank details")
+      registration.updateField("bic", "")
+      registration.updateField("iban", "GB91BKEN10000041610008")
+      registration.continue()
+
+      When("the intermediary is on the check-your-answers page")
+      registration.checkJourneyUrl("check-your-answers")
+
+      And("the intermediary submits their registration")
+      registration.submit()
+
+      Then(
+        "the intermediary is shown the acknowledgment page with the correct text regarding updating other registrations"
+      )
+      registration.checkJourneyUrl("successful")
+      crossSchema.checkConfirmation(true)
+    }
 
     Scenario(
       "Intermediary with a previous IOSS registration has the correct text warnings in amend registration"
@@ -325,7 +324,6 @@ class CrossSchemaSpec extends BaseSpec {
       And("the intermediary is on the change-your-registration page")
       registration.checkJourneyUrl("change-your-registration")
 
-      // this is incorrect as trading names should be pulling through from IOSS
       When(
         "there are currently no trading names and the intermediary selects the change link for Is your only trading name"
       )
@@ -339,7 +337,7 @@ class CrossSchemaSpec extends BaseSpec {
 
       And("the only trading name displayed is the one just added and the correct warnings/hint text are on the page")
       registration.checkJourneyUrl("add-other-trading-name?waypoints=change-your-registration")
-//      heading check
+      crossSchema.checkTradingNames("nonCrossSchema")
       crossSchema.checkHintTextAndWarnings("amend", true, "trading names")
       registration.answerRadioButton("no")
 
@@ -397,7 +395,7 @@ class CrossSchemaSpec extends BaseSpec {
 
       And("the correct heading/warnings/hint text are on the page")
       registration.checkJourneyUrl("add-other-trading-name?waypoints=change-your-registration")
-      crossSchema.checkTradingNames("plural")
+      crossSchema.checkTradingNames("nonCrossSchemaPlural")
       crossSchema.checkHintTextAndWarnings("amend", true, "trading names")
       registration.answerRadioButton("no")
 
@@ -437,11 +435,52 @@ class CrossSchemaSpec extends BaseSpec {
       auth.loginUsingAuthorityWizard("300000002", "Organisation", "crossSchemaOssRejoin", "rejoin")
       registration.checkJourneyUrl("rejoin-check-your-details")
 
-      // checks/amends
+      When(
+        "the intermediary selects the change link for Other trading names"
+      )
+      registration.selectChangeOrRemoveLink("add-other-trading-name\\?waypoints\\=rejoin-check-your-details")
+      registration.checkJourneyUrl("add-other-trading-name?waypoints=rejoin-check-your-details")
 
-      Then("the intermediary can submit their registration and rejoin the service without changing any details")
+      And("the correct heading/warnings/hint text are on the page")
+      registration.checkJourneyUrl("add-other-trading-name?waypoints=rejoin-check-your-details")
+      crossSchema.checkTradingNames("nonCrossSchemaPlural")
+      crossSchema.checkHintTextAndWarnings("rejoin", true, "trading names")
+
+      And("the intermediary removes both trading names")
+      registration.selectChangeOrRemoveLink("remove-other-trading-name\\/2")
+      registration.checkJourneyUrl("remove-other-trading-name/2")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("add-other-trading-name")
+      registration.selectChangeOrRemoveLink("remove-other-trading-name\\/1")
+      registration.checkJourneyUrl("remove-other-trading-name/1")
+      registration.answerRadioButton("yes")
+      registration.checkJourneyUrl("have-no-other-trading-names?waypoints=rejoin-check-your-details")
+      registration.answerRadioButton("yes")
+
+      When("the user clicks change on the contact details")
+      registration.checkJourneyUrl("rejoin-check-your-details")
+      registration.selectChangeOrRemoveLink("contact-details\\?waypoints\\=rejoin-check-your-details")
+      registration.checkJourneyUrl("contact-details?waypoints=rejoin-check-your-details")
+
+      Then("the correct warnings and hint text are displayed")
+      crossSchema.checkHintTextAndWarnings("rejoin", true, "contact details")
+      registration.continue()
+      email.completeEmailVerification("rejoin")
+
+      When("the intermediary clicks change on bank details")
+      registration.checkJourneyUrl("rejoin-check-your-details")
+      registration.selectChangeOrRemoveLink("bank-account-details\\?waypoints\\=rejoin-check-your-details")
+      registration.checkJourneyUrl("bank-account-details?waypoints=rejoin-check-your-details")
+
+      Then("the correct warnings and hint text are displayed")
+      crossSchema.checkHintTextAndWarnings("rejoin", true, "bank details")
+      registration.continue()
+
+      Then("the intermediary can submit their registration and rejoin the service with their trading names removed")
+      registration.checkJourneyUrl("rejoin-check-your-details")
       registration.submit()
       registration.checkJourneyUrl("successful-rejoin")
+      crossSchema.checkConfirmation(true)
     }
   }
 }
