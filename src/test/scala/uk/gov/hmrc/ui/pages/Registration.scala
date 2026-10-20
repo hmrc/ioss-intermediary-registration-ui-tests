@@ -317,6 +317,12 @@ object Registration extends BasePage {
       case "reviewRegistration"                  =>
         Assert.assertTrue(body.contains("You changed the following details:"))
         Assert.assertTrue(body.contains("Name on the account Review Registration Name"))
+      case "crossSchemaIoss"                     =>
+        Assert.assertTrue(body.contains("You changed the following details:"))
+        Assert.assertTrue(body.contains("Is your only trading name No"))
+        Assert.assertTrue(body.contains("Trading names added cross schema"))
+        Assert.assertTrue(body.contains("Telephone number 07111222111"))
+        Assert.assertTrue(body.contains(" Name on the account Cross Schema Name"))
       case _                                     =>
         throw new Exception("This amend variation does not exist")
     }

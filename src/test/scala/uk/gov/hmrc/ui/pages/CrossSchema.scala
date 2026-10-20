@@ -33,7 +33,7 @@ object CrossSchema extends BasePage {
   }
 
   def checkHintTextAndWarnings(journey: String, displayed: Boolean, version: String): Unit = {
-    val hintText =
+    val hintText    =
       "We have added the details you entered for a previous One Stop Shop scheme. Check they are still correct."
     val warningText =
       s"Changes you make here will also update the $version in any One Stop Shop or Import One Stop Shop accounts you registered for."
@@ -55,7 +55,7 @@ object CrossSchema extends BasePage {
 
   def checkConfirmation(displayed: Boolean): Unit = {
 
-    val htmlBody = Driver.instance.findElement(By.tagName("body")).getText
+    val htmlBody         = Driver.instance.findElement(By.tagName("body")).getText
     val confirmationText =
       "We've also updated any One Stop Shop or Import One Stop Shop registrations you have."
 

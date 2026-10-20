@@ -82,5 +82,6 @@ object MongoConnection {
     dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "100000222")
     dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "100000333")
     dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "100000444")
+    dropRecord("ioss-intermediary-registration", "save-for-later-user-answers", "300000002")
   }
 }
