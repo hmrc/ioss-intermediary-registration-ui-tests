@@ -188,7 +188,6 @@ class RegistrationSpec extends BaseSpec {
 
       Then("the intermediary is on the successful submission page")
       registration.checkJourneyUrl("successful")
-//      IOSS number is currently hardcoded - may want to do further checks once API is developed
 
     }
 
@@ -247,7 +246,6 @@ class RegistrationSpec extends BaseSpec {
 
       Then("the intermediary is on the successful submission page")
       registration.checkJourneyUrl("successful")
-      //      IOSS number is currently hardcoded - may want to do further checks once API is developed
 
     }
   }
