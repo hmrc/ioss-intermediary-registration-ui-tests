@@ -94,7 +94,7 @@ object ExcludedAmend extends BasePage {
               "Business address in Northern Ireland changed Other Address Line 1\n" +
               "Other Address Line 2\n" +
               "Belfast\n" +
-              "BT1 9AA"
+              "BT19AA"
           )
         )
       case "global"          =>
@@ -114,7 +114,7 @@ object ExcludedAmend extends BasePage {
               "Suburb Name\n" +
               "City\n" +
               "Region\n" +
-              "FIJI 12345\n" +
+              "FIJI12345\n" +
               "Fiji"
           )
         )
@@ -124,7 +124,7 @@ object ExcludedAmend extends BasePage {
             "You changed the following details:\n" +
               "Business address changed 200 A Street Name\n" +
               "Town Name\n" +
-              "AA1 1AA\n" +
+              "AA11AA\n" +
               "United Kingdom"
           )
         )
@@ -134,7 +134,7 @@ object ExcludedAmend extends BasePage {
             "You changed the following details:\n" +
               "Business address in Northern Ireland changed 1 Street Name\n" +
               "Belfast\n" +
-              "BT1 12AA"
+              "BT112AA"
           )
         )
       case _                 =>
@@ -168,7 +168,7 @@ object ExcludedAmend extends BasePage {
             "Suburb Name\n" +
             "City\n" +
             "Region\n" +
-            "FIJI 12345\n" +
+            "FIJI12345\n" +
             "Fiji"
         )
       )
@@ -184,7 +184,7 @@ object ExcludedAmend extends BasePage {
           "Import One Stop Shop details\n" +
             "Business address 200 A Street Name\n" +
             "Town Name\n" +
-            "AA1 1AA\n" +
+            "AA11AA\n" +
             "United Kingdom Change"
         )
       )
@@ -200,7 +200,7 @@ object ExcludedAmend extends BasePage {
           "Import One Stop Shop details\n" +
             "Business address in Northern Ireland 1 Street Name\n" +
             "Belfast\n" +
-            "BT1 12AA Change\n"
+            "BT112AA Change\n"
         )
       )
     }
