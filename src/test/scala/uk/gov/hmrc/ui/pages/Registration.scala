@@ -287,7 +287,7 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("Business address in Northern Ireland changed 1A Different Road"))
         Assert.assertTrue(body.contains("Suburb"))
         Assert.assertTrue(body.contains("Belfast"))
-        Assert.assertTrue(body.contains("BT1 1DD"))
+        Assert.assertTrue(body.contains("BT11DD"))
       case "coreValidationFixedEstablishments"   =>
         Assert.assertTrue(body.contains("You changed the following details:"))
         Assert.assertTrue(body.contains("Fixed establishments in other countries Yes"))
@@ -304,13 +304,13 @@ object Registration extends BasePage {
         Assert.assertTrue(body.contains("Other Address Line 2"))
         Assert.assertTrue(body.contains("Other Town or City"))
         Assert.assertTrue(body.contains("Other Region or State"))
-        Assert.assertTrue(body.contains("BT1 1AA"))
+        Assert.assertTrue(body.contains("BT11AA"))
       case "vatInfoIntercept"                    =>
         Assert.assertTrue(body.contains("You changed the following details:"))
         Assert.assertTrue(body.contains("Business address in Northern Ireland changed"))
         Assert.assertTrue(body.contains("123 Street Name"))
         Assert.assertTrue(body.contains("Town"))
-        Assert.assertTrue(body.contains("BT1 1AA"))
+        Assert.assertTrue(body.contains("BT11AA"))
       case "emailChanged"                        =>
         Assert.assertTrue(body.contains("You changed the following details:"))
         Assert.assertTrue(body.contains("Email address unusable-iossint@iossint.hmrc.gov.uk"))
